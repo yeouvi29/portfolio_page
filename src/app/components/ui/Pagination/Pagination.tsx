@@ -1,7 +1,55 @@
 "use client";
 
-import { Fragment } from "react";
+import clsx from "clsx";
+import { Fragment, ReactNode } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+
+const ArrowButton = ({
+  children,
+  onClick,
+  disabled,
+}: {
+  children: ReactNode;
+  onClick: () => void;
+  disabled: boolean;
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      className={clsx(
+        "min-w-8 aspect-square flex justify-center items-center rounded-full hover:bg-slate-200",
+        disabled && "cursor-default opacity-50 hover:bg-transparent"
+      )}
+      disabled={disabled}
+    >
+      {children}
+    </button>
+  );
+};
+
+const PaginationButton = ({
+  isActive,
+  pageNumber,
+  onClickButton,
+}: {
+  isActive: boolean;
+  pageNumber: number;
+  onClickButton: (page: number) => void;
+}) => {
+  return (
+    <button
+      onClick={() => onClickButton(pageNumber)}
+      className={clsx(
+        "min-w-8 aspect-square flex justify-center items-center rounded-full hover:bg-slate-200",
+        isActive &&
+          "bg-blue-300 bg-opacity-30 hover:bg-blue-300 hover:bg-opacity-50 text-blue-600"
+      )}
+    >
+      {pageNumber}
+    </button>
+  );
+};
+
 const Pagination = ({
   totalPages,
   currentPage,
@@ -12,98 +60,110 @@ const Pagination = ({
   onClickPage: (page: number) => void;
 }) => {
   return (
-    <div className="flex gap-2">
-      <button
-        onClick={() => onClickPage(currentPage - 1)}
-        className="min-w-8 px-3 rounded-full hover:bg-slate-300"
+    <div className="text-sm flex gap-2 items-center">
+      <ArrowButton
+        onClick={() => {
+          onClickPage(currentPage - 1);
+        }}
         disabled={currentPage === 1}
       >
         <IoIosArrowBack />
-      </button>
+      </ArrowButton>
       {totalPages > 7 ? (
         currentPage <= 5 ? (
           <Fragment>
-            {new Array(5).fill(0).map((_, i) => (
-              <button
-                onClick={() => onClickPage(i + 1)}
-                className="min-w-8 px-3 rounded-full hover:bg-slate-300"
-                key={i}
-              >
-                {i + 1}
-              </button>
-            ))}
+            {new Array(5).fill(0).map((_, i) => {
+              const pageNumber = i + 1;
+              return (
+                <PaginationButton
+                  key={pageNumber}
+                  onClickButton={() => onClickPage(pageNumber)}
+                  isActive={currentPage === pageNumber}
+                  pageNumber={pageNumber}
+                />
+              );
+            })}
             <div>...</div>
-            <button
-              onClick={() => onClickPage(totalPages)}
-              className="min-w-8 px-3 rounded-full hover:bg-slate-300"
-            >
-              {totalPages}
-            </button>
+            <PaginationButton
+              onClickButton={() => onClickPage(totalPages)}
+              isActive={currentPage === totalPages}
+              pageNumber={totalPages}
+            />
           </Fragment>
         ) : currentPage >= totalPages - 5 ? (
           <Fragment>
-            <button
-              onClick={() => onClickPage(1)}
-              className="min-w-8 px-3 rounded-full hover:bg-slate-300"
-            >
-              1
-            </button>
+            <PaginationButton
+              onClickButton={() => onClickPage(1)}
+              isActive={currentPage === 1}
+              pageNumber={1}
+            />
             <div>...</div>
-            {new Array(5).fill(0).map((_, i) => (
-              <button
-                onClick={() => onClickPage(totalPages - 4 + i)}
-                className="min-w-8 px-3 rounded-full hover:bg-slate-300"
-                key={i}
-              >
-                {totalPages - 4 + i}
-              </button>
-            ))}
+            {new Array(5).fill(0).map((_, i) => {
+              const pageNumber = totalPages - 4 + i;
+              return (
+                <PaginationButton
+                  key={pageNumber}
+                  onClickButton={() => onClickPage(pageNumber)}
+                  isActive={currentPage === pageNumber}
+                  pageNumber={pageNumber}
+                />
+              );
+            })}
           </Fragment>
         ) : (
           <Fragment>
-            <button
-              onClick={() => onClickPage(1)}
-              className="min-w-8 px-3 rounded-full hover:bg-slate-300"
-            >
-              1
-            </button>
+            <PaginationButton
+              key={1}
+              onClickButton={() => onClickPage(1)}
+              isActive={currentPage === 1}
+              pageNumber={1}
+            />
             <div>...</div>
-            {new Array(3).fill(0).map((_, i) => (
-              <button
-                onClick={() => onClickPage(currentPage - 1 + i)}
-                className="min-w-8 px-3 rounded-full hover:bg-slate-300"
-                key={i}
-              >
-                {currentPage - 1 + i}
-              </button>
-            ))}
+            {new Array(3).fill(0).map((_, i) => {
+              {
+                const pageNumber = currentPage - 1 + i;
+                return (
+                  <PaginationButton
+                    key={pageNumber}
+                    onClickButton={() => onClickPage(pageNumber)}
+                    isActive={currentPage === pageNumber}
+                    pageNumber={pageNumber}
+                  />
+                );
+              }
+            })}
             <div>...</div>
-            <button
-              onClick={() => onClickPage(totalPages)}
-              className="min-w-8 px-3 rounded-full hover:bg-slate-300"
-            >
-              {totalPages}
-            </button>
+            <PaginationButton
+              key={totalPages}
+              onClickButton={() => onClickPage(totalPages)}
+              isActive={currentPage === totalPages}
+              pageNumber={totalPages}
+            />
           </Fragment>
         )
       ) : (
-        new Array(totalPages).fill(0).map((_, i) => (
-          <button
-            onClick={() => onClickPage(i + 1)}
-            className="min-w-8 px-3 rounded-full hover:bg-slate-300"
-            key={i}
-          >
-            {i + 1}
-          </button>
-        ))
+        new Array(totalPages).fill(0).map((_, i) => {
+          {
+            const pageNumber = 1 + i;
+            return (
+              <PaginationButton
+                key={pageNumber}
+                onClickButton={() => onClickPage(pageNumber)}
+                isActive={currentPage === pageNumber}
+                pageNumber={pageNumber}
+              />
+            );
+          }
+        })
       )}
-      <button
-        onClick={() => onClickPage(currentPage + 1)}
-        className="min-w-8 px-3 rounded-full hover:bg-slate-300"
+      <ArrowButton
+        onClick={() => {
+          onClickPage(currentPage + 1);
+        }}
         disabled={currentPage === totalPages}
       >
         <IoIosArrowForward />
-      </button>
+      </ArrowButton>
     </div>
   );
 };
