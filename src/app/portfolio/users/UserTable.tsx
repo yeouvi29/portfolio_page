@@ -1,7 +1,6 @@
 "use client";
 
-import { useQuery } from "@apollo/client";
-import { usersQuery } from "@/lib/graphql/queries";
+import { UsersQuery } from "@/generated/graphql";
 
 const HEADER = [
   "Name",
@@ -13,12 +12,13 @@ const HEADER = [
   "Last Login",
   "Registered Date",
 ];
-const UserTable = () => {
-  const { loading, error, data } = useQuery(usersQuery, {
-    variables: { limit: 10, offset: 0 },
-  });
-
-  if (error) return <p>Something went wrong!</p>;
+const UserTable = ({
+  loading,
+  data,
+}: {
+  loading: boolean;
+  data?: UsersQuery;
+}) => {
   return (
     <div className="overflow-x-auto">
       <table>
@@ -30,24 +30,33 @@ const UserTable = () => {
           </tr>
         </thead>
         <tbody>
-          {loading ? (
-            <tr>
-              <td colSpan={3}>loading...</td>
-            </tr>
-          ) : data && data.users ? (
-            data.users.users.map((user) => (
-              <tr key={user.userName}>
-                <td>{user.name}</td>
-                <td>{user.userName}</td>
-                <td>{user.email}</td>
-                <td>{user.membershipStatus}</td>
-                <td>{user.subscriptionPlan}</td>
-                <td>{user.paymentStatus}</td>
-                <td>{user.lastLogin}</td>
-                <td>{user.registeredDate}</td>
-              </tr>
-            ))
-          ) : null}
+          {loading
+            ? new Array(20).fill("").map((_, i) => (
+                <tr className="h-[50px]" key={i}>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              ))
+            : data && data.users
+            ? data.users.users.map((user) => (
+                <tr className="h-[50px]" key={user.userName}>
+                  <td>{user.name}</td>
+                  <td>{user.userName}</td>
+                  <td>{user.email}</td>
+                  <td>{user.membershipStatus}</td>
+                  <td>{user.subscriptionPlan}</td>
+                  <td>{user.paymentStatus}</td>
+                  <td>{user.lastLogin}</td>
+                  <td>{user.registeredDate}</td>
+                </tr>
+              ))
+            : null}
         </tbody>
       </table>
     </div>
