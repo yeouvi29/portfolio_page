@@ -6,8 +6,8 @@ const HEADER = [
   "Name",
   "ID",
   "Email",
-  "Membership Status",
-  "EmailSubscription Plan",
+  `Membership`,
+  "Subscription Plan",
   "Payment Status",
   "Last Login",
   "Registered Date",
@@ -25,7 +25,9 @@ const UserTable = ({
         <thead>
           <tr>
             {HEADER.map((header) => (
-              <th key={header}>{header}</th>
+              <th className="text-sm px-4 text-left text-gray-600" key={header}>
+                {header}
+              </th>
             ))}
           </tr>
         </thead>
@@ -33,27 +35,30 @@ const UserTable = ({
           {loading
             ? new Array(20).fill("").map((_, i) => (
                 <tr className="h-[50px]" key={i}>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td className="w-[140px]"></td>
+                  <td className="w-[140px]"></td>
+                  <td className="w-[260px]"></td>
+                  <td className="w-[200px]"></td>
+                  <td className="w-[140px]"></td>
+                  <td className="w-[140px]"></td>
+                  <td className="w-[140px]"></td>
+                  <td className="w-[140px]"></td>
                 </tr>
               ))
             : data && data.users
             ? data.users.users.map((user) => (
-                <tr className="h-[50px]" key={user.userName}>
-                  <td>{user.name}</td>
-                  <td>{user.userName}</td>
-                  <td>{user.email}</td>
-                  <td>{user.membershipStatus}</td>
-                  <td>{user.subscriptionPlan}</td>
-                  <td>{user.paymentStatus}</td>
-                  <td>{user.lastLogin}</td>
-                  <td>{user.registeredDate}</td>
+                <tr
+                  className="h-[50px] text-sm border-b-2 border-b-gray-200 text-gray-800"
+                  key={user.userName}
+                >
+                  <td className="w-[140px] px-4">{user.name}</td>
+                  <td className="w-[260px] px-4">{user.email}</td>
+                  <td className="w-[200px] px-4">{user.userName}</td>
+                  <td className="w-[140px] px-4">{user.membershipStatus}</td>
+                  <td className="w-[140px] px-4">{user.subscriptionPlan}</td>
+                  <td className="w-[140px] px-4">{user.paymentStatus}</td>
+                  <td className="w-[140px] px-4">{user.lastLogin}</td>
+                  <td className="w-[140px] px-4">{user.registeredDate}</td>
                 </tr>
               ))
             : null}
