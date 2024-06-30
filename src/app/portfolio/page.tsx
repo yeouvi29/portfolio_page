@@ -1,3 +1,7 @@
+import { connectToDatabase } from "@/lib/mongodb";
+
+connectToDatabase();
+
 const Page = () => {
   return (
     <div>

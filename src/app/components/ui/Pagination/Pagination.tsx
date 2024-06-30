@@ -60,7 +60,7 @@ const Pagination = ({
   onClickPage: (page: number) => void;
 }) => {
   return (
-    <div className="text-sm flex gap-2 items-center">
+    <div className="text-sm flex gap-2 items-center justify-center">
       <ArrowButton
         onClick={() => {
           onClickPage(currentPage - 1);
@@ -70,7 +70,7 @@ const Pagination = ({
         <IoIosArrowBack />
       </ArrowButton>
       {totalPages > 7 ? (
-        currentPage <= 5 ? (
+        currentPage <= 4 ? (
           <Fragment>
             {new Array(5).fill(0).map((_, i) => {
               const pageNumber = i + 1;
@@ -83,21 +83,21 @@ const Pagination = ({
                 />
               );
             })}
-            <div>...</div>
+            <div className="w-8 text-center">...</div>
             <PaginationButton
               onClickButton={() => onClickPage(totalPages)}
               isActive={currentPage === totalPages}
               pageNumber={totalPages}
             />
           </Fragment>
-        ) : currentPage >= totalPages - 5 ? (
+        ) : currentPage >= totalPages - 3 ? (
           <Fragment>
             <PaginationButton
               onClickButton={() => onClickPage(1)}
               isActive={currentPage === 1}
               pageNumber={1}
             />
-            <div>...</div>
+            <div className="w-8 text-center">...</div>
             {new Array(5).fill(0).map((_, i) => {
               const pageNumber = totalPages - 4 + i;
               return (
@@ -118,7 +118,7 @@ const Pagination = ({
               isActive={currentPage === 1}
               pageNumber={1}
             />
-            <div>...</div>
+            <div className="w-8 text-center">...</div>
             {new Array(3).fill(0).map((_, i) => {
               {
                 const pageNumber = currentPage - 1 + i;
@@ -132,7 +132,7 @@ const Pagination = ({
                 );
               }
             })}
-            <div>...</div>
+            <div className="w-8 text-center">...</div>
             <PaginationButton
               key={totalPages}
               onClickButton={() => onClickPage(totalPages)}

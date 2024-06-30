@@ -1,4 +1,5 @@
 "use client";
+
 import { useQuery } from "@apollo/client";
 import UserTable from "./UserTable";
 import { usersQuery } from "@/lib/graphql/queries";
@@ -11,6 +12,7 @@ const Page = () => {
   const { loading, error, data } = useQuery(usersQuery, {
     variables: { limit: LIMIT, offset: LIMIT * (currentPage - 1) },
   });
+
   useEffect(() => {
     if (totalPages) {
       return;
@@ -19,18 +21,21 @@ const Page = () => {
       setTotalPages(Math.ceil(data.users.totalUsers / LIMIT));
     }
   }, [data]);
+
   return (
     <div className="flex-grow">
-      <h1>users</h1>
-      <div>
+      <h1 className="text-2xl">Users</h1>
+      <div className="w-fit mt-5">
         <UserTable loading={loading} data={data} />
-        {totalPages && (
-          <Pagination
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onClickPage={setCurrentPage}
-          />
-        )}
+        <div className="pt-4">
+          {totalPages !== undefined && (
+            <Pagination
+              totalPages={totalPages}
+              currentPage={currentPage}
+              onClickPage={setCurrentPage}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
