@@ -83,13 +83,11 @@ const UserTable = ({
                   <td className="w-[140px]">
                     <Shimmer w={100} h={9} />
                   </td>
-                  <td className="w-[140px]">
-                    <Shimmer w={100} h={9} />
-                  </td>
-                  <td className="w-[260px]">
+
+                  <td className="w-[260px] min-w[260px]">
                     <Shimmer w={150} h={9} />
                   </td>
-                  <td className="w-[200px]">
+                  <td className="w-[200px] min-w-[200px]">
                     <Shimmer w={130} h={9} />
                   </td>
                   <td className="w-[140px]">
@@ -101,7 +99,9 @@ const UserTable = ({
                   <td className="w-[140px]">
                     <Shimmer w={100} h={9} />
                   </td>
-
+                  <td className="w-[140px]">
+                    <Shimmer w={100} h={9} />
+                  </td>
                   <td className="w-[140px]">
                     <Shimmer w={100} h={9} />
                   </td>
@@ -119,17 +119,33 @@ const UserTable = ({
                     className="h-[50px] text-sm border-b-2 border-b-gray-100 last-of-type:border-none text-gray-800"
                     key={user.userName}
                   >
-                    <td className="w-[80px] px-4 text-xs">
+                    <td className="w-[80px] max-w-[80px] px-4">
                       {avatars[index % 20]}
                     </td>
-                    <td className="w-[140px] px-4">{user.name}</td>
-                    <td className="w-[260px] px-4">{user.email}</td>
-                    <td className="w-[200px] px-4">{user.userName}</td>
-                    <td className="w-[140px] px-4">{user.membershipStatus}</td>
-                    <td className="w-[140px] px-4">{user.subscriptionPlan}</td>
-                    <td className="w-[140px] px-4">{user.paymentStatus}</td>
-                    <td className="w-[140px] px-4">{user.lastLogin}</td>
-                    <td className="w-[140px] px-4">{user.registeredDate}</td>
+                    <td className="w-[140px] min-w-[140px] px-4">
+                      {user.name}
+                    </td>
+                    <td className="w-[260px] min-w-[260px] px-4">
+                      {user.email}
+                    </td>
+                    <td className="w-[200px] min-w-[200px] px-4">
+                      {user.userName}
+                    </td>
+                    <td className="w-[140px] min-w-[140px] px-4">
+                      {user.membershipStatus}
+                    </td>
+                    <td className="w-[140px] min-w-[140px] px-4">
+                      {user.subscriptionPlan}
+                    </td>
+                    <td className="w-[140px] min-w-[140px] px-4">
+                      {user.paymentStatus}
+                    </td>
+                    <td className="w-[140px] min-w-[140px] px-4">
+                      {user.lastLogin}
+                    </td>
+                    <td className="w-[140px] min-w-[140px] px-4">
+                      {user.registeredDate}
+                    </td>
                   </tr>
                 );
               })
