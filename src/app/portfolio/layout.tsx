@@ -5,7 +5,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-row">
       <SideNavigation />
-      <div className="w-[calc(100%-250px)] p-5">{children}</div>
+      <div className="w-full md:w-[calc(100%-250px)] p-5">{children}</div>
     </div>
   );
 };

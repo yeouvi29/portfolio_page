@@ -25,7 +25,7 @@ const Page = () => {
   return (
     <div className="flex-grow">
       <h1 className="text-2xl">Users</h1>
-      <div className="w-fit mt-5">
+      <div className="w-fit max-w-[calc(100vw-40px)] md:max-w-[calc(100vw-290px)] mt-5">
         <UserTable loading={loading} data={data} />
         <div className="pt-4">
           {totalPages !== undefined && (
