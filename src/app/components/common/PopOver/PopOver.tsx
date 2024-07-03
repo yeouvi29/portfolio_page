@@ -5,6 +5,7 @@ import ClickAwayListener from "../ClickAwayLIstener/ClickAwayListener";
 import clsx from "clsx";
 
 interface PopOverProps {
+  className?: string;
   parent: ReactNode;
   children: ReactNode;
   isPopOverShow: boolean;
@@ -12,13 +13,14 @@ interface PopOverProps {
 }
 
 const PopOver = ({
+  className,
   parent,
   children,
   isPopOverShow,
   handlePopOverVisibility,
 }: PopOverProps) => {
   return (
-    <div className="relative z-0 isolate">
+    <div className={clsx("relative z-0", className)}>
       <div
         className="relative z-0"
         onClick={() => {

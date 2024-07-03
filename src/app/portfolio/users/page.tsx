@@ -4,6 +4,7 @@ import UserTable from "./UserTable";
 import Pagination from "@/app/components/common/Pagination/Pagination";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useGetUsers } from "@/app/api/graphql/hooks";
+import FilterSection from "./FilterSection";
 const LIMIT = 20;
 
 export interface SortingItemType {
@@ -64,6 +65,7 @@ const Page = () => {
     <div className="flex-grow">
       <h1 className="text-2xl">Users</h1>
       <div className="w-fit max-w-[calc(100vw-40px)] md:max-w-[calc(100vw-290px)] mt-5">
+        <FilterSection />
         <UserTable
           loading={loading}
           data={data.users}

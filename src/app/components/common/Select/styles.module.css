@@ -1,0 +1,9 @@
+.selectTitle {
+  background: linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(50% - 1px),
+    #fff calc(50% - 1px),
+    #fff 100%
+  );
+}
