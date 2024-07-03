@@ -149,7 +149,7 @@ const UserTable = ({
                     <Shimmer w={100} h={9} />
                   </td>
 
-                  <td className="w-[260px] min-w[260px]">
+                  <td className="w-[260px] min-w[260px] ">
                     <Shimmer w={150} h={9} />
                   </td>
                   <td className="w-[200px] min-w-[200px]">
@@ -164,10 +164,10 @@ const UserTable = ({
                   <td className="w-[140px]">
                     <Shimmer w={100} h={9} />
                   </td>
-                  <td className="w-[140px]">
+                  <td className="w-[160px]">
                     <Shimmer w={100} h={9} />
                   </td>
-                  <td className="w-[140px]">
+                  <td className="w-[160px]">
                     <Shimmer w={100} h={9} />
                   </td>
                 </tr>
@@ -189,10 +189,10 @@ const UserTable = ({
                     <td className="w-[140px] min-w-[140px] px-4">
                       {user.name}
                     </td>
-                    <td className="w-[260px] min-w-[260px] px-4">
+                    <td className="w-[260px] min-w-[260px] max-w-[260px] px-4">
                       {user.email}
                     </td>
-                    <td className="w-[200px] min-w-[200px] px-4">
+                    <td className="w-[200px] min-w-[200px]  max-w-[200px] px-4">
                       {user.userName}
                     </td>
                     <td className="w-[140px] min-w-[140px] px-4">
@@ -204,10 +204,10 @@ const UserTable = ({
                     <td className="w-[140px] min-w-[140px] px-4">
                       {user.paymentStatus}
                     </td>
-                    <td className="w-[140px] min-w-[140px] px-4">
+                    <td className="w-[160px] min-w-[160px] px-4">
                       {user.lastLogin}
                     </td>
-                    <td className="w-[140px] min-w-[140px] px-4">
+                    <td className="w-[160px] min-w-[160px] px-4">
                       {user.registeredDate}
                     </td>
                   </tr>
