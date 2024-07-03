@@ -19,7 +19,7 @@ export const getUsers = async (
     .limit(limit || 0)
     .skip(offset || 0)
     .toArray();
-  console.log("users", users);
+
   const totalUsers = await db?.collection("users").countDocuments();
   return { users, totalUsers };
 };

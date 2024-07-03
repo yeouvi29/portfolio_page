@@ -1,10 +1,8 @@
 "use client";
 
-import { useQuery } from "@apollo/client";
 import UserTable from "./UserTable";
-import { usersQuery } from "@/lib/graphql/queries";
-import Pagination from "@/app/components/ui/Pagination/Pagination";
-import { useEffect, useState } from "react";
+import Pagination from "@/app/components/common/Pagination/Pagination";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useGetUsers } from "@/app/api/graphql/hooks";
 const LIMIT = 20;
 
@@ -14,25 +12,48 @@ export interface SortingItemType {
   currentPage: number;
 }
 const Page = () => {
-  const [totalPages, setTotalPages] = useState(0);
   const [sortingItem, setSortingItem] = useState<SortingItemType>({
     item: "registeredDate",
     order: "dsc",
     currentPage: 1,
   });
+
   const { loading, error, data } = useGetUsers({
     limit: LIMIT,
     offset: LIMIT * (sortingItem.currentPage - 1),
     sortField: sortingItem.item,
     order: sortingItem.order,
   });
+  const totalPageRef = useRef<number | undefined>(undefined);
+  const totalPages = useMemo(() => {
+    if (loading && totalPageRef.current) {
+      return totalPageRef.current;
+    }
+    if (data) {
+      return Math.ceil(data.totalUsers / LIMIT);
+    }
+    return 0;
+  }, [data]);
+  const handleSort = ({
+    item,
+    order,
+  }: {
+    item: SortingItemType["item"];
+    order: SortingItemType["order"];
+  }) => {
+    setSortingItem((prev) => ({
+      ...prev,
+      item,
+      order,
+    }));
+  };
 
   useEffect(() => {
-    if (totalPages) {
+    if (totalPageRef.current) {
       return;
     }
     if (data) {
-      setTotalPages(Math.ceil(data.totalUsers / LIMIT));
+      totalPageRef.current = Math.ceil(data.totalUsers / LIMIT);
     }
   }, [data]);
 
@@ -40,9 +61,14 @@ const Page = () => {
     <div className="flex-grow">
       <h1 className="text-2xl">Users</h1>
       <div className="w-fit max-w-[calc(100vw-40px)] md:max-w-[calc(100vw-290px)] mt-5">
-        <UserTable loading={loading} data={data.users} updateSort={setSortingItem} />
+        <UserTable
+          loading={loading}
+          data={data.users}
+          updateSort={handleSort}
+          sortingItem={sortingItem}
+        />
         <div className="pt-4">
-          {totalPages !== undefined && (
+          {totalPages !== 0 && (
             <Pagination
               totalPages={totalPages}
               currentPage={sortingItem.currentPage}

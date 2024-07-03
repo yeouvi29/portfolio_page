@@ -22,7 +22,7 @@ export const resolvers = {
       }
     ) => {
       const userData = await getUsers(limit, offset, sortField, order);
-      console.log("userData", userData);
+
       return userData;
     },
   },

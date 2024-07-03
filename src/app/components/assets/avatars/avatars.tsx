@@ -33,7 +33,7 @@ export const avatars = [
           d="M15 20c2 1 4 1 6 0"
           stroke="#FFFFFF"
           fill="none"
-          stroke-linecap="round"
+          strokeLinecap="round"
         ></path>
         <rect
           x="14"
@@ -90,7 +90,7 @@ export const avatars = [
           d="M15 19c2 1 4 1 6 0"
           stroke="#000000"
           fill="none"
-          stroke-linecap="round"
+          strokeLinecap="round"
         ></path>
         <rect
           x="10"
@@ -303,7 +303,7 @@ export const avatars = [
           d="M15 20c2 1 4 1 6 0"
           stroke="#FFFFFF"
           fill="none"
-          stroke-linecap="round"
+          strokeLinecap="round"
         ></path>
         <rect
           x="14"
@@ -360,7 +360,7 @@ export const avatars = [
           d="M15 21c2 1 4 1 6 0"
           stroke="#000000"
           fill="none"
-          stroke-linecap="round"
+          strokeLinecap="round"
         ></path>
         <rect
           x="11"
@@ -573,7 +573,7 @@ export const avatars = [
           d="M15 20c2 1 4 1 6 0"
           stroke="#000000"
           fill="none"
-          stroke-linecap="round"
+          strokeLinecap="round"
         ></path>
         <rect
           x="11"
@@ -682,7 +682,7 @@ export const avatars = [
           d="M15 21c2 1 4 1 6 0"
           stroke="#000000"
           fill="none"
-          stroke-linecap="round"
+          strokeLinecap="round"
         ></path>
         <rect
           x="10"
@@ -739,7 +739,7 @@ export const avatars = [
           d="M15 20c2 1 4 1 6 0"
           stroke="#000000"
           fill="none"
-          stroke-linecap="round"
+          strokeLinecap="round"
         ></path>
         <rect
           x="10"
@@ -900,7 +900,7 @@ export const avatars = [
           d="M15 20c2 1 4 1 6 0"
           stroke="#FFFFFF"
           fill="none"
-          stroke-linecap="round"
+          strokeLinecap="round"
         ></path>
         <rect
           x="13"

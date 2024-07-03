@@ -1,19 +1,44 @@
 "use client";
 
 import { useId } from "react";
-import { UsersQuery } from "@/generated/graphql";
-import { avatars } from "@/app/components/ui/avatars/avatars";
+import { HiDotsVertical } from "react-icons/hi";
+import { FaArrowDownLong, FaArrowUpLong } from "react-icons/fa6";
+
+import { avatars } from "@/app/components/assets/avatars/avatars";
 import { UserEntity } from "@/db/types";
+import { SortingItemType } from "./page";
+import SortPopOver from "@/app/components/ui/SortPopOver/SortPopOver";
+
 const HEADER = [
-  "Avatar",
-  "Name",
-  "Email",
-  "ID",
-  `Membership`,
-  "Subscription Plan",
-  "Payment Status",
-  "Last Login",
-  "Registered Date",
+  { name: "Avatar", key: "avatar", sortable: false, width: "80px" },
+  { name: "Name", key: "name", sortable: true, width: "140px" },
+  { name: "Email", key: "email", sortable: true, width: "260px" },
+  { name: "ID", key: "userName", sortable: true, width: "200px" },
+  {
+    name: "Membership",
+    key: "membershipStatus",
+    sortable: false,
+    width: "140px",
+  },
+  {
+    name: "Subscription Plan",
+    key: "subscriptionPlan",
+    sortable: false,
+    width: "140px",
+  },
+  {
+    name: "Payment Status",
+    key: "paymentStatus",
+    sortable: false,
+    width: "140px",
+  },
+  { name: "Last Login", key: "lastLogin", sortable: true, width: "140px" },
+  {
+    name: "Registered Date",
+    key: "registeredDate",
+    sortable: true,
+    width: "140px",
+  },
 ];
 
 const Shimmer = ({ w, h }: { w: number; h: number }) => {
@@ -53,30 +78,59 @@ const UserTable = ({
   loading,
   data,
   updateSort,
+  sortingItem,
 }: {
   loading: boolean;
   data?: UserEntity[] | null;
   updateSort: ({
     item,
     order,
-    currentPage,
   }: {
-    item: "registeredDate";
-    order: "dsc";
-    currentPage: number;
+    item: SortingItemType["item"];
+    order: SortingItemType["order"];
   }) => void;
+  sortingItem: SortingItemType;
 }) => {
   return (
     <div className="overflow-x-auto rounded-lg">
       <table className="bg-white">
         <thead className="bg-gray-200 sticky top-0">
           <tr>
-            {HEADER.map((header) => (
+            {HEADER.map(({ key, name, sortable }) => (
               <th
                 className="text-sm px-4 py-2 text-left text-gray-600"
-                key={header}
+                key={key}
               >
-                {header}
+                {sortable ? (
+                  <div className="w-full flex justify-between items-center gap-4">
+                    {sortingItem.item === key ? (
+                      <span className="flex gap-2 items-center">
+                        {name}
+                        {sortingItem.order === "asc" ? (
+                          <FaArrowUpLong />
+                        ) : (
+                          <FaArrowDownLong />
+                        )}
+                      </span>
+                    ) : (
+                      <span>{name}</span>
+                    )}
+                    <span className="p-1 rounded-full cursor-pointer hover:bg-gray-300">
+                      <SortPopOver
+                        parent={<HiDotsVertical />}
+                        title={key}
+                        onClickSort={(title, order) =>
+                          updateSort({
+                            item: title as SortingItemType["item"],
+                            order: order as SortingItemType["order"],
+                          })
+                        }
+                      />
+                    </span>
+                  </div>
+                ) : (
+                  name
+                )}
               </th>
             ))}
           </tr>
@@ -121,9 +175,8 @@ const UserTable = ({
             : data
             ? data.map((user) => {
                 const index =
-                  Number(user.registeredDate.slice(0, 2)) +
-                  Number(user.lastLogin.slice(0, 2)) -
-                  2;
+                  Number(user.registeredDate.slice(3, 5)) +
+                  Number(user.lastLogin.slice(3, 5));
 
                 return (
                   <tr
