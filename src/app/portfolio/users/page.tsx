@@ -41,11 +41,14 @@ const Page = () => {
     item: SortingItemType["item"];
     order: SortingItemType["order"];
   }) => {
-    setSortingItem((prev) => ({
-      ...prev,
+    if (item === sortingItem.item && order === sortingItem.order) {
+      return;
+    }
+    setSortingItem({
+      currentPage: 1,
       item,
       order,
-    }));
+    });
   };
 
   useEffect(() => {
