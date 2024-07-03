@@ -3,6 +3,7 @@
 import { useId } from "react";
 import { UsersQuery } from "@/generated/graphql";
 import { avatars } from "@/app/components/ui/avatars/avatars";
+import { UserEntity } from "@/db/types";
 const HEADER = [
   "Avatar",
   "Name",
@@ -51,9 +52,19 @@ const Shimmer = ({ w, h }: { w: number; h: number }) => {
 const UserTable = ({
   loading,
   data,
+  updateSort,
 }: {
   loading: boolean;
-  data?: UsersQuery;
+  data?: UserEntity[] | null;
+  updateSort: ({
+    item,
+    order,
+    currentPage,
+  }: {
+    item: "registeredDate";
+    order: "dsc";
+    currentPage: number;
+  }) => void;
 }) => {
   return (
     <div className="overflow-x-auto rounded-lg">
@@ -107,8 +118,8 @@ const UserTable = ({
                   </td>
                 </tr>
               ))
-            : data && data.users
-            ? data.users.users.map((user) => {
+            : data
+            ? data.map((user) => {
                 const index =
                   Number(user.registeredDate.slice(0, 2)) +
                   Number(user.lastLogin.slice(0, 2)) -

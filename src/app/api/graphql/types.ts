@@ -2,7 +2,12 @@ import gql from "graphql-tag";
 
 export const typeDefs = gql`
   type Query {
-    users(limit: Int, offset: Int): UserSubList
+    users(
+      limit: Int
+      offset: Int
+      sortField: String
+      order: String
+    ): UserSubList
     user(userName: ID!): User
   }
 

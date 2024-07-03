@@ -1080,5 +1080,3 @@ export const avatars = [
     </g>
   </svg>,
 ];
-
-console.log(avatars.length);

@@ -4,9 +4,24 @@ export const resolvers = {
   Query: {
     users: async (
       _root: any,
-      { limit, offset }: { limit: number; offset: number }
+      {
+        limit,
+        offset,
+        sortField,
+        order,
+      }: {
+        limit: number;
+        offset: number;
+        sortField?:
+          | "name"
+          | "userName"
+          | "email"
+          | "registeredDate"
+          | "lastLogin";
+        order?: "asc" | "desc";
+      }
     ) => {
-      const userData = await getUsers(limit, offset);
+      const userData = await getUsers(limit, offset, sortField, order);
       console.log("userData", userData);
       return userData;
     },
