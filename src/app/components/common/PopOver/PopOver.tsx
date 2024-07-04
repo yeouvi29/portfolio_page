@@ -1,11 +1,12 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import ClickAwayListener from "../ClickAwayLIstener/ClickAwayListener";
 import clsx from "clsx";
 
 interface PopOverProps {
   className?: string;
+  disabled?: boolean;
   parent: ReactNode;
   children: ReactNode;
   isPopOverShow: boolean;
@@ -15,15 +16,17 @@ interface PopOverProps {
 const PopOver = ({
   className,
   parent,
+  disabled,
   children,
   isPopOverShow,
   handlePopOverVisibility,
 }: PopOverProps) => {
   return (
-    <div className={clsx("relative z-0", className)}>
+    <div className={clsx("relative", !disabled && "cursor-pointer", className)}>
       <div
-        className="relative z-0"
+        className="relative"
         onClick={() => {
+          if (disabled) return;
           handlePopOverVisibility(true);
         }}
       >

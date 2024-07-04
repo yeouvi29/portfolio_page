@@ -23,7 +23,7 @@ const SideNavigation = () => {
               className={clsx(
                 "mt-1 first-of-type:mt-0 py-2 px-4 rounded-md text-gray-500 hover:bg-gray-200",
                 path === item.path &&
-                  "bg-blue-300 bg-opacity-30 hover:bg-blue-300 hover:bg-opacity-50 text-blue-600"
+                  "bg-blue-300 bg-opacity-30 hover:!bg-blue-300 hover:!bg-opacity-50 !text-blue-600"
               )}
             >
               <Link

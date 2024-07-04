@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { ReactNode } from "react";
 import { LuSearch } from "react-icons/lu";
 interface TextFieldProps {
+  className?: string;
   icon?: ReactNode;
   label?: string;
   value: string;
@@ -12,6 +13,7 @@ interface TextFieldProps {
   helperText?: ReactNode;
 }
 const TextField = ({
+  className,
   icon,
   label,
   value,
@@ -22,7 +24,7 @@ const TextField = ({
   helperText,
 }: TextFieldProps) => {
   return (
-    <div className="w-full relative">
+    <div className={clsx("relative", className)}>
       {label && (
         <label className="absolute -top-1 left-1 -translate-y-full text-xs text-gray-600 font-semibold">
           {label}
