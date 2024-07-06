@@ -1,42 +1,86 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 import Select from "@/app/components/common/Select/Select";
 import TextField from "@/app/components/common/TextField/TextField";
 
 const SELECT_OPTIONS = {
-  search: ["Name", "Email", "ID"],
-  filter: {
-    items: ["Membership", "Subscription Plan", "Payment Status"],
-    options: {
-      membership: ["Active", "Inactive"],
-      subscriptionPlan: ["Free", "Basic", "Pro", "Premium"],
-      paymentStatus: ["Paid", "Unpaid"],
+  search: [
+    { displayName: "Name", apiField: "name" },
+    { displayName: "Email", apiField: "email" },
+    { displayName: "ID", apiField: "userName" },
+  ],
+  filter: [
+    {
+      displayName: "Membership",
+      apiField: "membershipStatus",
+      options: ["All", "Active", "Inactive"],
     },
-  },
+    {
+      displayName: "Subscription Plan",
+      apiField: "subscriptionPlan",
+      options: ["All", "Free", "Basic", "Pro"],
+    },
+    {
+      displayName: "Payment Status",
+      apiField: "paymentStatus",
+      options: ["All", "Paid", "Unpaid"],
+    },
+  ],
 };
-const FilterSection = () => {
+
+const FilterSection = ({
+  updateSearchTerms,
+}: {
+  updateSearchTerms: ({
+    search,
+    filter,
+  }: {
+    search: { item: string; value: string };
+    filter: {
+      membershipStatus: "All" | "Active" | "Inactive";
+      subscriptionPlan: "All" | "Free" | "Basic" | "Pro";
+      paymentStatus: "All" | "Paid" | "Unpaid";
+    };
+  }) => void;
+}) => {
   const [searchField, setSearchField] = useState<string>("");
   const [searchInput, setSearchInput] = useState("");
-  const [selectedItem, setSelectedItem] = useState<[string, string] | null>(
-    null
-  );
+  const [selectedFilteringItems, setSelectedFilteringItems] = useState<{
+    membershipStatus: "All" | "Active" | "Inactive";
+    subscriptionPlan: "All" | "Free" | "Basic" | "Pro";
+    paymentStatus: "All" | "Paid" | "Unpaid";
+  }>({
+    membershipStatus: "All",
+    subscriptionPlan: "All",
+    paymentStatus: "All",
+  });
 
-  const getOptionKey = (item: string) =>
-    (item[0].toLowerCase() +
-      item
-        .slice(1)
-        .split(" ")
-        .join("")) as keyof typeof SELECT_OPTIONS.filter.options;
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    updateSearchTerms({
+      search: {
+        item: SELECT_OPTIONS.search.filter(
+          (i) => i.displayName === searchField
+        )[0].apiField,
+        value: searchInput,
+      },
+      filter: selectedFilteringItems,
+    });
+  };
+
   return (
-    <form className="py-5">
+    <form className="py-5" onSubmit={handleSubmit}>
       <h3>Search User</h3>
       <div className="flex mt-2 gap-1">
         <Select
           label="Category"
-          className="w-[200px]"
-          items={SELECT_OPTIONS.search}
+          className="w-[150px] lg:w-[200px]"
+          items={Object.values(SELECT_OPTIONS.search).map(
+            (item) => item.displayName
+          )}
           selectedItem={searchField}
           onSelect={setSearchField}
         />
@@ -49,37 +93,36 @@ const FilterSection = () => {
           // helperText={<p className="text-red-600 text-xs">error</p>}
         />
       </div>
-      <h3>Filter User</h3>
-      <div className="flex mt-2 gap-1">
-        <Select
-          className="w-[200px]"
-          label="Category"
-          items={SELECT_OPTIONS.filter.items}
-          selectedItem={selectedItem ? selectedItem[0] : ""}
-          onSelect={(item) => {
-            setSelectedItem(
-              item
-                ? [item, SELECT_OPTIONS.filter.options[getOptionKey(item)][0]]
-                : null
-            );
-          }}
-        />
-        <Select
-          disabled={!selectedItem}
-          label="Value"
-          items={
-            selectedItem
-              ? SELECT_OPTIONS.filter.options[getOptionKey(selectedItem[0])]
-              : []
-          }
-          selectedItem={selectedItem ? selectedItem[1] : ""}
-          onSelect={(item) => setSelectedItem((prev) => [prev![0], item])}
-        />
-        <div className="flex-grow" />
+      <h3>Filter By</h3>
+      <div className="flex flex-col lg:flex-row mt-2 gap-1">
+        {SELECT_OPTIONS.filter.map((item, i) => {
+          return (
+            <div key={item.displayName}>
+              {/* <p>{item.displayName}</p> */}
+              <Select
+                label={item.displayName}
+                className="w-full lg:w-[200px]"
+                items={item.options}
+                selectedItem={
+                  selectedFilteringItems[
+                    item.apiField as keyof typeof selectedFilteringItems
+                  ]
+                }
+                onSelect={(selectedValue) =>
+                  setSelectedFilteringItems((prev) => ({
+                    ...prev,
+                    [item.apiField]: selectedValue,
+                  }))
+                }
+              />
+            </div>
+          );
+        })}
+
+        <div className="flex-grow hidden lg:block" />
         <button
           type="submit"
-          onSubmit={(e) => e.preventDefault()}
-          className="bg-blue-500 text-white w-[200px] px-3 py-1 rounded-md hover:bg-blue-500/80"
+          className="h-[42px] bg-blue-500 text-white w-full lg:w-[200px] px-3 py-1 rounded-md hover:bg-blue-500/80"
         >
           Search
         </button>

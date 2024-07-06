@@ -7,50 +7,119 @@ import { useGetUsers } from "@/app/api/graphql/hooks";
 import FilterSection from "./FilterSection";
 const LIMIT = 20;
 
-export interface SortingItemType {
-  item: "name" | "userName" | "email" | "registeredDate" | "lastLogin";
-  order: "asc" | "dsc";
+export interface ListControlStateType {
   currentPage: number;
+  sort: {
+    item: "name" | "userName" | "email" | "registeredDate" | "lastLogin";
+    order: "asc" | "dsc";
+  };
+  search: { item: string; value: string };
+  filter: {
+    membershipStatus: "All" | "Active" | "Inactive";
+    subscriptionPlan: "All" | "Free" | "Basic" | "Pro";
+    paymentStatus: "All" | "Paid" | "Unpaid";
+  };
 }
 const Page = () => {
-  const [sortingItem, setSortingItem] = useState<SortingItemType>({
-    item: "registeredDate",
-    order: "dsc",
-    currentPage: 1,
+  const [listControlState, setListControlState] =
+    useState<ListControlStateType>({
+      currentPage: 1,
+      sort: { item: "registeredDate", order: "dsc" },
+      search: { item: "", value: "" },
+      filter: {
+        membershipStatus: "All",
+        subscriptionPlan: "All",
+        paymentStatus: "All",
+      },
+    });
+
+  const [getFilteredData, { loading, error, data }] = useGetUsers({
+    pagination: {
+      limit: LIMIT,
+      offset: LIMIT * (listControlState.currentPage - 1),
+    },
+    sort: listControlState.sort,
+    search: listControlState.search,
+    filter: listControlState.filter,
   });
 
-  const { loading, error, data } = useGetUsers({
-    limit: LIMIT,
-    offset: LIMIT * (sortingItem.currentPage - 1),
-    sortField: sortingItem.item,
-    order: sortingItem.order,
-  });
   const totalPageRef = useRef<number | undefined>(undefined);
   const totalPages = useMemo(() => {
     if (loading && totalPageRef.current) {
       return totalPageRef.current;
     }
     if (data) {
-      return Math.ceil(data.totalUsers / LIMIT);
+      const newTotalPages = Math.ceil(data.totalUsers / LIMIT);
+      totalPageRef.current = newTotalPages;
+      return newTotalPages;
     }
     return 0;
   }, [data]);
+  console.log(totalPageRef.current, totalPages);
   const handleSort = ({
     item,
     order,
   }: {
-    item: SortingItemType["item"];
-    order: SortingItemType["order"];
+    item: ListControlStateType["sort"]["item"];
+    order: ListControlStateType["sort"]["order"];
   }) => {
-    if (item === sortingItem.item && order === sortingItem.order) {
+    if (
+      item === listControlState.sort.item &&
+      order === listControlState.sort.order
+    ) {
       return;
     }
-    setSortingItem({
+
+    setListControlState((prev) => ({
+      ...prev,
       currentPage: 1,
-      item,
-      order,
+      sort: { item, order },
+    }));
+  };
+
+  const handleSearch = ({
+    search,
+    filter,
+  }: {
+    search: { item: string; value: string };
+    filter: {
+      membershipStatus: "All" | "Active" | "Inactive";
+      subscriptionPlan: "All" | "Free" | "Basic" | "Pro";
+      paymentStatus: "All" | "Paid" | "Unpaid";
+    };
+  }) => {
+    setListControlState((prev) => ({
+      ...prev,
+      currentPage: 1,
+      search,
+      filter,
+    }));
+    getFilteredData({
+      variables: {
+        pagination: {
+          limit: LIMIT,
+          offset: LIMIT * (listControlState.currentPage - 1),
+        },
+        sort: listControlState.sort,
+        search: listControlState.search,
+        filter: listControlState.filter,
+      },
     });
   };
+
+  useEffect(() => {
+    getFilteredData({
+      variables: {
+        pagination: {
+          limit: LIMIT,
+          offset: LIMIT * (listControlState.currentPage - 1),
+        },
+        sort: listControlState.sort,
+        search: listControlState.search,
+        filter: listControlState.filter,
+      },
+    });
+  }, [listControlState]);
 
   useEffect(() => {
     if (totalPageRef.current) {
@@ -65,20 +134,20 @@ const Page = () => {
     <div className="flex-grow">
       <h1 className="text-2xl">Users</h1>
       <div className="w-fit max-w-[calc(100vw-40px)] md:max-w-[calc(100vw-290px)] mt-5">
-        <FilterSection />
+        <FilterSection updateSearchTerms={handleSearch} />
         <UserTable
           loading={loading}
           data={data.users}
           updateSort={handleSort}
-          sortingItem={sortingItem}
+          sortingItem={listControlState.sort}
         />
         <div className="pt-4">
           {totalPages !== 0 && (
             <Pagination
               totalPages={totalPages}
-              currentPage={sortingItem.currentPage}
+              currentPage={listControlState.currentPage}
               onClickPage={(updatedPage) =>
-                setSortingItem((prev) => ({
+                setListControlState((prev) => ({
                   ...prev,
                   currentPage: updatedPage,
                 }))

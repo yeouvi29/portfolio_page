@@ -14,7 +14,7 @@ const SideNavigation = () => {
   const path = usePathname();
 
   return (
-    <div className="hidden sm:block w-[250px] h-full py-4">
+    <div className="hidden md:block w-[250px] h-full py-4">
       <nav className="px-4">
         <ul className="list-none">
           {SIDE_MENU.map((item) => (

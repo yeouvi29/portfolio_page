@@ -1,12 +1,17 @@
 import { graphql } from "@/generated";
 
 export const usersQuery = graphql(`
-  query Users($limit: Int, $offset: Int, $sortField: String, $order: String) {
+  query Users(
+    $pagination: Pagination
+    $sort: Sort
+    $filter: Filter
+    $search: Search
+  ) {
     users(
-      limit: $limit
-      offset: $offset
-      sortField: $sortField
-      order: $order
+      pagination: $pagination
+      sort: $sort
+      filter: $filter
+      search: $search
     ) {
       users {
         userName
@@ -20,5 +25,26 @@ export const usersQuery = graphql(`
       }
       totalUsers
     }
+  }
+
+  input Pagination {
+    limit: Int
+    offset: Int
+  }
+
+  input Sort {
+    item: String
+    order: String
+  }
+
+  input Filter {
+    membershipStatus: String
+    subscriptionPlan: String
+    paymentStatus: String
+  }
+
+  input Search {
+    item: String
+    value: String
   }
 `);

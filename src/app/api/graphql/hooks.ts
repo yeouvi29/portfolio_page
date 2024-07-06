@@ -1,20 +1,43 @@
-import { usersQuery } from "@/lib/graphql/queries";
-import { useQuery } from "@apollo/client";
-import { formatDate } from "../../../../utils";
-import { UserEntity } from "@/db/types";
+import { ApolloError, useLazyQuery } from "@apollo/client";
 
-export const useGetUsers = (params: {
-  limit: number;
-  offset: number;
-  sortField: "name" | "userName" | "email" | "registeredDate" | "lastLogin";
-  order: "asc" | "dsc";
-}) => {
-  const { loading, error, data } = useQuery(usersQuery, {
+import { usersQuery } from "@/lib/graphql/queries";
+import { UserEntity } from "@/db/types";
+import { formatDate } from "@/../utils";
+
+export const useGetUsers = ({
+  pagination,
+  sort,
+  filter,
+  search,
+}: {
+  pagination: { limit: number; offset: number };
+  sort: {
+    item: "name" | "userName" | "email" | "registeredDate" | "lastLogin";
+    order: "asc" | "dsc";
+  };
+  search: { item: string; value: string };
+  filter: {
+    membershipStatus: "All" | "Active" | "Inactive";
+    subscriptionPlan: "All" | "Free" | "Basic" | "Pro";
+    paymentStatus: "All" | "Paid" | "Unpaid";
+  };
+}): [
+  typeof getFilteredData,
+  {
+    loading: boolean;
+    error?: ApolloError;
+    data: {
+      users: UserEntity[] | null;
+      totalUsers: number;
+    };
+  }
+] => {
+  const [getFilteredData, { loading, error, data }] = useLazyQuery(usersQuery, {
     variables: {
-      limit: params.limit,
-      offset: params.offset,
-      sortField: params.sortField,
-      order: params.order,
+      pagination,
+      sort,
+      filter,
+      search,
     },
   });
   let newData: UserEntity[] = [];
@@ -26,11 +49,18 @@ export const useGetUsers = (params: {
         lastLogin: formatDate(user.lastLogin),
       };
     });
-    return {
-      loading,
-      error,
-      data: { users: newData, totalUsers: data.users.totalUsers },
-    };
+    return [
+      getFilteredData,
+      {
+        loading,
+        error,
+        data: { users: newData, totalUsers: data.users.totalUsers },
+      },
+    ];
   }
-  return { loading, error, data: { users: null, totalUsers: 0 } };
+  //   console.log(error);
+  return [
+    getFilteredData,
+    { loading, error, data: { users: null, totalUsers: 0 } },
+  ];
 };

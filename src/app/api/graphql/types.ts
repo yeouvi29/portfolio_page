@@ -3,12 +3,33 @@ import gql from "graphql-tag";
 export const typeDefs = gql`
   type Query {
     users(
-      limit: Int
-      offset: Int
-      sortField: String
-      order: String
+      pagination: Pagination
+      sort: Sort
+      filter: Filter
+      search: Search
     ): UserSubList
     user(userName: ID!): User
+  }
+
+  input Pagination {
+    limit: Int
+    offset: Int
+  }
+
+  input Sort {
+    item: String
+    order: String
+  }
+
+  input Filter {
+    membershipStatus: String
+    subscriptionPlan: String
+    paymentStatus: String
+  }
+
+  input Search {
+    item: String
+    value: String
   }
 
   type UserSubList {

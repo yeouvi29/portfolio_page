@@ -6,7 +6,7 @@ import { FaArrowDownLong, FaArrowUpLong } from "react-icons/fa6";
 
 import { avatars } from "@/app/components/assets/avatars/avatars";
 import { UserEntity } from "@/db/types";
-import { SortingItemType } from "./page";
+import { ListControlStateType } from "./page";
 import SortPopOver from "@/app/components/ui/SortPopOver/SortPopOver";
 
 const HEADER = [
@@ -82,14 +82,15 @@ const UserTable = ({
 }: {
   loading: boolean;
   data?: UserEntity[] | null;
+
   updateSort: ({
     item,
     order,
   }: {
-    item: SortingItemType["item"];
-    order: SortingItemType["order"];
+    item: ListControlStateType["sort"]["item"];
+    order: ListControlStateType["sort"]["order"];
   }) => void;
-  sortingItem: SortingItemType;
+  sortingItem: ListControlStateType["sort"];
 }) => {
   return (
     <div className="overflow-x-auto rounded-lg">
@@ -121,8 +122,9 @@ const UserTable = ({
                         title={key}
                         onClickSort={(title, order) =>
                           updateSort({
-                            item: title as SortingItemType["item"],
-                            order: order as SortingItemType["order"],
+                            item: title as ListControlStateType["sort"]["item"],
+                            order:
+                              order as ListControlStateType["sort"]["order"],
                           })
                         }
                       />

@@ -4,24 +4,21 @@ export const resolvers = {
   Query: {
     users: async (
       _root: any,
-      {
-        limit,
-        offset,
-        sortField,
-        order,
-      }: {
-        limit: number;
-        offset: number;
-        sortField?:
-          | "name"
-          | "userName"
-          | "email"
-          | "registeredDate"
-          | "lastLogin";
-        order?: "asc" | "desc";
+      params: {
+        pagination: { limit: number; offset: number };
+        sort: {
+          item: "name" | "userName" | "email" | "registeredDate" | "lastLogin";
+          order: "asc" | "dsc";
+        };
+        search: { item: string; value: string };
+        filter: {
+          membershipStatus: "All" | "Active" | "Inactive";
+          subscriptionPlan: "All" | "Free" | "Basic" | "Pro";
+          paymentStatus: "All" | "Paid" | "Unpaid";
+        };
       }
     ) => {
-      const userData = await getUsers(limit, offset, sortField, order);
+      const userData = await getUsers(params);
 
       return userData;
     },
