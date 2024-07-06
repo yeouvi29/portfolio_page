@@ -134,7 +134,7 @@ const Page = () => {
     <div className="flex-grow">
       <h1 className="text-2xl">Users</h1>
       <div className="w-fit max-w-[calc(100vw-40px)] md:max-w-[calc(100vw-290px)] mt-5">
-        <FilterSection updateSearchTerms={handleSearch} />
+        <FilterSection disabled={loading} updateSearchTerms={handleSearch} />
         <UserTable
           loading={loading}
           data={data.users}

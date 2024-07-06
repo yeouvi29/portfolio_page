@@ -31,8 +31,10 @@ const SELECT_OPTIONS = {
 };
 
 const FilterSection = ({
+  disabled,
   updateSearchTerms,
 }: {
+  disabled: boolean;
   updateSearchTerms: ({
     search,
     filter,
@@ -76,6 +78,7 @@ const FilterSection = ({
       <h3>Search User</h3>
       <div className="flex mt-2 gap-1">
         <Select
+          disabled={disabled}
           label="Category"
           className="w-[150px] lg:w-[200px]"
           items={Object.values(SELECT_OPTIONS.search).map(
@@ -86,6 +89,7 @@ const FilterSection = ({
         />
         <TextField
           className="flex-grow"
+          disabled={disabled || !searchField}
           value={searchInput}
           onChange={setSearchInput}
           placeholder="Search user by name, email, or ID"
@@ -93,39 +97,43 @@ const FilterSection = ({
           // helperText={<p className="text-red-600 text-xs">error</p>}
         />
       </div>
-      <h3>Filter By</h3>
-      <div className="flex flex-col lg:flex-row mt-2 gap-1">
-        {SELECT_OPTIONS.filter.map((item, i) => {
-          return (
-            <div key={item.displayName}>
-              {/* <p>{item.displayName}</p> */}
-              <Select
-                label={item.displayName}
-                className="w-full lg:w-[200px]"
-                items={item.options}
-                selectedItem={
-                  selectedFilteringItems[
-                    item.apiField as keyof typeof selectedFilteringItems
-                  ]
-                }
-                onSelect={(selectedValue) =>
-                  setSelectedFilteringItems((prev) => ({
-                    ...prev,
-                    [item.apiField]: selectedValue,
-                  }))
-                }
-              />
-            </div>
-          );
-        })}
+      <div className="mt-4">
+        <h3>Filter By</h3>
+        <div className="flex flex-col lg:flex-row mt-2 gap-2 lg:gap-1">
+          {SELECT_OPTIONS.filter.map((item, i) => {
+            return (
+              <div key={item.displayName}>
+                {/* <p>{item.displayName}</p> */}
+                <Select
+                  label={item.displayName}
+                  disabled={disabled}
+                  className="w-full lg:w-[200px]"
+                  items={item.options}
+                  selectedItem={
+                    selectedFilteringItems[
+                      item.apiField as keyof typeof selectedFilteringItems
+                    ]
+                  }
+                  onSelect={(selectedValue) =>
+                    setSelectedFilteringItems((prev) => ({
+                      ...prev,
+                      [item.apiField]: selectedValue,
+                    }))
+                  }
+                />
+              </div>
+            );
+          })}
 
-        <div className="flex-grow hidden lg:block" />
-        <button
-          type="submit"
-          className="h-[42px] bg-blue-500 text-white w-full lg:w-[200px] px-3 py-1 rounded-md hover:bg-blue-500/80"
-        >
-          Search
-        </button>
+          <div className="flex-grow hidden lg:block" />
+          <button
+            type="submit"
+            disabled={disabled}
+            className="h-[42px] bg-blue-500 text-white w-full lg:w-[200px] px-3 py-1 rounded-md hover:bg-blue-500/80"
+          >
+            Search
+          </button>
+        </div>
       </div>
     </form>
   );

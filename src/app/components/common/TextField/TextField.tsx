@@ -7,6 +7,7 @@ interface TextFieldProps {
   label?: string;
   value: string;
   error?: boolean;
+  disabled?: boolean;
   defaultValue?: string;
   onChange: (value: string) => void;
   placeholder?: string;
@@ -19,6 +20,7 @@ const TextField = ({
   value,
   defaultValue,
   error,
+  disabled,
   onChange,
   placeholder,
   helperText,
@@ -33,13 +35,15 @@ const TextField = ({
       <div
         className={clsx(
           "flex pl-2 items-center gap-2 border bg-white border-gray-300 rounded-md overflow-hidden  focus-within:bg-blue-100",
-          error && "bg-red-200"
+          error && "bg-red-200",
+          disabled && "!bg-gray-300 text-gray-400 cursor-not-allowed"
         )}
       >
         {icon ? icon : <LuSearch className="w-5 min-w-5 text-gray-300" />}
         <input
           className="py-2 pr-2 min-w-full flex-grow outline-none bg-transparent"
           type="text"
+          disabled={disabled}
           placeholder={placeholder}
           defaultValue={defaultValue}
           value={value}
