@@ -55,7 +55,7 @@ const Page = () => {
     }
     return 0;
   }, [data]);
-  console.log(totalPageRef.current, totalPages);
+
   const handleSort = ({
     item,
     order,
