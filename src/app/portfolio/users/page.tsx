@@ -5,6 +5,7 @@ import Pagination from "@/app/components/common/Pagination/Pagination";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useGetUsers } from "@/app/api/graphql/hooks";
 import FilterSection from "./FilterSection";
+import { List } from "postcss/lib/list";
 const LIMIT = 20;
 
 export interface ListControlStateType {
@@ -81,12 +82,8 @@ const Page = () => {
     search,
     filter,
   }: {
-    search: { item: string; value: string };
-    filter: {
-      membershipStatus: "All" | "Active" | "Inactive";
-      subscriptionPlan: "All" | "Free" | "Basic" | "Pro";
-      paymentStatus: "All" | "Paid" | "Unpaid";
-    };
+    search: ListControlStateType["search"];
+    filter: ListControlStateType["filter"];
   }) => {
     setListControlState((prev) => ({
       ...prev,
@@ -108,27 +105,20 @@ const Page = () => {
   };
 
   useEffect(() => {
+    const { currentPage, sort, search, filter } = listControlState;
+
     getFilteredData({
       variables: {
         pagination: {
           limit: LIMIT,
-          offset: LIMIT * (listControlState.currentPage - 1),
+          offset: LIMIT * (currentPage - 1),
         },
-        sort: listControlState.sort,
-        search: listControlState.search,
-        filter: listControlState.filter,
+        sort: sort,
+        search: search,
+        filter: filter,
       },
     });
   }, [listControlState]);
-
-  useEffect(() => {
-    if (totalPageRef.current) {
-      return;
-    }
-    if (data) {
-      totalPageRef.current = Math.ceil(data.totalUsers / LIMIT);
-    }
-  }, [data]);
 
   return (
     <div className="flex-grow">
