@@ -95,7 +95,7 @@ const UserTable = ({
   return (
     <div className="overflow-x-auto rounded-lg">
       <table className="bg-white">
-        <thead className="bg-gray-200 sticky top-0">
+        <thead className="bg-gray-200">
           <tr>
             {HEADER.map(({ key, name, sortable }) => (
               <th
@@ -138,44 +138,45 @@ const UserTable = ({
           </tr>
         </thead>
         <tbody>
-          {loading
-            ? new Array(20).fill("").map((_, i) => (
-                <tr
-                  className="h-[50px] text-sm border-b-2 border-b-gray-200 text-gray-800"
-                  key={i}
-                >
-                  <td className="w-[80px]">
-                    <Shimmer w={30} h={30} />
-                  </td>
-                  <td className="w-[140px]">
-                    <Shimmer w={100} h={9} />
-                  </td>
+          {loading ? (
+            new Array(20).fill("").map((_, i) => (
+              <tr
+                className="h-[50px] text-sm border-b-2 border-b-gray-200 text-gray-800"
+                key={i}
+              >
+                <td className="w-[80px]">
+                  <Shimmer w={30} h={30} />
+                </td>
+                <td className="w-[140px]">
+                  <Shimmer w={100} h={9} />
+                </td>
 
-                  <td className="w-[260px] min-w[260px] ">
-                    <Shimmer w={150} h={9} />
-                  </td>
-                  <td className="w-[200px] min-w-[200px]">
-                    <Shimmer w={130} h={9} />
-                  </td>
-                  <td className="w-[140px]">
-                    <Shimmer w={100} h={9} />
-                  </td>
-                  <td className="w-[140px]">
-                    <Shimmer w={100} h={9} />
-                  </td>
-                  <td className="w-[140px]">
-                    <Shimmer w={100} h={9} />
-                  </td>
-                  <td className="w-[160px]">
-                    <Shimmer w={100} h={9} />
-                  </td>
-                  <td className="w-[160px]">
-                    <Shimmer w={100} h={9} />
-                  </td>
-                </tr>
-              ))
-            : data
-            ? data.map((user) => {
+                <td className="w-[260px] min-w[260px] ">
+                  <Shimmer w={150} h={9} />
+                </td>
+                <td className="w-[200px] min-w-[200px]">
+                  <Shimmer w={130} h={9} />
+                </td>
+                <td className="w-[140px]">
+                  <Shimmer w={100} h={9} />
+                </td>
+                <td className="w-[140px]">
+                  <Shimmer w={100} h={9} />
+                </td>
+                <td className="w-[140px]">
+                  <Shimmer w={100} h={9} />
+                </td>
+                <td className="w-[160px]">
+                  <Shimmer w={100} h={9} />
+                </td>
+                <td className="w-[160px]">
+                  <Shimmer w={100} h={9} />
+                </td>
+              </tr>
+            ))
+          ) : data ? (
+            data.length ? (
+              data.map((user) => {
                 const index =
                   Number(user.registeredDate.slice(3, 5)) +
                   Number(user.lastLogin.slice(3, 5));
@@ -215,7 +216,14 @@ const UserTable = ({
                   </tr>
                 );
               })
-            : null}
+            ) : (
+              <tr className="h-[50px] text-sm border-b-2 border-b-gray-100 last-of-type:border-none text-gray-800">
+                <td colSpan={HEADER.length} className="text-center">
+                  No user found.
+                </td>
+              </tr>
+            )
+          ) : null}
         </tbody>
       </table>
     </div>
