@@ -20,19 +20,21 @@ export const getUsers = async ({
     paymentStatus: "All" | "Paid" | "Unpaid";
   };
 }) => {
-  //   console.log("params", limit, offset, sort, searchTerms);
   let query: any = {};
   const sortCondition: { [key: string]: 1 | -1 } = {};
 
   sortCondition[sort.item] = sort.order === "asc" ? 1 : -1;
 
   if (search.item && search.value) {
-    query = { [search.item]: { $regex: search.value, $options: "i" } };
+    query = {
+      $and: [{ [search.item]: { $regex: search.value, $options: "i" } }],
+    };
   }
 
   Object.entries(filter).forEach(([key, value]) => {
     if (value !== "All") {
-      query[key] = value;
+      query.$and = query.$and ?? [];
+      query.$and.push({ [key]: value });
     }
   });
 
