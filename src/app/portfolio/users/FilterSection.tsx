@@ -5,6 +5,8 @@ import { FormEvent, useState } from "react";
 import Select from "@/app/components/common/Select/Select";
 import TextField from "@/app/components/common/TextField/TextField";
 
+import { ListControlStateType } from "./page";
+
 const SELECT_OPTIONS = {
   search: [
     { displayName: "Name", apiField: "name" },
@@ -39,21 +41,15 @@ const FilterSection = ({
     search,
     filter,
   }: {
-    search: { item: string; value: string };
-    filter: {
-      membershipStatus: "All" | "Active" | "Inactive";
-      subscriptionPlan: "All" | "Free" | "Basic" | "Pro";
-      paymentStatus: "All" | "Paid" | "Unpaid";
-    };
+    search: ListControlStateType["search"];
+    filter: ListControlStateType["filter"];
   }) => void;
 }) => {
-  const [searchField, setSearchField] = useState<string>("");
+  const [searchField, setSearchField] = useState("");
   const [searchInput, setSearchInput] = useState("");
-  const [selectedFilteringItems, setSelectedFilteringItems] = useState<{
-    membershipStatus: "All" | "Active" | "Inactive";
-    subscriptionPlan: "All" | "Free" | "Basic" | "Pro";
-    paymentStatus: "All" | "Paid" | "Unpaid";
-  }>({
+  const [selectedFilteringItems, setSelectedFilteringItems] = useState<
+    ListControlStateType["filter"]
+  >({
     membershipStatus: "All",
     subscriptionPlan: "All",
     paymentStatus: "All",

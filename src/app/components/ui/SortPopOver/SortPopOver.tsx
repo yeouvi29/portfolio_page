@@ -2,6 +2,7 @@
 import { ReactNode, useState } from "react";
 import PopOver from "../../common/PopOver/PopOver";
 import { IoIosArrowRoundUp, IoIosArrowRoundDown } from "react-icons/io";
+
 interface SortPopOverProps {
   title: string;
   parent: ReactNode;
