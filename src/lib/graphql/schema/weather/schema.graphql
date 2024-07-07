@@ -1,0 +1,26 @@
+extend type Query {
+  weather: [Weather!]
+}
+
+type TempDetails {
+  c: String!
+  f: String!
+}
+
+type Temp {
+  avg: TempDetails!
+  max: TempDetails!
+  min: TempDetails!
+}
+
+type Condition {
+  text: String!
+  code: Int!
+  icon: String!
+}
+
+type Weather {
+  date: String!
+  temp: Temp!
+  condition: Condition!
+}

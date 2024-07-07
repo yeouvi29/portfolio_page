@@ -64,3 +64,9 @@ export const useGetUsers = ({
     { loading, error, data: { users: null, totalUsers: 0 } },
   ];
 };
+
+export const useGetWeather = () => {
+  const { loading, error, data } = useQuery(weatherQuery);
+
+  return { loading, error, data };
+};

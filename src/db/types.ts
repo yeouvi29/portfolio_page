@@ -8,3 +8,13 @@ export interface UserEntity {
   subscriptionPlan: string;
   paymentStatus: string;
 }
+
+export interface WeatherEntity {
+  date: string;
+  temp: {
+    avg: { c: string; f: string };
+    max: { c: string; f: string };
+    min: { c: string; f: string };
+  };
+  condition: { text: string; icon: string; code: number };
+}
