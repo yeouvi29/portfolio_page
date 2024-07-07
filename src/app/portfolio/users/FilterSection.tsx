@@ -60,9 +60,11 @@ const FilterSection = ({
 
     updateSearchTerms({
       search: {
-        item: SELECT_OPTIONS.search.filter(
-          (i) => i.displayName === searchField
-        )[0].apiField,
+        item: searchField
+          ? SELECT_OPTIONS.search.filter(
+              (i) => i.displayName === searchField
+            )[0].apiField
+          : "",
         value: searchInput,
       },
       filter: selectedFilteringItems,
@@ -103,6 +105,7 @@ const FilterSection = ({
                 <Select
                   label={item.displayName}
                   disabled={disabled}
+                  defaultValue="All"
                   className="w-full lg:w-[200px]"
                   items={item.options}
                   selectedItem={

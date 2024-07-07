@@ -85,7 +85,7 @@ const Select = ({
       handlePopOverVisibility={(show) => setIsOptionShow(show)}
     >
       <div className="w-full flex flex-col gap-y-0.5">
-        {["---", ...items].map((item) => (
+        {(defaultValue ? items : ["---", ...items]).map((item) => (
           <div
             key={item}
             className={clsx(
