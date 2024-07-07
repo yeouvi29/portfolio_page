@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "codegen": "concurrently \"graphql-codegen --config codegen.server.ts\" \"graphql-codegen --config codegen.client.ts\""
   },
   "dependencies": {
     "@apollo/client": "^3.10.0-rc.1",
@@ -27,10 +27,11 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
-    "@graphql-codegen/cli": "5.0.2",
-    "@graphql-codegen/client-preset": "4.3.0",
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/client-preset": "^4.3.0",
     "@graphql-codegen/typescript": "^4.0.7",
     "@graphql-codegen/typescript-resolvers": "^4.1.0",
+    "@graphql-tools/merge": "^9.0.4",
     "@parcel/watcher": "^2.4.1",
     "@types/node": "^20",
     "@types/react": "^18",
