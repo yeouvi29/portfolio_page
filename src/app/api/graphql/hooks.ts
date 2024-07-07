@@ -1,6 +1,6 @@
-import { ApolloError, useLazyQuery } from "@apollo/client";
+import { ApolloError, useLazyQuery, useQuery } from "@apollo/client";
 
-import { usersQuery } from "@/lib/graphql/queries";
+import { usersQuery, weatherQuery } from "@/lib/graphql/apolloClient/queries";
 import { UserEntity } from "@/db/types";
 import { formatDate } from "@/../utils";
 

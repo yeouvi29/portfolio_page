@@ -2,15 +2,14 @@ import type { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: "./src/lib/graphql/schema.graphql",
-  documents: "src/**/*.ts",
+  schema: "**/schema.graphql",
   generates: {
-    "src/generated/": {
-      preset: "client",
-      plugins: [],
+    "src/generated/server/schema.ts": {
+      plugins: ["typescript", "typescript-resolvers"],
       config: {
         mappers: {
-          User: "../db/types#UserEntity",
+          User: "@/db/types#UserEntity",
+          Weather: "@/db/types#WeatherEntity",
         },
         skipTypename: true,
       },

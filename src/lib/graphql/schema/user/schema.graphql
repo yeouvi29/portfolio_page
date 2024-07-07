@@ -1,7 +1,7 @@
-type Query {
+extend type Query {
   users(
-    pagination: Pagination
-    sort: Sort
+    pagination: Pagination!
+    sort: Sort!
     filter: Filter
     search: Search
   ): UserSubList
@@ -9,13 +9,13 @@ type Query {
 }
 
 input Pagination {
-  limit: Int
-  offset: Int
+  limit: Int!
+  offset: Int!
 }
 
 input Sort {
-  item: String
-  order: String
+  item: String!
+  order: String!
 }
 
 input Filter {
