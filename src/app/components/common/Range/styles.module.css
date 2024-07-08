@@ -1,0 +1,7 @@
+.rangeBarBackground {
+  background: linear-gradient(to right, #3498db, #f1c40f, #e74c3c);
+}
+
+.rangeBar {
+  transform-origin: left;
+}

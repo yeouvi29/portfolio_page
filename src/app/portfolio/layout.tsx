@@ -1,11 +1,14 @@
 import { ReactNode } from "react";
 import SideNavigation from "../components/sections/SideNavigation/SideNavigation";
+import { ApolloWrapper } from "../ApolloWrapper";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-row">
       <SideNavigation />
-      <div className="w-full md:w-[calc(100%-250px)] p-5">{children}</div>
+      <ApolloWrapper>
+        <div className="w-full md:w-[calc(100%-250px)] p-5">{children}</div>
+      </ApolloWrapper>
     </div>
   );
 };

@@ -6,7 +6,8 @@ export const getWeather = async () => {
   const weather = await db
     ?.collection("weather")
     .findOne({}, { sort: { "location.localtime": -1 } });
-  const weatherForecast = weather?.forecast?.day.map((day: any) => {
+
+  const weatherForecast = weather?.forecast?.forecastday.map((day: any) => {
     return {
       date: day.date,
       temp: {
