@@ -1,6 +1,5 @@
 "use client";
 
-import { useId } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { FaArrowDownLong, FaArrowUpLong } from "react-icons/fa6";
 
@@ -8,6 +7,7 @@ import { avatars } from "@/app/components/assets/avatars/avatars";
 import { UserEntity } from "@/db/types";
 import { ListControlStateType } from "./page";
 import SortPopOver from "@/app/components/ui/SortPopOver/SortPopOver";
+import Skeleton from "@/app/components/common/Skeleton/Skeleton";
 
 const HEADER = [
   { name: "Avatar", key: "avatar", sortable: false, width: "80px" },
@@ -40,39 +40,6 @@ const HEADER = [
     width: "140px",
   },
 ];
-
-const Shimmer = ({ w, h }: { w: number; h: number }) => {
-  const id = useId();
-  return (
-    <div className="w-fit mx-4 rounded-full overflow-hidden">
-      <svg
-        width={w}
-        height={h}
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
-      >
-        <defs>
-          <linearGradient id={"g" + id}>
-            <stop stopColor="#D1D5DB" offset="20%" />
-            <stop stopColor="#B7BCC5" offset="50%" />
-            <stop stopColor="#D1D5DB" offset="70%" />
-          </linearGradient>
-        </defs>
-        <rect width={w} height={h} fill="#D1D5DB" />
-        <rect id={"r" + id} width={w} height={h} fill={`url(#${"g" + id})`} />
-        <animate
-          xlinkHref={`#${"r" + id}`}
-          attributeName="x"
-          from={`-${w}`}
-          to={w}
-          dur="1s"
-          repeatCount="indefinite"
-        />
-      </svg>
-    </div>
-  );
-};
 
 const UserTable = ({
   loading,
@@ -145,32 +112,32 @@ const UserTable = ({
                 key={i}
               >
                 <td className="w-[80px]">
-                  <Shimmer w={30} h={30} />
+                  <Skeleton className="mx-4" width={30} height={30} />
                 </td>
                 <td className="w-[140px]">
-                  <Shimmer w={100} h={9} />
+                  <Skeleton className="mx-4" width={100} height={9} />
                 </td>
 
                 <td className="w-[260px] min-w[260px] ">
-                  <Shimmer w={150} h={9} />
+                  <Skeleton className="mx-4" width={150} height={9} />
                 </td>
                 <td className="w-[200px] min-w-[200px]">
-                  <Shimmer w={130} h={9} />
+                  <Skeleton className="mx-4" width={130} height={9} />
                 </td>
                 <td className="w-[140px]">
-                  <Shimmer w={100} h={9} />
+                  <Skeleton className="mx-4" width={100} height={9} />
                 </td>
                 <td className="w-[140px]">
-                  <Shimmer w={100} h={9} />
+                  <Skeleton className="mx-4" width={100} height={9} />
                 </td>
                 <td className="w-[140px]">
-                  <Shimmer w={100} h={9} />
+                  <Skeleton className="mx-4" width={100} height={9} />
                 </td>
                 <td className="w-[160px]">
-                  <Shimmer w={100} h={9} />
+                  <Skeleton className="mx-4" width={100} height={9} />
                 </td>
                 <td className="w-[160px]">
-                  <Shimmer w={100} h={9} />
+                  <Skeleton className="mx-4" width={100} height={9} />
                 </td>
               </tr>
             ))
