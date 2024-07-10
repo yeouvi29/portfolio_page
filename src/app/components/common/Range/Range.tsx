@@ -16,14 +16,24 @@ const Range = ({ animate, value, onChange, range, step }: RangeProps) => {
   const multiply = width / (range.max - range.min);
   const start = (value.min - range.min) * multiply;
   const rangeWidth = (value.max - value.min) * multiply;
-  console.log(multiply, range, value, start, rangeWidth);
+
   useEffect(() => {
-    if (parentRef.current) {
-      const rect = parentRef.current.getBoundingClientRect();
+    const parentEl = parentRef.current;
+    if (parentEl) {
+      const rect = parentEl.getBoundingClientRect();
       const width = rect.width;
       setWidth(width);
+
+      window.addEventListener("resize", () => {
+        const rect = parentEl.getBoundingClientRect();
+        const width = rect.width;
+        setWidth(width);
+      });
+
+      return () => window.removeEventListener("resize", () => {});
     }
   }, []);
+
   return (
     <div
       ref={parentRef}
