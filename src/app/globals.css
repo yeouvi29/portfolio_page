@@ -2,6 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    background: white;
+    font-size: 14px;
+    color: #090a0b;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    
+    @media (min-width: 640px) {
+      font-size: 16px;
+    }
+  }
+
+  h1 {
+    @apply text-5xl font-bold font-display;
+  }
+  h2 {
+    @apply text-4xl font-bold font-display;
+  }
+  h3 {
+    @apply text-3xl font-bold;
+  }
+  h4 {
+    @apply text-2xl font-bold;
+  }
+  h5 {
+    @apply text-xl font-bold;
+  }
+  h6 {
+    @apply text-lg font-bold;
+  }
+  p {
+    @apply text-[16px] leading-7;
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -16,6 +53,11 @@
   }
 }
 
+#app-root,
+#modal-root {
+  isolation: isolate;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -24,6 +66,10 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+body:has(.modal) {
+  overflow: clip;
 }
 
 @layer utilities {
