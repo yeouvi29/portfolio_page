@@ -1,14 +1,23 @@
 "use client";
 
-import { type ElementRef, useEffect, useRef, ReactNode, Fragment } from "react";
+import {
+  type ElementRef,
+  useEffect,
+  useRef,
+  ReactNode,
+  Fragment,
+  CSSProperties,
+} from "react";
 import { clsx } from "clsx";
 import { createPortal } from "react-dom";
 import { IoClose } from "react-icons/io5";
 
 import styles from "./styles.module.css";
+import ModalButton from "../../ui/ModalButton/ModalButton";
 
 const Modal = ({
   className,
+  fullScreen,
   header,
   children,
   onClose,
@@ -17,6 +26,7 @@ const Modal = ({
   closeOnBackdropClick = true,
 }: {
   className?: string;
+  fullScreen?: boolean;
   header?: ReactNode;
   children: ReactNode;
   onClose?: (e: any) => void;
@@ -25,6 +35,10 @@ const Modal = ({
   closeOnBackdropClick?: boolean;
 }) => {
   const dialogRef = useRef<ElementRef<"dialog">>(null);
+
+  const style: CSSProperties = fullScreen
+    ? { width: "100vw", maxWidth: "100vw", height: "100vh", maxHeight: "100vh" }
+    : {};
   const handleBackdropClick = (e: any) => {
     e.stopPropagation();
     if (closeOnBackdropClick && onClose) {
@@ -51,6 +65,7 @@ const Modal = ({
     <div className={styles.modalBackdrop} onClick={handleBackdropClick}>
       <dialog
         ref={dialogRef}
+        style={style}
         className={clsx(
           "modal",
           styles.modal,
@@ -62,14 +77,9 @@ const Modal = ({
         <div className="w-full h-16 flex justify-end p-3 items-center">
           {header && <div className="modalHeader flex-grow">{header}</div>}
           {hideCloseButton ? null : (
-            <button
-              onClick={handleDismiss}
-              className={clsx(
-                "w-12 h-12 min-w-12 bg-transparent rounded-full p-[14px] hover:bg-white/20 active:bg-t-brown-dark/40 flex justify-center items-center outline-none"
-              )}
-            >
+            <ModalButton onClick={handleDismiss}>
               <IoClose className="text-xl text-white" />
-            </button>
+            </ModalButton>
           )}
         </div>
         <div
