@@ -1,0 +1,132 @@
+import { motion, useScroll } from "framer-motion";
+import { useRef } from "react";
+
+const ATTRACTIONS = [
+  {
+    title: "Golden Gate Bridge",
+    image: "/assets/golden_gate_bridge.webp",
+    description:
+      "The Golden Gate Bridge is an iconic suspension bridge connecting San Francisco Bay and the Pacific Ocean. It offers stunning views and is a popular spot for tourists.",
+    rating: 4.8,
+    estimated_visit_duration: "1-2 hours",
+  },
+  {
+    title: "Alcatraz Island",
+    image: "/assets/alcatraz_island.webp",
+    description:
+      "Alcatraz Island, located in San Francisco Bay, is home to the infamous Alcatraz Federal Penitentiary. The island offers tours of the prison, beautiful views of the bay, and historical insights.",
+    rating: 4.7,
+    estimated_visit_duration: "2-3 hours",
+  },
+  {
+    title: "Fisherman's Wharf",
+    image: "/assets/fishermans_wharf.webp",
+    description:
+      "Fisherman's Wharf is a bustling waterfront area in San Francisco known for its seafood, souvenir shops, and attractions like Pier 39, sea lions, and maritime museums.",
+    rating: 4.5,
+    estimated_visit_duration: "2-4 hours",
+  },
+  {
+    title: "Golden Gate Park",
+    image: "/assets/golden_gate_park.webp",
+    description:
+      "Golden Gate Park is a large urban park in San Francisco, featuring gardens, museums, and recreational areas. It is perfect for a relaxing day out with numerous attractions like the Japanese Tea Garden and the California Academy of Sciences.",
+    rating: 4.6,
+    estimated_visit_duration: "3-5 hours",
+  },
+  {
+    title: "Chinatown",
+    image: "/assets/chinatown.webp",
+    description:
+      "San Francisco's Chinatown is the largest Chinatown outside of Asia and the oldest in North America. It is a vibrant neighborhood with shops, restaurants, and cultural landmarks.",
+    rating: 4.4,
+    estimated_visit_duration: "1-2 hours",
+  },
+  {
+    title: "Lombard Street",
+    image: "/assets/lombard_street.webp",
+    description:
+      "Lombard Street is famous for its steep, one-block section with eight hairpin turns. It is known as the 'crookedest street in the world' and offers a unique driving or walking experience.",
+    rating: 4.3,
+    estimated_visit_duration: "30 minutes - 1 hour",
+  },
+  {
+    title: "Union Square",
+    image: "/assets/union_square.webp",
+    description:
+      "Union Square is a major commercial and cultural hub in San Francisco, featuring high-end shops, hotels, theaters, and art galleries. It is a great place for shopping and people-watching.",
+    rating: 4.2,
+    estimated_visit_duration: "1-2 hours",
+  },
+  {
+    title: "Coit Tower",
+    image: "/assets/coit_tower.webp",
+    description:
+      "Coit Tower is an Art Deco tower in the Telegraph Hill neighborhood offering panoramic views of the city and the bay. It also features murals depicting California life in the 1930s.",
+    rating: 4.5,
+    estimated_visit_duration: "1-1.5 hours",
+  },
+  {
+    title: "Palace of Fine Arts",
+    image: "/assets/palace_of_fine_arts.webp",
+    description:
+      "The Palace of Fine Arts is a monumental structure originally constructed for the 1915 Panama-Pacific Exposition. It is a beautiful place for photography and relaxing by the lagoon.",
+    rating: 4.6,
+    estimated_visit_duration: "1-2 hours",
+  },
+  {
+    title: "Exploratorium",
+    image: "/assets/exploratorium.webp",
+    description:
+      "The Exploratorium is a hands-on science museum in San Francisco, offering interactive exhibits and activities for visitors of all ages. It is an educational and fun experience.",
+    rating: 4.7,
+    estimated_visit_duration: "2-3 hours",
+  },
+];
+
+const AttractionsSection = () => {
+  const ref = useRef(null);
+  const { scrollXProgress } = useScroll({ container: ref });
+  <div>
+    <svg id="progress" width="100" height="100" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="30" pathLength="1" className="bg" />
+      <motion.circle
+        cx="50"
+        cy="50"
+        r="30"
+        pathLength="1"
+        className="indicator"
+        style={{ pathLength: scrollXProgress }}
+      />
+    </svg>
+    <ul ref={ref}>
+      {ATTRACTIONS.map((attraction, index) => (
+        <li key={index}>
+          <div>
+            <img src={attraction.image} alt={attraction.title} />
+            <div>
+              <h3>{attraction.title}</h3>
+              <p>{attraction.description}</p>
+              <p>Rating: {attraction.rating}</p>
+              <p>
+                Estimated Visit Duration: {attraction.estimated_visit_duration}
+              </p>
+            </div>
+          </div>
+        </li>
+      ))}
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>;
+};
+export default AttractionsSection;

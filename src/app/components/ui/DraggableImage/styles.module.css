@@ -1,0 +1,32 @@
+.dragArea {
+  opacity: 0.2;
+  background: white;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.dragImage {
+  --scale: 1;
+  --background-url: "";
+  background-image: var(--background-url);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: calc(100% * var(--scale));
+  aspect-ratio: 1/1;
+  position: absolute;
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+@media (max-width: 640px) {
+  .dragImage {
+    width: auto;
+    height: calc((100vh - 64px) * var(--scale));
+  }
+}
