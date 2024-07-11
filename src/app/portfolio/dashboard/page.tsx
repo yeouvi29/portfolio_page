@@ -5,6 +5,9 @@ import BartSection from "./BartSection";
 import WeatherSection from "./WeatherSection";
 
 const DynamicGraph = dynamic(() => import("./GraphSection"), { ssr: false });
+const DynamicAttraction = dynamic(() => import("./AttractionSection"), {
+  ssr: false,
+});
 const Page = () => {
   return (
     <div>
@@ -18,6 +21,7 @@ const Page = () => {
 
       <BartSection />
       <DynamicGraph />
+      <DynamicAttraction />
     </div>
   );
 };
