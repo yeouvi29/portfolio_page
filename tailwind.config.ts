@@ -24,6 +24,27 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        "sf-red": "#C0362C",
+        "sf-blue": "#1D6D9B",
+        "sf-gray": "#A3A3A3",
+        "sf-orange": "#FF5A36",
+        "sf-green": "#4CAF50",
+      },
+      backgroundColor: {
+        "sf-bg-red": "#C0362C",
+        "sf-blue": "#1D6D9B",
+        "sf-gray": "#A3A3A3",
+        "sf-orange": "#FF5A36",
+        "sf-green": "#4CAF50",
+      },
+      textColor: {
+        "sf-red": "#C0362C",
+        "sf-blue": "#1D6D9B",
+        "sf-gray": "#A3A3A3",
+        "sf-orange": "#FF5A36",
+        "sf-green": "#4CAF50",
+      },
     },
   },
   plugins: [],
