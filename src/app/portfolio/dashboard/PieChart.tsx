@@ -1,14 +1,15 @@
 import { ArcElement, Tooltip, Legend, Chart, Title } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import { SF_VISITOR_STAY_PERCENTAGE } from "@/mockData";
 
 Chart.register(ArcElement, Tooltip, Title, Legend, ChartDataLabels);
+
 const data = {
-  labels: ["Hotel", "Airbnb", "Hostel", "Friends/Family", "Other"],
+  labels: SF_VISITOR_STAY_PERCENTAGE.labels,
   datasets: [
     {
-      labels: "Accommodation",
-      data: [45, 30, 10, 10, 5],
+      data: SF_VISITOR_STAY_PERCENTAGE.data,
       backgroundColor: ["#FF9999", "#66B3FF", "#99FF99", "#FFCC99", "#C2C2F0"],
     },
   ],
@@ -16,6 +17,7 @@ const data = {
 
 const options = {
   plugins: {
+    title: { display: true, text: "Accommodation" },
     datalabels: {
       formatter: (value: any, context: any) => {
         const dataset = context.chart.data.datasets[0];

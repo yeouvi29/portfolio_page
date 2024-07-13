@@ -1,138 +1,113 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { Navigation, Pagination, Keyboard, Mousewheel } from "swiper/modules";
+import clsx from "clsx";
+import { RiArrowLeftWideLine, RiArrowRightWideLine } from "react-icons/ri";
 
-import {
-  Navigation,
-  Pagination,
-  Scrollbar,
-  Keyboard,
-  Mousewheel,
-} from "swiper/modules";
-
+import { SF_ATTRACTIONS } from "@/mockData";
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 
-const ATTRACTIONS = [
-  {
-    title: "Golden Gate Bridge",
-    image: "/assets/attractions/golden_gate_bridge.webp",
-    description:
-      "The Golden Gate Bridge is an iconic suspension bridge connecting San Francisco Bay and the Pacific Ocean. It offers stunning views and is a popular spot for tourists.",
-    rating: 4.8,
-    estimated_visit_duration: "1-2 hours",
-  },
-  {
-    title: "Alcatraz Island",
-    image: "/assets/attractions/alcatraz_island.webp",
-    description:
-      "Alcatraz Island, located in San Francisco Bay, is home to the infamous Alcatraz Federal Penitentiary. The island offers tours of the prison, beautiful views of the bay, and historical insights.",
-    rating: 4.7,
-    estimated_visit_duration: "2-3 hours",
-  },
-  {
-    title: "Fisherman's Wharf",
-    image: "/assets/attractions/fishermans_wharf.webp",
-    description:
-      "Fisherman's Wharf is a bustling waterfront area in San Francisco known for its seafood, souvenir shops, and attractions like Pier 39, sea lions, and maritime museums.",
-    rating: 4.5,
-    estimated_visit_duration: "2-4 hours",
-  },
-  {
-    title: "Golden Gate Park",
-    image: "/assets/attractions/golden_gate_park.webp",
-    description:
-      "Golden Gate Park is a large urban park in San Francisco, featuring gardens, museums, and recreational areas. It is perfect for a relaxing day out with numerous attractions like the Japanese Tea Garden and the California Academy of Sciences.",
-    rating: 4.6,
-    estimated_visit_duration: "3-5 hours",
-  },
-  {
-    title: "Chinatown",
-    image: "/assets/attractions/chinatown.webp",
-    description:
-      "San Francisco's Chinatown is the largest Chinatown outside of Asia and the oldest in North America. It is a vibrant neighborhood with shops, restaurants, and cultural landmarks.",
-    rating: 4.4,
-    estimated_visit_duration: "1-2 hours",
-  },
-  {
-    title: "Lombard Street",
-    image: "/assets/attractions/lombard_street.webp",
-    description:
-      "Lombard Street is famous for its steep, one-block section with eight hairpin turns. It is known as the 'crookedest street in the world' and offers a unique driving or walking experience.",
-    rating: 4.3,
-    estimated_visit_duration: "30 minutes - 1 hour",
-  },
-  {
-    title: "Union Square",
-    image: "/assets/attractions/union_square.webp",
-    description:
-      "Union Square is a major commercial and cultural hub in San Francisco, featuring high-end shops, hotels, theaters, and art galleries. It is a great place for shopping and people-watching.",
-    rating: 4.2,
-    estimated_visit_duration: "1-2 hours",
-  },
-  {
-    title: "Coit Tower",
-    image: "/assets/attractions/coit_tower.webp",
-    description:
-      "Coit Tower is an Art Deco tower in the Telegraph Hill neighborhood offering panoramic views of the city and the bay. It also features murals depicting California life in the 1930s.",
-    rating: 4.5,
-    estimated_visit_duration: "1-1.5 hours",
-  },
-  {
-    title: "Palace of Fine Arts",
-    image: "/assets/attractions/palace_of_fine_arts.webp",
-    description:
-      "The Palace of Fine Arts is a monumental structure originally constructed for the 1915 Panama-Pacific Exposition. It is a beautiful place for photography and relaxing by the lagoon.",
-    rating: 4.6,
-    estimated_visit_duration: "1-2 hours",
-  },
-  {
-    title: "Exploratorium",
-    image: "/assets/attractions/exploratorium.webp",
-    description:
-      "The Exploratorium is a hands-on science museum in San Francisco, offering interactive exhibits and activities for visitors of all ages. It is an educational and fun experience.",
-    rating: 4.7,
-    estimated_visit_duration: "2-3 hours",
-  },
-];
-
-const AttractionSection = () => {
-  const ref = useRef<any>(null);
-
+const SwiperButton = ({ prev = true }: { prev?: boolean }) => {
+  const swiper = useSwiper();
   return (
-    <div className="bg-blue-500">
-      <Swiper
-        ref={ref}
-        modules={[Pagination, Mousewheel, Navigation, Scrollbar, Keyboard]}
-        onSwiper={(swiper) => ((window as any).swiper = swiper)}
-        slidesPerView={3.3}
-        keyboard={{ enabled: true }}
-        navigation={true}
-        threshold={2}
-        spaceBetween={10}
-        scrollbar
-        mousewheel={{
-          forceToAxis: true,
-          sensitivity: 0.1,
-          releaseOnEdges: true,
-        }}
-        pagination={{ clickable: true }}
-      >
-        {ATTRACTIONS.map((attraction, index) => (
-          <SwiperSlide key={index}>
-            <img src={attraction.image} alt={attraction.title} />
-            <div>
-              <h3>{attraction.title}</h3>
-              <p>{attraction.description}</p>
-              <p>Rating: {attraction.rating}</p>
-              <p>
-                Estimated Visit Duration: {attraction.estimated_visit_duration}
-              </p>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <button
+      className={clsx(
+        prev ? "swiper-button-prev" : "swiper-button-next",
+
+        " w-[80px] h-[160px] !text-sf-red text-3xl active:animate-ping"
+      )}
+      disabled={prev ? swiper?.isBeginning : swiper?.isEnd}
+      onClick={() => {
+        if (prev) {
+          swiper?.slidePrev();
+        } else {
+          swiper?.slideNext();
+        }
+      }}
+    >
+      {prev ? <RiArrowLeftWideLine /> : <RiArrowRightWideLine />}
+    </button>
+  );
+};
+const AttractionSection = () => {
+  return (
+    <div>
+      <div className="grid grid-cols-2 gap-5">
+        <iframe
+          src="https://www.google.com/maps/d/embed?mid=1WEZd9p0je6_1A1aFcMoh57cZn3-zZpI&ehbc=2E312F"
+          width="100%"
+          height="380"
+        ></iframe>
+        <div>
+          <h3>Attractions</h3>
+
+          <p>
+            San Francisco, renowned for its iconic landmarks and vibrant
+            culture, offers a plethora of attractions for visitors. From the
+            majestic Golden Gate Bridge to the historic Alcatraz Island, the
+            city boasts a rich tapestry of experiences. Whether you're exploring
+            bustling Fisherman's Wharf, riding the legendary cable cars, or
+            admiring the scenic views from Twin Peaks, San Francisco promises
+            unforgettable adventures at every turn. Discover the top 10 must-see
+            attractions that make this city a beloved destination for travelers
+            from around the world.
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-5">
+        <Swiper
+          initialSlide={0}
+          modules={[Pagination, Mousewheel, Navigation, Keyboard]}
+          onSwiper={(swiper) => ((window as any).swiper = swiper)}
+          slidesPerView={3.3}
+          keyboard={{ enabled: true }}
+          threshold={2}
+          spaceBetween={20}
+          navigation={{
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          }}
+          mousewheel={{
+            forceToAxis: true,
+            sensitivity: 0.1,
+            releaseOnEdges: true,
+          }}
+          pagination={{ clickable: true }}
+        >
+          {SF_ATTRACTIONS.map((attraction, index, arr) => (
+            <SwiperSlide key={index}>
+              <div
+                className={clsx(
+                  "bg-sf-gray/20 p-2 rounded-md mb-10",
+                  index === 0 && "ml-[40px]",
+                  index === arr.length - 1 && "mr-[40px]"
+                )}
+              >
+                <img
+                  className="rounded-md"
+                  src={attraction.image}
+                  alt={attraction.title}
+                />
+                <div>
+                  <h3>{attraction.title}</h3>
+                  <p>{attraction.description}</p>
+                  <p>Rating: {attraction.rating}</p>
+                  <p>
+                    Estimated Visit Duration:{" "}
+                    {attraction.estimated_visit_duration}
+                  </p>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+          <SwiperButton prev />
+          <SwiperButton prev={false} />
+        </Swiper>
+      </div>
     </div>
   );
 };

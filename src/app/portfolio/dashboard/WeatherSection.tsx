@@ -35,7 +35,7 @@ const WeatherSection = () => {
   // 원하는 포맷으로 변환합니다.
 
   return (
-    <div className="w-[calc(100vw-40px)] sm:w-auto p-5 bg-white rounded-2xl flex flex-col flex-grow max-w-[420px]">
+    <div className="w-[calc(100vw-40px)] min-w-max sm:w-auto p-5 bg-white rounded-2xl flex flex-col flex-grow max-w-[420px]">
       <h3 className="text-xl">3-Day Weather</h3>
       <div className="self-end">
         <Switch
