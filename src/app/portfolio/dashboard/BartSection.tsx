@@ -9,16 +9,16 @@ const BartSection = () => {
   const [showModal, setShowModal] = useState(false);
   return (
     <div>
-      <div className="flex">
-        <div>
-          <h3>Bart Map</h3>
+      <div className="flex flex-col xl:flex-row items-center">
+        <div className="mr-2">
+          <h2 className="text-3xl text-sf-blue">Bart Map</h2>
           <p>
             Navigate the city effortlessly with our detailed Bay Area Rapid
             Transit (BART) map, ensuring you reach your destinations with ease.
           </p>
         </div>
         <motion.div
-          className="min-w-[276px] aspect-square rounded-2xl flex justify-center bg-[url('/assets/bart_map.png')] bg-cover bg-blend-overlay bg-center cursor-pointer"
+          className="w-[276px] xl:min-w-[276px] aspect-square rounded-2xl flex justify-center bg-[url('/assets/bart_map.png')] bg-cover bg-blend-overlay bg-center cursor-pointer"
           initial={{
             backgroundSize: "100%",
             backgroundColor: "rgb(107 114 128/ 0.5)",

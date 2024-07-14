@@ -8,7 +8,7 @@ const PieChart = dynamic(() => import("./PieChart"), {
 const ChartSection = () => {
   return (
     <div>
-      <h3>Tourism Data</h3>
+      <h2 className="text-3xl text-sf-blue">Tourism Data</h2>
       <div className="grid grid-cols-[60%_40%]">
         <div>
           <BarChart />

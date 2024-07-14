@@ -1,5 +1,6 @@
 "use client";
 
+import { CSSProperties, TouchEvent } from "react";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Navigation, Pagination, Keyboard, Mousewheel } from "swiper/modules";
 import clsx from "clsx";
@@ -35,16 +36,15 @@ const SwiperButton = ({ prev = true }: { prev?: boolean }) => {
 const AttractionSection = () => {
   return (
     <div>
-      <div className="grid grid-cols-2 gap-5">
+      <div className="flex flex-col-reverse items-center xl:grid xl:grid-cols-2 gap-5">
         <iframe
           src="https://www.google.com/maps/d/embed?mid=1WEZd9p0je6_1A1aFcMoh57cZn3-zZpI&ehbc=2E312F"
           width="100%"
           height="380"
         ></iframe>
         <div>
-          <h3>Attractions</h3>
-
-          <p>
+          <h2 className="text-3xl text-sf-blue">Attractions</h2>
+          <p className="mt-2">
             San Francisco, renowned for its iconic landmarks and vibrant
             culture, offers a plethora of attractions for visitors. From the
             majestic Golden Gate Bridge to the historic Alcatraz Island, the
@@ -63,7 +63,18 @@ const AttractionSection = () => {
           initialSlide={0}
           modules={[Pagination, Mousewheel, Navigation, Keyboard]}
           onSwiper={(swiper) => ((window as any).swiper = swiper)}
-          slidesPerView={3.3}
+          slidesPerView={1}
+          breakpoints={{
+            640: {
+              slidesPerView: 1.5,
+            },
+            1024: {
+              slidesPerView: 2.3,
+            },
+            1280: {
+              slidesPerView: 3.3,
+            },
+          }}
           keyboard={{ enabled: true }}
           threshold={2}
           spaceBetween={20}
@@ -76,17 +87,14 @@ const AttractionSection = () => {
             sensitivity: 0.1,
             releaseOnEdges: true,
           }}
+          onScroll={(e) => {
+            (e as any).preventDefault();
+          }}
           pagination={{ clickable: true }}
         >
           {SF_ATTRACTIONS.map((attraction, index, arr) => (
             <SwiperSlide key={index}>
-              <div
-                className={clsx(
-                  "bg-sf-gray/20 p-2 rounded-md mb-10",
-                  index === 0 && "ml-[40px]",
-                  index === arr.length - 1 && "mr-[40px]"
-                )}
-              >
+              <div className={clsx("bg-sf-gray/20 p-2 rounded-md mb-10")}>
                 <img
                   className="rounded-md"
                   src={attraction.image}
@@ -94,12 +102,21 @@ const AttractionSection = () => {
                 />
                 <div>
                   <h3>{attraction.title}</h3>
-                  <p>{attraction.description}</p>
+                  <div>
+                    <p
+                      className="text-ellipsis overflow-hidden line-clamp-3"
+                      style={
+                        {
+                          display: "-webkit-box",
+                          "-webkit-box-orient": "vertical",
+                        } as CSSProperties
+                      }
+                    >
+                      {attraction.description}
+                    </p>
+                  </div>
                   <p>Rating: {attraction.rating}</p>
-                  <p>
-                    Estimated Visit Duration:{" "}
-                    {attraction.estimated_visit_duration}
-                  </p>
+                  <p>Est. Duration: {attraction.estimated_visit_duration}</p>
                 </div>
               </div>
             </SwiperSlide>

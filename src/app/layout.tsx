@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { lato } from "@/styles/fonts";
 
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import clsx from "clsx";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -34,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={clsx(lato.className, "bg-white")}>
         {children}
         <div id="modal-root" />
       </body>
