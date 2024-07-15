@@ -41,7 +41,7 @@ const TextField = ({
       >
         {icon ? icon : <LuSearch className="w-5 min-w-5 text-gray-300" />}
         <input
-          className="py-2 pr-2 min-w-full flex-grow outline-none bg-transparent"
+          className="h-[44px] py-2 pr-2 min-w-full flex-grow outline-none bg-transparent"
           type="text"
           disabled={disabled}
           placeholder={placeholder}
