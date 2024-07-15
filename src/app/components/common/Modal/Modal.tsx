@@ -69,7 +69,7 @@ const Modal = ({
         className={clsx(
           "modal",
           styles.modal,
-          "relative z-[1000] min-w-[100vw] min-h-[100%] md:min-w-[80%] md:min-h-[auto] md:max-h-[80vh] border-none bg-[rgba(207,195,184,0.8)] flex flex-col",
+          "rounded-none md:rounded-md relative z-[1000] min-w-[100vw] min-h-[100%] md:min-w-[80%] md:min-h-[auto] md:max-h-[80vh] border-none bg-[rgba(207,195,184,0.8)] flex flex-col",
           className
         )}
         onClose={handleDismiss}
@@ -87,7 +87,7 @@ const Modal = ({
             e.stopPropagation();
           }}
           className={
-            "flex-grow w-full  sm:h-[calc(70svh-64px)] bg-[rgba(207,195,184,0.8)] overflow-hidden max-h-[calc(100svh-64px)] flex flex-col"
+            "modalContent flex-grow w-full  sm:h-[calc(70svh-64px)] bg-[rgba(207,195,184,0.8)] overflow-hidden max-h-[calc(100svh-64px)] flex flex-col"
           }
         >
           {children}
