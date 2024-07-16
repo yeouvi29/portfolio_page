@@ -1,13 +1,16 @@
 "use client";
-import clsx from "clsx";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { use, useEffect, useState } from "react";
-import { FaUser } from "react-icons/fa";
-import { FaChartSimple } from "react-icons/fa6";
 
+import Link from "next/link";
+import clsx from "clsx";
+import { usePathname } from "next/navigation";
+import { FaUser } from "react-icons/fa";
+import { MdSpaceDashboard } from "react-icons/md";
 const SIDE_MENU = [
-  { name: "Dashboard", icon: <FaChartSimple />, path: "/portfolio/dashboard" },
+  {
+    name: "SF Dashboard",
+    icon: <MdSpaceDashboard />,
+    path: "/portfolio/dashboard",
+  },
   { name: "Users", icon: <FaUser />, path: "/portfolio/users" },
 ];
 const SideNavigation = () => {

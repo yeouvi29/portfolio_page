@@ -7,6 +7,7 @@ import { Container } from "@/app/components/common/Container/Container";
 import BartSection from "./BartSection";
 import WeatherSection from "./WeatherSection";
 import ChartSection from "./ChartSection";
+import Spinner from "@/app/components/common/Spinner/Spinner";
 const AttractionSection = dynamic(() => import("./AttractionSection"));
 
 const Page = () => {
@@ -29,10 +30,22 @@ const Page = () => {
             <WeatherSection />
           </div>
         </div>
-        <Suspense fallback={<p>loading...</p>}>
+        <Suspense
+          fallback={
+            <div className="w-full h-full flex justify-center items-center">
+              <Spinner className="text-sf-orange" />
+            </div>
+          }
+        >
           <ChartSection />
         </Suspense>
-        <Suspense fallback={<p>loading...</p>}>
+        <Suspense
+          fallback={
+            <div className="w-full h-full flex justify-center items-center">
+              <Spinner className="text-sf-orange" />
+            </div>
+          }
+        >
           <AttractionSection />
         </Suspense>
       </div>
