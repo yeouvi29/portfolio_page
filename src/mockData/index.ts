@@ -9,7 +9,13 @@ export const SF_VISITOR_STAY_PERCENTAGE = {
   labels: ["Hotel", "Airbnb", "Hostel", "Friends/Family", "Other"],
   data: [45, 30, 10, 10, 5],
 };
-
+export interface AttractionDataType {
+  title: string;
+  image: string;
+  description: string;
+  rating: number;
+  estimated_visit_duration: string;
+}
 export const SF_ATTRACTIONS = [
   {
     title: "Golden Gate Bridge",

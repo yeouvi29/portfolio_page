@@ -12,6 +12,7 @@ import {
   Title,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 const data = {
   labels: SF_VISITOR_VOLUME.map((v) => v.year),
@@ -34,26 +35,6 @@ const data = {
   ],
 };
 
-const options = {
-  plugins: {
-    title: { display: true, text: "Visitor Volume" },
-    datalabels: {
-      formatter: (value: any) => {
-        return value + "M";
-      },
-    },
-    tooltip: {
-      callbacks: {
-        label: (context: any) => {
-          return context.dataset.label + ": " + context.raw + "M";
-        },
-      },
-    },
-  },
-  responsive: true,
-  scales: { y: { stacked: true }, x: { stacked: true } },
-};
-
 Chart.register(
   CategoryScale,
   LinearScale,
@@ -65,6 +46,27 @@ Chart.register(
 );
 
 const BarChart = () => {
+  const { isUpOrEqual } = useBreakpoint();
+
+  const options = {
+    plugins: {
+      title: { display: true, text: "Visitor Volume" },
+      datalabels: {
+        formatter: (value: any) => {
+          return isUpOrEqual("xl") ? value + "M" : "";
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: (context: any) => {
+            return context.dataset.label + ": " + context.raw + "M";
+          },
+        },
+      },
+    },
+    responsive: true,
+    scales: { y: { stacked: true }, x: { stacked: true } },
+  };
   return <Bar data={data} options={options} />;
 };
 

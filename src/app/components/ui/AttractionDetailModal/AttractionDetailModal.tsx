@@ -15,9 +15,9 @@ const AttractionDetailModal = ({
       onClose={onClose}
       className="!min-w-fit [&>.modalContent]:h-fit [&>.modalContent]:p-4 [&>.modalContent]:bg-[rgba(207,195,184,1)]"
     >
-      <div className="grid grid-cols-[300px,400px] gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-[300px,400px] gap-4">
         <img
-          className=" h-[300px] aspect-square rounded-md"
+          className="h-auto md:h-[300px] aspect-square rounded-md"
           src={attraction.image}
           alt={attraction.title}
         />

@@ -9,11 +9,11 @@ const ChartSection = () => {
   return (
     <div>
       <h2 className="text-3xl text-sf-blue">Tourism Data</h2>
-      <div className="grid grid-cols-[60%_40%]">
-        <div>
+      <div className="xl:grid xl:grid-cols-[60%_40%]">
+        <div className="w-full flex items-center justify-center">
           <BarChart />
         </div>
-        <div className="h-[500px]">
+        <div className="w-full h-[300px] xl:h-[500px] flex items-center justify-center">
           <PieChart />
         </div>
       </div>
