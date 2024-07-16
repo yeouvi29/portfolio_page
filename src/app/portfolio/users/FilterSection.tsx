@@ -73,7 +73,7 @@ const FilterSection = ({
 
   return (
     <form className="py-5" onSubmit={handleSubmit}>
-      <h3>Search User</h3>
+      <h3 className="text-2xl">Search User</h3>
       <div className="flex mt-2 gap-1">
         <Select
           disabled={disabled}
@@ -96,7 +96,7 @@ const FilterSection = ({
         />
       </div>
       <div className="mt-4">
-        <h3>Filter By</h3>
+        <h3 className="text-2xl">Filter By</h3>
         <div className="flex flex-col lg:flex-row mt-2 gap-2 lg:gap-1">
           {SELECT_OPTIONS.filter.map((item, i) => {
             return (

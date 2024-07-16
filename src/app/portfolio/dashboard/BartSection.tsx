@@ -9,7 +9,7 @@ const BartSection = () => {
   const [showModal, setShowModal] = useState(false);
   return (
     <div>
-      <div className="flex flex-col xl:flex-row items-center">
+      <div className="flex flex-col items-center xl:flex-row xl:items-start">
         <div className="mr-2">
           <h2 className="text-3xl text-sf-blue">Bart Map</h2>
           <p>

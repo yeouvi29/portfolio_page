@@ -18,12 +18,12 @@ const SwiperButton = ({ prev = true }: { prev?: boolean }) => {
     <button
       className={clsx(
         prev ? "swiper-button-prev" : "swiper-button-next",
-
-        " w-[80px] h-[160px] cursor-pointer !text-sf-red text-3xl bg-white/30 hover:bg-white/60 active:animate-ping"
+        "w-[80px] h-[160px] cursor-pointer !text-sf-orange text-3xl bg-white/30 hover:bg-white/60 active:animate-ping"
       )}
       disabled={prev ? swiper?.isBeginning : swiper?.isEnd}
-      onClick={() => {
+      onClick={(e) => {
         if (prev) {
+          e.stopPropagation();
           swiper?.slidePrev();
         } else {
           swiper?.slideNext();
@@ -41,7 +41,7 @@ const AttractionSection = () => {
   return (
     <Fragment>
       <div>
-        <div className="flex flex-col-reverse items-center xl:grid xl:grid-cols-2 gap-5">
+        <div className="flex flex-col-reverse items-center xl:grid xl:grid-cols-2 gap-5 xl:items-start">
           <iframe
             src="https://www.google.com/maps/d/embed?mid=1WEZd9p0je6_1A1aFcMoh57cZn3-zZpI&ehbc=2E312F"
             width="100%"
@@ -101,14 +101,14 @@ const AttractionSection = () => {
                   setSelectedAttraction(attraction);
                 }}
               >
-                <div className={clsx("bg-sf-gray/20 p-2 rounded-md mb-10")}>
+                <div className={clsx("bg-gray-300/20 p-2 rounded-md mb-10")}>
                   <img
                     className="rounded-md"
                     src={attraction.image}
                     alt={attraction.title}
                   />
                   <div>
-                    <h3 className="text-gray-600">{attraction.title}</h3>
+                    <h3 className="text-sf-orange">{attraction.title}</h3>
                     <div>
                       <p
                         className="text-gray-500 text-ellipsis overflow-hidden line-clamp-3"

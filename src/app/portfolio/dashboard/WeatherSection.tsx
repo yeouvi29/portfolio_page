@@ -36,7 +36,7 @@ const WeatherSection = () => {
 
   return (
     <div>
-      <h2 className="text-xl text-sf-green">3-Day Weather</h2>
+      <h2 className="text-xl text-sf-blue">3-Day Weather</h2>
       <div className="w-[calc(100vw-40px)] min-w-max sm:w-auto p-5 bg-white rounded-2xl flex flex-col flex-grow max-w-[420px] border-solid border-2 border-sf-gray">
         <div className="self-end">
           <Switch

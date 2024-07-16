@@ -12,7 +12,7 @@ const AttractionSection = dynamic(() => import("./AttractionSection"));
 const Page = () => {
   return (
     <Container>
-      <div className="flex flex-col gap-5 text-sf-gray text-center xl:text-left">
+      <div className="flex flex-col gap-5 text-gray-500 text-center xl:text-left">
         <h1 className="text-sf-orange">SF Dashboard</h1>
         <p className="text-lg">
           Discover everything you need to explore and enjoy the vibrant city of
