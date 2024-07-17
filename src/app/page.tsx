@@ -1,6 +1,3 @@
-import { gql } from "@apollo/client";
-import { getClient } from "@/lib/graphql/apolloClient/apollo-client";
-import { usersQuery } from "@/lib/graphql/apolloClient/queries";
 import Link from "next/link";
 
 const Home = async () => {
