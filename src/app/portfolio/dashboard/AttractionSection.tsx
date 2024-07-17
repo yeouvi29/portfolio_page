@@ -7,10 +7,13 @@ import clsx from "clsx";
 import { RiArrowLeftWideLine, RiArrowRightWideLine } from "react-icons/ri";
 
 import { AttractionDataType, SF_ATTRACTIONS } from "@/mockData";
+import AttractionDetailModal from "@/app/components/ui/AttractionDetailModal/AttractionDetailModal";
+
+const Map = dynamic(() => import("./Map"), { ssr: false });
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import AttractionDetailModal from "@/app/components/ui/AttractionDetailModal/AttractionDetailModal";
+import dynamic from "next/dynamic";
 
 const SwiperButton = ({ prev = true }: { prev?: boolean }) => {
   const swiper = useSwiper();
@@ -40,6 +43,7 @@ const AttractionSection = () => {
 
   return (
     <Fragment>
+      <Map />
       <div>
         <div className="flex flex-col-reverse items-center xl:grid xl:grid-cols-2 gap-5 xl:items-start">
           <iframe
