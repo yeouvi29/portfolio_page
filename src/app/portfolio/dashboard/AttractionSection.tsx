@@ -40,17 +40,12 @@ const SwiperButton = ({ prev = true }: { prev?: boolean }) => {
 const AttractionSection = () => {
   const [selectedAttraction, setSelectedAttraction] =
     useState<AttractionDataType | null>(null);
-
+  const [activeSlide, setActiveSlide] = useState(0);
   return (
     <Fragment>
-      <Map />
       <div>
         <div className="flex flex-col-reverse items-center xl:grid xl:grid-cols-2 gap-5 xl:items-start">
-          <iframe
-            src="https://www.google.com/maps/d/embed?mid=1WEZd9p0je6_1A1aFcMoh57cZn3-zZpI&ehbc=2E312F"
-            width="100%"
-            height="380"
-          ></iframe>
+          <Map selectedAttraction={SF_ATTRACTIONS[activeSlide].title} />
           <div>
             <h2 className="text-3xl text-sf-blue">Attractions</h2>
             <p className="mt-2">
@@ -72,6 +67,7 @@ const AttractionSection = () => {
             initialSlide={0}
             modules={[Pagination, Mousewheel, Navigation, Keyboard]}
             onSwiper={(swiper) => ((window as any).swiper = swiper)}
+            onSlideChange={(swiper) => setActiveSlide(swiper.activeIndex)}
             slidesPerView={1}
             breakpoints={{
               640: {
