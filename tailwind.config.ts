@@ -32,7 +32,7 @@ const config: Config = {
         "sf-green": "#4CAF50",
       },
       backgroundColor: {
-        "sf-bg-red": "#C0362C",
+        "sf-red": "#C0362C",
         "sf-blue": "#1D6D9B",
         "sf-gray": "#A3A3A3",
         "sf-orange": "#FD5A1E",
