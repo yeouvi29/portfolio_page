@@ -35,6 +35,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={clsx(lato.className, "bg-white")}>
         {children}
+        <div id="side-root" />
         <div id="modal-root" />
       </body>
     </html>

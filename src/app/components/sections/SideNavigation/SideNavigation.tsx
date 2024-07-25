@@ -3,8 +3,9 @@
 import Link from "next/link";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaMastodon } from "react-icons/fa";
 import { MdSpaceDashboard } from "react-icons/md";
+
 const SIDE_MENU = [
   {
     name: "SF Dashboard",
@@ -12,6 +13,7 @@ const SIDE_MENU = [
     path: "/portfolio/dashboard",
   },
   { name: "Users", icon: <FaUser />, path: "/portfolio/users" },
+  { name: "Task Management", icon: <FaMastodon />, path: "/portfolio/tasks" },
 ];
 const SideNavigation = () => {
   const path = usePathname();
