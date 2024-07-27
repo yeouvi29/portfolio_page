@@ -14,6 +14,7 @@ const BoardSection = () => {
     { title: "Done", items: ["aaa", "bbb"] },
   ]);
   const [dragItem, setDragItem] = useState<any>(null);
+
   const handleDrop = (key: any, item: typeof taskItems) => {
     // setTaskItems
   };
