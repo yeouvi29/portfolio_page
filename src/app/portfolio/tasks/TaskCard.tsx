@@ -18,7 +18,6 @@ const TaskCard = ({
   const listRef = useRef<HTMLLIElement>(null);
   const [isDragStart, setIsDragStart] = useState(false);
   const [isDraggedOver, setIsDraggedOver] = useState(false);
-  const isTop = useRef(false);
 
   const handleDragStart = (event: any) => {
     const height = event.target.clientHeight;
@@ -56,8 +55,6 @@ const TaskCard = ({
   };
 
   const handleDragOver = (event: DragEvent) => {
-    event.preventDefault();
-
     // const listEl = listRef.current as HTMLLIElement;
     // const pointer = event.clientY;
     // const top = listEl.getBoundingClientRect().top;
@@ -123,18 +120,18 @@ const TaskCard = ({
       onDragEnd={handleDragEnd}
       onDrop={handleDrop}
       onDragLeave={handleDragLeave}
-      className={clsx("relative px-2 w-[272px]")}
+      className={clsx("relative px-2 w-[272px] pointer-events-auto")}
     >
       {dragItem && isDraggedOver && !isDragStart && (
         <div
-          className="w-full h-10 bg-gray-300 rounded-lg mb-2"
+          className="w-full h-10 bg-gray-300 rounded-lg mb-2 pointer-events-none"
           style={{ height: dragItem?.height ?? 40 }}
           data-draggedover={true}
         ></div>
       )}
       <div
         className={clsx(
-          "w-full rounded-lg p-2 bg-white border-sky-500 border-2 border-solid"
+          "w-full rounded-lg p-2 bg-white border-sky-500 border-2 border-solid pointer-events-none"
         )}
       >
         {task.text}

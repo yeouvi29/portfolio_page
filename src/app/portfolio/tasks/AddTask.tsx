@@ -29,19 +29,19 @@ const AddTask = ({ dragItem }: { dragItem: any }) => {
   return (
     <div
       ref={divRef}
-      className="w-full p-2"
+      className="w-full p-2 pointer-events-auto"
       onDrop={handleDrop}
       onDragOver={handleDragEnter}
       onDragLeave={handleDragLeave}
     >
       {isDraggedOver && (
         <div
-          className="w-full h-10 bg-gray-300 rounded-lg mb-2"
+          className="w-full h-10 bg-gray-300 rounded-lg mb-2 pointer-events-none"
           style={{ height: dragItem?.height ?? 40 }}
           data-draggedover={true}
         ></div>
       )}
-      <p>+ Add a card</p>
+      <p className="pointer-events-none">+ Add a card</p>
     </div>
   );
 };
