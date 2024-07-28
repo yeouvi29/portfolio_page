@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import TasksColumn from "./TasksColumn";
-import styles from "./styles.module.css";
+
 import clsx from "clsx";
 const BoardSection = () => {
   const [taskItems, setTaskItems] = useState([
@@ -39,7 +39,7 @@ const BoardSection = () => {
     setDragItem(null);
   };
   return (
-    <ol className={clsx("flex gap-3 list-none")}>
+    <ol className={clsx("flex mt-4 gap-3 list-none")}>
       {taskItems.map((item) => (
         <TasksColumn
           onDrop={handleDrop}

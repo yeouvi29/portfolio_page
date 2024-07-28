@@ -24,7 +24,7 @@ const TaskTitle = ({ title, dragItem }: { title: string; dragItem: any }) => {
   return (
     <div
       ref={divRef}
-      className="w-full px-2 pointer-events-auto"
+      className="w-full p-2 pointer-events-auto"
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
     >

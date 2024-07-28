@@ -1,6 +1,5 @@
 "use client";
 
-import { set } from "date-fns";
 import { useState, DragEvent, useRef } from "react";
 
 const AddTask = ({ dragItem }: { dragItem: any }) => {
@@ -29,7 +28,7 @@ const AddTask = ({ dragItem }: { dragItem: any }) => {
   return (
     <div
       ref={divRef}
-      className="w-full p-2 pointer-events-auto"
+      className="w-full p-2 pointer-events-auto group relative cursor-pointer"
       onDrop={handleDrop}
       onDragOver={handleDragEnter}
       onDragLeave={handleDragLeave}
@@ -41,7 +40,9 @@ const AddTask = ({ dragItem }: { dragItem: any }) => {
           data-draggedover={true}
         ></div>
       )}
-      <p className="pointer-events-none">+ Add a card</p>
+      <p className="p-2 rounded-lg pointer-events-none group-hover:bg-gray-400/30">
+        + Add a card
+      </p>
     </div>
   );
 };
