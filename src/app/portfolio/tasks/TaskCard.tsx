@@ -9,9 +9,7 @@ const TaskCard = ({
   title,
   dragItem,
   onDragStart,
-  isFirst,
 }: {
-  isFirst?: boolean;
   task: any;
   title: string;
   dragItem: any;
@@ -30,7 +28,7 @@ const TaskCard = ({
     const y2 = event.target.getBoundingClientRect().top;
     const xPosition = x - x2;
     const yPosition = y - y2;
-    onDragStart({ title, item: task, height });
+    onDragStart({ title, item: task.text, height });
 
     const dragImage = document.createElement("div");
     dragImage.setAttribute("id", "drag-image");
@@ -47,7 +45,7 @@ const TaskCard = ({
       "border-solid"
     );
 
-    dragImage.textContent = task;
+    dragImage.textContent = task.text;
     document.body.appendChild(dragImage);
 
     setIsDragStart(true);
@@ -60,16 +58,16 @@ const TaskCard = ({
   const handleDragOver = (event: DragEvent) => {
     event.preventDefault();
 
-    const listEl = listRef.current as HTMLLIElement;
-    const pointer = event.clientY;
-    const top = listEl.getBoundingClientRect().top;
-    const bottom = listEl.getBoundingClientRect().bottom;
-    const center = (bottom - top) / 2 + top;
-    if (pointer < center) {
-      isTop.current = true;
-    } else {
-      isTop.current = false;
-    }
+    // const listEl = listRef.current as HTMLLIElement;
+    // const pointer = event.clientY;
+    // const top = listEl.getBoundingClientRect().top;
+    // const bottom = listEl.getBoundingClientRect().bottom;
+    // const center = (bottom - top) / 2 + top;
+    // if (pointer < center) {
+    //   isTop.current = true;
+    // } else {
+    //   isTop.current = false;
+    // }
     setIsDraggedOver(true);
   };
 
@@ -111,6 +109,8 @@ const TaskCard = ({
       const listEl = listRef.current as HTMLLIElement;
       listEl.style.opacity = "1";
       listEl.style.display = "block";
+    } else if (dragItem && dragItem.id === task.id) {
+      setIsDraggedOver(true);
     }
   }, [dragItem]);
 
@@ -129,32 +129,16 @@ const TaskCard = ({
         <div
           className="w-full h-10 bg-gray-300 rounded-lg mb-2"
           style={{ height: dragItem?.height ?? 40 }}
-        >
-          {task}
-        </div>
+          data-draggedover={true}
+        ></div>
       )}
       <div
         className={clsx(
           "w-full rounded-lg p-2 bg-white border-sky-500 border-2 border-solid"
         )}
       >
-        {task}
+        {task.text}
       </div>
-
-      {/* <AnimatePresence> */}
-      {/* {isDraggedOver && !isDragStart && !isTop.current && (
-        <div
-          className="w-full h-10 bg-gray-200 rounded-lg mt-2"
-          style={{ height: dragItem?.height ?? 40 }}
-          // initial={{ height: 0 }}
-          // animate={{ height: dragItem?.height ?? 40 }}
-          // exit={{ height: 0 }}
-          // transition={{ duration: 0.1 }}
-        >
-          {task}
-        </div>
-      )} */}
-      {/* </AnimatePresence> */}
     </li>
   );
 };
