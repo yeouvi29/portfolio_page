@@ -2,7 +2,17 @@
 
 import { useState, DragEvent, useRef } from "react";
 
-const TaskTitle = ({ title, dragItem }: { title: string; dragItem: any }) => {
+const TaskTitle = ({
+  title,
+  dragItem,
+  columnId,
+  onDrop,
+}: {
+  title: string;
+  dragItem: any;
+  columnId: string;
+  onDrop: (columnId: string, index: number) => void;
+}) => {
   const divRef = useRef<HTMLDivElement>(null);
   const [isDraggedOver, setIsDraggedOver] = useState(false);
   const handleDragOver = (event: DragEvent) => {
@@ -21,12 +31,16 @@ const TaskTitle = ({ title, dragItem }: { title: string; dragItem: any }) => {
     }
     setIsDraggedOver(false);
   };
+  const handleDrop = () => {
+    onDrop(columnId, 0);
+  };
   return (
     <div
       ref={divRef}
-      className="w-full p-2 pointer-events-auto"
+      className="w-[272px] p-2 pointer-events-auto"
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
     >
       <p>{title}</p>
       {isDraggedOver && (

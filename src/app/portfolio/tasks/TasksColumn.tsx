@@ -8,30 +8,32 @@ import TaskTitle from "./TaskTitle";
 import AddTask from "./AddTask";
 
 import styles from "./styles.module.css";
-import { set } from "date-fns";
 
 const TasksColumn = ({
   title,
   tasks,
+  columnId,
   onDrop,
   dragItem,
   onDragStart,
 }: {
   title: string;
   tasks: any;
+  columnId: string;
   dragItem: any;
-  onDrop: (key: any, item: any) => void;
+  onDrop: (columnId: string, index: number) => void;
   onDragStart: (item: any) => void;
 }) => {
   const [isDraggedOver, setIsDraggedOver] = useState(false);
   const liRef = useRef<HTMLLIElement>(null);
+
   const handleDragOver = (event: DragEvent) => {
     event.preventDefault();
 
     setIsDraggedOver(true);
   };
 
-  const handleDragLeave = (event: DragEvent) => {
+  const handleDragLeave = () => {
     setIsDraggedOver(false);
   };
 
@@ -51,19 +53,32 @@ const TasksColumn = ({
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
     >
-      <TaskTitle title={title} dragItem={dragItem} />
+      <TaskTitle
+        title={title}
+        dragItem={dragItem}
+        columnId={columnId}
+        onDrop={onDrop}
+      />
       <ol className="list-none flex flex-col gap-2 pointer-events-none">
         {tasks.map((task: any, i: number) => (
           <TaskCard
             dragItem={dragItem}
-            key={i}
+            columnId={columnId}
+            key={task.id}
+            index={i}
             task={task}
             title={title}
             onDragStart={onDragStart}
+            onDrop={onDrop}
           />
         ))}
       </ol>
-      <AddTask dragItem={dragItem} />
+      <AddTask
+        dragItem={dragItem}
+        columnId={columnId}
+        onDrop={onDrop}
+        index={tasks.length}
+      />
     </li>
   );
 };

@@ -6,14 +6,19 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const TaskCard = ({
   task,
-  title,
+  index,
+  columnId,
   dragItem,
   onDragStart,
+  onDrop,
 }: {
   task: any;
   title: string;
+  index: number;
+  columnId: string;
   dragItem: any;
   onDragStart: (item: any) => void;
+  onDrop: (columnId: string, index: number) => void;
 }) => {
   const listRef = useRef<HTMLLIElement>(null);
   const [isDragStart, setIsDragStart] = useState(false);
@@ -27,7 +32,7 @@ const TaskCard = ({
     const y2 = event.target.getBoundingClientRect().top;
     const xPosition = x - x2;
     const yPosition = y - y2;
-    onDragStart({ title, item: task.text, height });
+    onDragStart({ columnId, item: { task, height } });
 
     const dragImage = document.createElement("div");
     dragImage.setAttribute("id", "drag-image");
@@ -54,22 +59,12 @@ const TaskCard = ({
     }, 0);
   };
 
-  const handleDragOver = (event: DragEvent) => {
-    // const listEl = listRef.current as HTMLLIElement;
-    // const pointer = event.clientY;
-    // const top = listEl.getBoundingClientRect().top;
-    // const bottom = listEl.getBoundingClientRect().bottom;
-    // const center = (bottom - top) / 2 + top;
-    // if (pointer < center) {
-    //   isTop.current = true;
-    // } else {
-    //   isTop.current = false;
-    // }
+  const handleDragOver = () => {
     setIsDraggedOver(true);
   };
 
   const handleDragEnd = () => {
-    onDragStart(null);
+    // onDragStart(null);
     const listEl = listRef.current as HTMLLIElement;
     listEl.style.opacity = "1";
     listEl.style.display = "block";
@@ -98,6 +93,7 @@ const TaskCard = ({
     setIsDragStart(false);
     const imageEl = document.getElementById("drag-image");
     document.body.removeChild(imageEl!);
+    onDrop(columnId, index);
   };
 
   useEffect(() => {
@@ -106,7 +102,7 @@ const TaskCard = ({
       const listEl = listRef.current as HTMLLIElement;
       listEl.style.opacity = "1";
       listEl.style.display = "block";
-    } else if (dragItem && dragItem.id === task.id) {
+    } else if (dragItem && dragItem.item.task.id === task.id) {
       setIsDraggedOver(true);
     }
   }, [dragItem]);

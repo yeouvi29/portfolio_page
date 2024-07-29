@@ -2,7 +2,17 @@
 
 import { useState, DragEvent, useRef } from "react";
 
-const AddTask = ({ dragItem }: { dragItem: any }) => {
+const AddTask = ({
+  dragItem,
+  columnId,
+  onDrop,
+  index,
+}: {
+  dragItem: any;
+  columnId: string;
+  index: number;
+  onDrop: (columnId: string, index: number) => void;
+}) => {
   const divRef = useRef<HTMLDivElement>(null);
   const [isDraggedOver, setIsDraggedOver] = useState(false);
   const handleDragEnter = (event: DragEvent) => {
@@ -22,6 +32,7 @@ const AddTask = ({ dragItem }: { dragItem: any }) => {
     setIsDraggedOver(false);
   };
   const handleDrop = () => {
+    onDrop(columnId, index);
     setIsDraggedOver(false);
   };
 
