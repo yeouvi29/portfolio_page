@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation";
 import { FaUser, FaMastodon } from "react-icons/fa";
 import { MdSpaceDashboard } from "react-icons/md";
 
+import { useDropTask } from "@/hooks/useDropTask";
+
 const SIDE_MENU = [
   {
     name: "SF Dashboard",
@@ -17,10 +19,14 @@ const SIDE_MENU = [
 ];
 const SideNavigation = () => {
   const path = usePathname();
-
+  const { handleDrop } = useDropTask();
   return (
-    <div className="hidden md:block w-[250px] py-4">
-      <nav className="px-4 sticky top-4">
+    <div
+      className="hidden md:block w-[250px] py-4"
+      onDragOver={(e) => e.preventDefault()}
+      onDrop={handleDrop}
+    >
+      <nav className="px-4 sticky top-4" onDragOver={(e) => e.preventDefault()}>
         <ul className="list-none">
           {SIDE_MENU.map((item) => (
             <li
@@ -30,12 +36,14 @@ const SideNavigation = () => {
                 path === item.path &&
                   "bg-blue-300 bg-opacity-30 hover:!bg-blue-300 hover:!bg-opacity-50 !text-blue-600"
               )}
+              onDragOver={(e) => e.preventDefault()}
             >
               <Link
                 href={item.path}
                 className="flex flex-row items-center gap-4"
+                onDragOver={(e) => e.preventDefault()}
               >
-                <span>{item.icon}</span>
+                <span onDragOver={(e) => e.preventDefault()}>{item.icon}</span>
                 {item.name}
               </Link>
             </li>

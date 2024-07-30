@@ -63,7 +63,7 @@ const Title = () => {
   }, [titleInput]);
 
   return (
-    <div className="w-full flex">
+    <div className="w-full flex" onDragOver={(e) => e.preventDefault()}>
       <ClickAwayListener onClickAway={() => handleClickAway()}>
         <form onSubmit={handleSubmit}>
           <input
@@ -78,6 +78,7 @@ const Title = () => {
               !isEditable && "hidden"
             )}
             style={{ width: titleWidth }}
+            onDragOver={(e) => e.preventDefault()}
           />
           <div
             ref={titleRef}
@@ -86,6 +87,7 @@ const Title = () => {
               isEditable && "hidden"
             )}
             onClick={() => setIsEditable(true)}
+            onDragOver={(e) => e.preventDefault()}
           >
             <h1 className="text-lg whitespace-pre">{titleInput}</h1>
           </div>
@@ -96,3 +98,6 @@ const Title = () => {
 };
 
 export default Title;
+function useDropTask(): { handleDrop: any } {
+  throw new Error("Function not implemented.");
+}
