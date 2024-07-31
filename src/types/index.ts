@@ -10,10 +10,11 @@ export interface TaskItems {
 
 export interface DragStartItem {
   columnId: string;
-  item: { task: TaskItem; hight: number };
+  item: { task: TaskItem; height: number };
 }
 
 export interface DragEnterItem {
   columnId: string;
   index: number;
+  addToBottom?: boolean;
 }

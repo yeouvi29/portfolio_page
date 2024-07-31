@@ -3,7 +3,7 @@
 import clsx from "clsx";
 
 import { useDropTask } from "@/hooks/useDropTask";
-import { useIsCursorOnTop, useTaskItems } from "@/store";
+import { useTaskItems } from "@/store";
 
 import TasksColumn from "./TasksColumn";
 
@@ -15,22 +15,18 @@ const BoardSection = () => {
     setDragItem,
     setDragEnterItem,
     resetDrag,
-    setTaskItems,
-  ] = useTaskItems(
-    ({ items, drag, setTaskItems, setDragStart, setDragEnter, resetDrag }) => [
-      items,
-      drag.start,
-      drag.enter,
-      setDragStart,
-      setDragEnter,
-      resetDrag,
-      setTaskItems,
-    ]
-  );
+  ] = useTaskItems(({ items, drag, setDragStart, setDragEnter, resetDrag }) => [
+    items,
+    drag.start,
+    drag.enter,
+    setDragStart,
+    setDragEnter,
+    resetDrag,
+  ]);
 
   const { handleDrop } = useDropTask();
 
-  console.log("dragEnter", dragEnterItem?.index, "dragstart", dragItem?.item);
+  // console.log("dragEnter", dragEnterItem?.index, "dragstart", dragItem?.item);
 
   return (
     <ol

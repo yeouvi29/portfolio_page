@@ -1,4 +1,4 @@
-import { useIsCursorOnTop, useTaskItems } from "@/store";
+import { useTaskItems } from "@/store";
 import { removeElements } from "../../utils";
 
 export const useDropTask = () => {
@@ -6,11 +6,7 @@ export const useDropTask = () => {
     ({ items, drag, setAll }) => [items, drag.start, drag.enter, setAll]
   );
 
-  const [isCursorOnTop] = useIsCursorOnTop(({ isCursorOnTop }) => [
-    isCursorOnTop,
-  ]);
-
-  const handleDrop = () => {
+  const handleDrop = (isCursorOnTop: boolean) => {
     if (!dragItem || !dragEnterItem || !taskItems.length) return;
 
     const dragColumnIndex = taskItems.findIndex(
@@ -39,17 +35,12 @@ export const useDropTask = () => {
       0,
       dragItem.item.task
     );
+
     if (dragEnterItem.columnId === dragItem.columnId) {
       if (dragItemIndex < dropItemIndex) {
-        newTaskItems[dragColumnIndex].items.splice(
-          dragItemIndex + (isCursorOnTop ? 1 : 0),
-          1
-        );
+        newTaskItems[dragColumnIndex].items.splice(dragItemIndex, 1);
       } else {
-        newTaskItems[dragColumnIndex].items.splice(
-          dragItemIndex + (isCursorOnTop ? 1 : 2),
-          1
-        );
+        newTaskItems[dragColumnIndex].items.splice(dragItemIndex + 1, 1);
       }
     } else {
       newTaskItems[dragColumnIndex].items = newTaskItems[
@@ -59,7 +50,7 @@ export const useDropTask = () => {
 
     setAll({ drag: { start: null, enter: null }, items: newTaskItems });
 
-    removeElements("drag-image");
+    removeElements("#drag-image");
   };
   return { handleDrop };
 };

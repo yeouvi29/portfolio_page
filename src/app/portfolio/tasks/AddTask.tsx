@@ -1,7 +1,7 @@
 "use client";
 import { DragEvent } from "react";
 
-import { useIsCursorOnTop, useTaskItems } from "@/store";
+import { useTaskItems } from "@/store";
 
 const AddTask = ({
   columnId,
@@ -10,19 +10,15 @@ const AddTask = ({
   columnId: string;
   tasksLength: number;
 }) => {
-  const [isCursorOnTop, setIsCursorOnTop] = useIsCursorOnTop(
-    ({ isCursorOnTop, setIsCursorOnTop }) => [isCursorOnTop, setIsCursorOnTop]
-  );
   const [setDragEnterItem] = useTaskItems(({ setDragEnter }) => [setDragEnter]);
 
   const handleDragEnter = (e: DragEvent) => {
     e.stopPropagation();
-    if (isCursorOnTop) {
-      setIsCursorOnTop(false);
-    }
+
     setDragEnterItem({
       columnId,
       index: tasksLength ? tasksLength - 1 : 0,
+      addToBottom: true,
     });
   };
 

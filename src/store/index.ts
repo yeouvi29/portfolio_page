@@ -10,7 +10,10 @@ interface IsCursorOnTopState {
 
 export const useIsCursorOnTop = create<IsCursorOnTopState>((set) => ({
   isCursorOnTop: false,
-  setIsCursorOnTop: (isCursorOnTop: boolean) => set({ isCursorOnTop }),
+  setIsCursorOnTop: (currentState: boolean) => {
+    console.log("set", currentState);
+    return set({ isCursorOnTop: currentState });
+  },
 }));
 
 interface TaskItemsState {

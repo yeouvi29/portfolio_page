@@ -7,8 +7,7 @@ import TaskCard from "./TaskCard";
 import TaskTitle from "./TaskTitle";
 import AddTask from "./AddTask";
 
-import { DragEnterItem } from "@/types";
-import { useIsCursorOnTop } from "@/store";
+import { DragEnterItem, DragStartItem, TaskItem } from "@/types";
 
 const TasksColumn = ({
   title,
@@ -22,35 +21,34 @@ const TasksColumn = ({
   onDragLeave,
 }: {
   title: string;
-  tasks: any;
   columnId: string;
-  dragItem: any;
-  dragEnterItem: any;
+  tasks: TaskItem[];
+  dragItem: DragStartItem | null;
+  dragEnterItem: DragEnterItem | null;
   onDragStart: (item: any) => void;
-  onDrop: (columnId: string, index: number) => void;
+  onDrop: (isCursorOnTop: boolean) => void;
   onDragEnter: (dragEnterItem: DragEnterItem) => void;
   onDragLeave: () => void;
 }) => {
   const liRef = useRef<HTMLLIElement>(null);
-  const [isCurrentCursorOnTop, setIsCurrentCursorOnTop] = useIsCursorOnTop(
-    ({ isCursorOnTop, setIsCursorOnTop }) => [isCursorOnTop, setIsCursorOnTop]
-  );
+
   const handleDrop = (e: DragEvent) => {
     e.stopPropagation();
-    onDrop(columnId, tasks.length);
+    ("drop, column");
+    onDrop(true);
   };
 
   const handleDragEnter = () => {
-    onDragEnter({ columnId, index: tasks.length ? tasks.length - 1 : 0 });
-    if (isCurrentCursorOnTop) {
-      setIsCurrentCursorOnTop(false);
-    }
+    onDragEnter({
+      columnId,
+      index: tasks.length ? tasks.length - 1 : 0,
+      addToBottom: true,
+    });
   };
 
   const isDraggedOver =
-    dragItem &&
-    (!dragEnterItem || (dragEnterItem && dragEnterItem.columnId === columnId));
-  console.log(dragItem?.columnId, columnId, dragEnterItem?.columnId);
+    dragItem && dragEnterItem && dragEnterItem.columnId === columnId;
+  //   console.log(dragItem?.columnId, columnId, dragEnterItem?.columnId);
   return (
     <li
       ref={liRef}
@@ -77,9 +75,9 @@ const TasksColumn = ({
           tasksLength={tasks.length}
         />
         <ol
-          className="list-none flex flex-col gap-2 pointer-events-none"
-          onDrop={() => {
-            console.log("drop, here2");
+          className="list-none flex flex-col gap-2"
+          onDragEnter={(e) => {
+            e.stopPropagation();
           }}
         >
           {dragItem &&
@@ -99,6 +97,7 @@ const TasksColumn = ({
               columnId={columnId}
               key={task.id}
               index={i}
+              isLast={i === tasks.length - 1}
               task={task}
               title={title}
               onDragStart={onDragStart}

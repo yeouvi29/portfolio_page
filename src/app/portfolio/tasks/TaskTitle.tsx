@@ -2,7 +2,6 @@
 
 import { DragEvent } from "react";
 
-import { useIsCursorOnTop } from "@/store";
 import { DragEnterItem } from "@/types";
 
 const TaskTitle = ({
@@ -16,16 +15,12 @@ const TaskTitle = ({
   onDragEnter: (dragEnterItem: DragEnterItem) => void;
   tasksLength: number;
 }) => {
-  const [setIsCursorOnTop] = useIsCursorOnTop(({ setIsCursorOnTop }) => [
-    setIsCursorOnTop,
-  ]);
-
   const handleDragEnter = (e: DragEvent) => {
     e.stopPropagation();
-    setIsCursorOnTop(false);
     onDragEnter({
       columnId,
       index: tasksLength ? tasksLength - 1 : 0,
+      addToBottom: true,
     });
   };
 
