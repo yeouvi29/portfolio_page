@@ -7,3 +7,13 @@ export interface TaskItems {
   id: string;
   items: TaskItem[];
 }
+
+export interface DragStartItem {
+  columnId: string;
+  item: { task: TaskItem; hight: number };
+}
+
+export interface DragEnterItem {
+  columnId: string;
+  index: number;
+}

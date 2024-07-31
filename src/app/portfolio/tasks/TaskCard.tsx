@@ -1,8 +1,10 @@
 "use client";
 
-import { DragEnterItem } from "@/store";
+import { useIsCursorOnTop } from "@/store";
 import clsx from "clsx";
 import { DragEvent, useEffect, useRef, useState } from "react";
+import { removeElements } from "../../../../utils";
+import { DragEnterItem } from "@/types";
 
 const TaskCard = ({
   task,
@@ -13,6 +15,7 @@ const TaskCard = ({
   onDragStart,
   onDragEnter,
   onDrop,
+  onDragLeave,
 }: {
   task: any;
   title: string;
@@ -23,10 +26,15 @@ const TaskCard = ({
   onDragStart: (item: any) => void;
   onDragEnter: (dragEnterItem: DragEnterItem) => void;
   onDrop: (columnId: string, index: number) => void;
+  onDragLeave: () => void;
 }) => {
   const listRef = useRef<HTMLLIElement>(null);
+  const isReEnter = useRef(false);
   const [opacity, setOpacity] = useState(1);
-  const [isCursorOnTop, setIsCursorOnTop] = useState(false);
+  const [isCursorOnTop, setIsCursorOnTop] = useState(true);
+  const [setIsCursorOnTopGlobal] = useIsCursorOnTop(({ setIsCursorOnTop }) => [
+    setIsCursorOnTop,
+  ]);
 
   const handleDragStart = (event: any) => {
     const x = event.clientX;
@@ -69,21 +77,31 @@ const TaskCard = ({
     const clientY = e.clientY;
     const top = listEl.getBoundingClientRect().top;
     const bottom = listEl.getBoundingClientRect().bottom;
-    setIsCursorOnTop(clientY < top + (bottom - top) / 2);
+    const isCurrentCursorOnTop = clientY < top + (bottom - top) / 2;
+    if (isCurrentCursorOnTop === isCursorOnTop) {
+      return;
+    }
+    setIsCursorOnTop(isCurrentCursorOnTop);
+    setIsCursorOnTopGlobal(isCurrentCursorOnTop);
   };
 
   const handleDragEnter = (e: DragEvent) => {
     e.stopPropagation();
-    console.log("here enter");
     onDragEnter({ columnId, index });
   };
 
   const handleDrop = (e: DragEvent) => {
     e.stopPropagation();
+    onDrop(columnId, index);
+  };
 
-    const imageEl = document.getElementById("drag-image");
-    document.body.removeChild(imageEl!);
-    onDrop(columnId, isCursorOnTop ? index : index + 1);
+  const handleDragEnd = (e: DragEvent) => {
+    if (dragItem) {
+      e.stopPropagation();
+
+      onDragLeave();
+      removeElements("drag-image");
+    }
   };
 
   useEffect(() => {
@@ -94,11 +112,14 @@ const TaskCard = ({
 
     if (
       !dragEnterItem ||
-      (dragEnterItem?.columnId === columnId && dragEnterItem?.index === index)
+      (dragEnterItem?.columnId === columnId &&
+        dragEnterItem?.index === index &&
+        !isReEnter.current)
     ) {
       setOpacity(0.3);
     } else {
       setOpacity(0);
+      isReEnter.current = true;
     }
   }, [dragItem, dragEnterItem]);
 
@@ -124,6 +145,7 @@ const TaskCard = ({
       onDragEnter={handleDragEnter}
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
+      onDragEnd={handleDragEnd}
       onDrop={handleDrop}
     >
       {isDraggedOver && isCursorOnTop && (

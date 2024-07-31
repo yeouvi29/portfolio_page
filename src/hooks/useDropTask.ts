@@ -1,16 +1,13 @@
-import { useDragEnterItem, useDragItem, useTaskItems } from "@/store";
+import { useIsCursorOnTop, useTaskItems } from "@/store";
+import { removeElements } from "../../utils";
 
 export const useDropTask = () => {
-  const [dragItem, setDragItem] = useDragItem(({ item, setDragItem }) => [
-    item,
-    setDragItem,
-  ]);
-  const [dragEnterItem, setDragEnterItem] = useDragEnterItem(
-    ({ item, setDragEnterItem }) => [item, setDragEnterItem]
+  const [taskItems, dragItem, dragEnterItem, setAll] = useTaskItems(
+    ({ items, drag, setAll }) => [items, drag.start, drag.enter, setAll]
   );
-  const [taskItems, setTaskItems] = useTaskItems(({ items, setTaskItems }) => [
-    items,
-    setTaskItems,
+
+  const [isCursorOnTop] = useIsCursorOnTop(({ isCursorOnTop }) => [
+    isCursorOnTop,
   ]);
 
   const handleDrop = () => {
@@ -32,21 +29,27 @@ export const useDropTask = () => {
       dragColumnIndex === dropColumnIndex && dragItemIndex === dropItemIndex;
 
     if (isTheSameItem) {
-      setDragItem(null);
-      setDragEnterItem(null);
+      setAll({ drag: { start: null, enter: null } });
       return;
     }
 
     newTaskItems[dropColumnIndex].items.splice(
-      dropItemIndex,
+      dropItemIndex +
+        (!newTaskItems[dropColumnIndex].items.length || isCursorOnTop ? 0 : 1),
       0,
       dragItem.item.task
     );
     if (dragEnterItem.columnId === dragItem.columnId) {
       if (dragItemIndex < dropItemIndex) {
-        newTaskItems[dragColumnIndex].items.splice(dragItemIndex, 1);
+        newTaskItems[dragColumnIndex].items.splice(
+          dragItemIndex + (isCursorOnTop ? 1 : 0),
+          1
+        );
       } else {
-        newTaskItems[dragColumnIndex].items.splice(dragItemIndex + 1, 1);
+        newTaskItems[dragColumnIndex].items.splice(
+          dragItemIndex + (isCursorOnTop ? 1 : 2),
+          1
+        );
       }
     } else {
       newTaskItems[dragColumnIndex].items = newTaskItems[
@@ -54,9 +57,9 @@ export const useDropTask = () => {
       ].items.filter((item) => item.id !== dragItem.item.task.id);
     }
 
-    setTaskItems(newTaskItems);
-    setDragItem(null);
-    setDragEnterItem(null);
+    setAll({ drag: { start: null, enter: null }, items: newTaskItems });
+
+    removeElements("drag-image");
   };
   return { handleDrop };
 };

@@ -6,3 +6,8 @@ export const formatDate = (date: Date): string => {
 
   return `${month}-${day}-${year}`;
 };
+
+export const removeElements = (selector: string) => {
+  const els = document.querySelectorAll(selector);
+  els.forEach((el) => document.body.removeChild(el));
+};

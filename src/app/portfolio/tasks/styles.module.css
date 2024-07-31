@@ -1,3 +1,0 @@
-.tasksColumn:has([data-draggedover="true"]) {
-  border-color: rgb(220 38 38);
-}

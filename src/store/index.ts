@@ -1,71 +1,49 @@
-import { TaskItem, TaskItems } from "@/types";
-import { v4 as uuidv4 } from "uuid";
 import { create } from "zustand";
 
-interface DragItem {
-  columnId: string;
-  item: { task: TaskItem; hight: number };
+import { DragEnterItem, DragStartItem, TaskItems } from "@/types";
+import { DEFAULT_TASKS } from "@/mockData";
+
+interface IsCursorOnTopState {
+  isCursorOnTop: boolean;
+  setIsCursorOnTop: (isCursorOnTop: boolean) => void;
 }
 
-interface DragItemState {
-  item: DragItem | null;
-  setDragItem: (item: DragItem | null) => void;
-}
-export interface DragEnterItem {
-  columnId: string;
-  index: number;
-}
-interface DragEnterItemState {
-  item: DragEnterItem | null;
-  setDragEnterItem: (item: DragEnterItem | null) => void;
-}
+export const useIsCursorOnTop = create<IsCursorOnTopState>((set) => ({
+  isCursorOnTop: false,
+  setIsCursorOnTop: (isCursorOnTop: boolean) => set({ isCursorOnTop }),
+}));
 
 interface TaskItemsState {
   items: TaskItems[];
+  drag: {
+    start: DragStartItem | null;
+    enter: DragEnterItem | null;
+  };
   setTaskItems: (taskItems: TaskItems[]) => void;
+  setDragEnter: (item: DragEnterItem) => void;
+  setDragStart: (item: DragStartItem) => void;
+  resetDrag: () => void;
+  setAll: (items: {
+    items?: TaskItems[];
+    drag: {
+      start: DragStartItem | null;
+      enter: DragEnterItem | null;
+    };
+  }) => void;
 }
 
-export const useDragItem = create<DragItemState>((set) => ({
-  item: null,
-  setDragItem: (item) => set({ item }),
-}));
-
-export const useDragEnterItem = create<DragEnterItemState>((set) => ({
-  item: null,
-  setDragEnterItem: (item) => set({ item }),
-}));
-
 export const useTaskItems = create<TaskItemsState>((set) => ({
-  items: [
-    {
-      title: "To do",
-      id: uuidv4(),
-      items: [
-        {
-          id: uuidv4(),
-          text: "aasdfoiejw.afjd.lfa as.dlifjdsfldsjfldsfj dss ",
-        },
-        { id: uuidv4(), text: "b" },
-        { id: uuidv4(), text: "c" },
-      ],
-    },
-    {
-      title: "In Progress",
-      id: uuidv4(),
-      items: [
-        { id: uuidv4(), text: "aa" },
-        { id: uuidv4(), text: "bb" },
-        { id: uuidv4(), text: "cc" },
-      ],
-    },
-    {
-      title: "Done",
-      id: uuidv4(),
-      items: [
-        { id: uuidv4(), text: "aaa" },
-        { id: uuidv4(), text: "bbb" },
-      ],
-    },
-  ],
-  setTaskItems: (items) => set({ items }),
+  items: DEFAULT_TASKS,
+  drag: {
+    start: null,
+    enter: null,
+  },
+  setTaskItems: (items) => set((prev) => ({ ...prev, items })),
+  setDragEnter: (item) =>
+    set((prev) => ({ ...prev, drag: { ...prev.drag, enter: item } })),
+  setDragStart: (item) =>
+    set((prev) => ({ ...prev, drag: { ...prev.drag, start: item } })),
+  resetDrag: () =>
+    set((prev) => ({ ...prev, drag: { start: null, enter: null } })),
+  setAll: (newState) => set((prev) => ({ ...prev, ...newState })),
 }));

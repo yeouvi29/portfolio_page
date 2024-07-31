@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 export const SF_VISITOR_VOLUME = [
   { year: 2019, day: 15.78, domestic: 7.48, international: 2.95 },
   { year: 2020, day: 8.91, domestic: 2.41, international: 0.5 },
@@ -96,5 +98,37 @@ export const SF_ATTRACTIONS = [
       "The Exploratorium is a hands-on science museum in San Francisco, offering interactive exhibits and activities for visitors of all ages. It is an educational and fun experience.",
     rating: 4.7,
     estimated_visit_duration: "2-3 hours",
+  },
+];
+
+export const DEFAULT_TASKS = [
+  {
+    title: "To do",
+    id: uuidv4(),
+    items: [
+      {
+        id: uuidv4(),
+        text: "aasdfoiejw.afjd.lfa as.dlifjdsfldsjfldsfj dss ",
+      },
+      { id: uuidv4(), text: "b" },
+      { id: uuidv4(), text: "c" },
+    ],
+  },
+  {
+    title: "In Progress",
+    id: uuidv4(),
+    items: [
+      { id: uuidv4(), text: "aa" },
+      { id: uuidv4(), text: "bb" },
+      { id: uuidv4(), text: "cc" },
+    ],
+  },
+  {
+    title: "Done",
+    id: uuidv4(),
+    items: [
+      { id: uuidv4(), text: "aaa" },
+      { id: uuidv4(), text: "bbb" },
+    ],
   },
 ];

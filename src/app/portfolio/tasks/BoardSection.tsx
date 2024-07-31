@@ -1,29 +1,36 @@
 "use client";
 
 import clsx from "clsx";
-import TasksColumn from "./TasksColumn";
-import { useDragEnterItem, useDragItem, useTaskItems } from "@/store";
+
 import { useDropTask } from "@/hooks/useDropTask";
-import { set } from "date-fns";
+import { useIsCursorOnTop, useTaskItems } from "@/store";
+
+import TasksColumn from "./TasksColumn";
 
 const BoardSection = () => {
-  const [taskItems] = useTaskItems(({ items, setTaskItems }) => [
-    items,
-    setTaskItems,
-  ]);
-
-  const [dragItem, setDragItem] = useDragItem(({ item, setDragItem }) => [
-    item,
+  const [
+    taskItems,
+    dragItem,
+    dragEnterItem,
     setDragItem,
-  ]);
-
-  const [dragEnterItem, setDragEnterItem] = useDragEnterItem(
-    ({ item, setDragEnterItem }) => [item, setDragEnterItem]
+    setDragEnterItem,
+    resetDrag,
+    setTaskItems,
+  ] = useTaskItems(
+    ({ items, drag, setTaskItems, setDragStart, setDragEnter, resetDrag }) => [
+      items,
+      drag.start,
+      drag.enter,
+      setDragStart,
+      setDragEnter,
+      resetDrag,
+      setTaskItems,
+    ]
   );
 
   const { handleDrop } = useDropTask();
 
-  console.log("dragEnter", dragEnterItem, "dragstart", dragItem);
+  console.log("dragEnter", dragEnterItem?.index, "dragstart", dragItem?.item);
 
   return (
     <ol
@@ -41,6 +48,7 @@ const BoardSection = () => {
           onDrop={handleDrop}
           onDragStart={setDragItem}
           onDragEnter={setDragEnterItem}
+          onDragLeave={resetDrag}
         />
       ))}
     </ol>
