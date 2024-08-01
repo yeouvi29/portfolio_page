@@ -3,7 +3,6 @@
 import { DragEvent, Fragment, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 
-import { useIsCursorOnTop } from "@/store";
 import { DragEnterItem, DragStartItem, TaskItem } from "@/types";
 
 import { removeElements } from "../../../../utils";
@@ -34,9 +33,7 @@ const TaskCard = ({
 }) => {
   const listRef = useRef<HTMLLIElement>(null);
   const isReEnter = useRef(false);
-  const [opacity, setOpacity] = useState(1);
-  const [isCursorOnTop, setIsCursorOnTop] = useState(true);
-
+  const [isCursorOnTop, setIsCursorOnTop] = useState<null | boolean>(null);
   const handleDragStart = (event: any) => {
     const x = event.clientX;
     const y = event.clientY;
@@ -94,35 +91,43 @@ const TaskCard = ({
   const handleDrop = (e: DragEvent) => {
     e.stopPropagation();
     // console.log("drop, card", isCursorOnTop);
-    onDrop(isCursorOnTop);
+    onDrop(!!isCursorOnTop);
+    isReEnter.current = false;
   };
 
   const handleDragEnd = (e: DragEvent) => {
+    isReEnter.current = false;
     if (dragItem) {
       e.stopPropagation();
-
       onDragLeave();
       removeElements("#drag-image");
     }
   };
 
+  const opacity =
+    !dragItem || (dragItem && dragItem.item.task.id !== task.id)
+      ? 1
+      : !dragEnterItem ||
+        (dragEnterItem &&
+          dragEnterItem.columnId === columnId &&
+          dragEnterItem.index === index &&
+          !isReEnter.current)
+      ? 0.3
+      : 0;
+
   useEffect(() => {
-    if (!dragItem || (dragItem && dragItem.item.task.id !== task.id)) {
-      setOpacity(1);
+    if (
+      !dragItem ||
+      dragItem.item.task.id !== task.id ||
+      !dragEnterItem ||
+      (dragEnterItem.columnId === columnId &&
+        dragEnterItem.index === index &&
+        !isReEnter.current)
+    ) {
       return;
     }
 
-    if (
-      !dragEnterItem ||
-      (dragEnterItem?.columnId === columnId &&
-        dragEnterItem?.index === index &&
-        !isReEnter.current)
-    ) {
-      setOpacity(0.3);
-    } else {
-      setOpacity(0);
-      isReEnter.current = true;
-    }
+    isReEnter.current = true;
   }, [dragItem, dragEnterItem]);
 
   useEffect(() => {
@@ -144,17 +149,18 @@ const TaskCard = ({
       dragEnterItem.index !== index ||
       dragItem.item.task.id !== task.id) &&
     dragEnterItem?.columnId === columnId &&
+    opacity === 1 &&
     dragEnterItem?.index === index;
 
   return (
     <Fragment>
       <li
         ref={listRef}
-        className={clsx(
-          "relative w-[272px] pointer-events-auto",
-          opacity === 0 && "hidden"
-        )}
-        style={{ opacity }}
+        className={clsx("relative w-[272px] pointer-events-auto", "py-1")}
+        style={{
+          opacity,
+          display: opacity === 0 ? "none" : "block",
+        }}
         draggable
         onDragEnter={handleDragEnter}
         onDragStart={handleDragStart}
@@ -162,21 +168,22 @@ const TaskCard = ({
         onDragEnd={handleDragEnd}
         onDrop={handleDrop}
       >
-        {isDraggedOver && isCursorOnTop && (
+        {isDraggedOver && isCursorOnTop === true && (
           <div
             className="w-full h-10 bg-gray-300 rounded-lg mb-2 pointer-events-none"
             style={{ height: dragItem?.item.height ?? 40 }}
             data-draggedover={true}
           ></div>
         )}
+
         <div
           className={clsx(
-            "w-full rounded-lg p-2 bg-white border-sky-500 border-2 border-solid pointer-events-none"
+            "w-full rounded-lg p-2 bg-white border-sky-500 border-2 order-solid pointer-events-none"
           )}
         >
           {task.text}
         </div>
-        {isDraggedOver && !isCursorOnTop && dragItem && (
+        {isDraggedOver && !isCursorOnTop && (
           <div
             className="w-full h-10 bg-gray-300 rounded-lg mt-2 pointer-events-none"
             style={{ height: dragItem?.item.height ?? 40 }}
@@ -184,8 +191,7 @@ const TaskCard = ({
           ></div>
         )}
       </li>
-      {isLast &&
-        !isCursorOnTop &&
+      {isCursorOnTop == false &&
         dragEnterItem &&
         dragEnterItem.columnId === columnId &&
         dragEnterItem.index === index &&
@@ -193,7 +199,9 @@ const TaskCard = ({
         dragItem.item.task.id === task.id &&
         opacity === 0 && (
           <div
-            className="w-[272px] bg-gray-300 rounded-lg mb-2 pointer-events-none"
+            className={clsx(
+              "w-[272px] bg-gray-300 rounded-lg pointer-events-none my-1"
+            )}
             style={{ height: dragItem.item.height ?? 40 }}
             data-draggedover={true}
           ></div>

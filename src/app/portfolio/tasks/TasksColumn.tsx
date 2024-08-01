@@ -35,7 +35,7 @@ const TasksColumn = ({
   const handleDrop = (e: DragEvent) => {
     e.stopPropagation();
     ("drop, column");
-    onDrop(true);
+    onDrop(false);
   };
 
   const handleDragEnter = () => {
@@ -48,7 +48,7 @@ const TasksColumn = ({
 
   const isDraggedOver =
     dragItem && dragEnterItem && dragEnterItem.columnId === columnId;
-  //   console.log(dragItem?.columnId, columnId, dragEnterItem?.columnId);
+
   return (
     <li
       ref={liRef}
@@ -75,7 +75,7 @@ const TasksColumn = ({
           tasksLength={tasks.length}
         />
         <ol
-          className="list-none flex flex-col gap-2"
+          className="list-none flex flex-col"
           onDragEnter={(e) => {
             e.stopPropagation();
           }}
@@ -95,7 +95,7 @@ const TasksColumn = ({
               dragItem={dragItem}
               dragEnterItem={dragEnterItem}
               columnId={columnId}
-              key={task.id}
+              key={task.id + i}
               index={i}
               isLast={i === tasks.length - 1}
               task={task}
