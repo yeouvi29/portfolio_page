@@ -26,8 +26,6 @@ const BoardSection = () => {
 
   const { handleDrop } = useDropTask();
 
-  // console.log("dragEnter", dragEnterItem?.index, "dragstart", dragItem?.item);
-
   return (
     <ol
       className={clsx("flex mt-4 list-none")}

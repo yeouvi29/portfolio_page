@@ -98,6 +98,3 @@ const Title = () => {
 };
 
 export default Title;
-function useDropTask(): { handleDrop: any } {
-  throw new Error("Function not implemented.");
-}

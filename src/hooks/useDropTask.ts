@@ -15,7 +15,10 @@ export const useDropTask = () => {
     const dropColumnIndex = taskItems.findIndex(
       (column) => column.id === dragEnterItem.columnId
     );
-    const newTaskItems = [...taskItems];
+    const newTaskItems = taskItems.map((item) => ({
+      ...item,
+      items: item.items.map((item) => ({ ...item })),
+    }));
     const dragItemIndex = newTaskItems[dragColumnIndex].items.findIndex(
       (item) => item.id === dragItem?.item.task.id
     );
@@ -38,9 +41,13 @@ export const useDropTask = () => {
 
     if (dragEnterItem.columnId === dragItem.columnId) {
       if (dragItemIndex < dropItemIndex) {
-        newTaskItems[dragColumnIndex].items.splice(dragItemIndex, 1);
+        newTaskItems[dragColumnIndex].items = newTaskItems[
+          dragColumnIndex
+        ].items.filter((_, index) => index !== dragItemIndex);
       } else {
-        newTaskItems[dragColumnIndex].items.splice(dragItemIndex + 1, 1);
+        newTaskItems[dragColumnIndex].items = newTaskItems[
+          dragColumnIndex
+        ].items.filter((_, index) => index !== dragItemIndex + 1);
       }
     } else {
       newTaskItems[dragColumnIndex].items = newTaskItems[

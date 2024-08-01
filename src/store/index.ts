@@ -3,19 +3,6 @@ import { create } from "zustand";
 import { DragEnterItem, DragStartItem, TaskItems } from "@/types";
 import { DEFAULT_TASKS } from "@/mockData";
 
-interface IsCursorOnTopState {
-  isCursorOnTop: boolean;
-  setIsCursorOnTop: (isCursorOnTop: boolean) => void;
-}
-
-export const useIsCursorOnTop = create<IsCursorOnTopState>((set) => ({
-  isCursorOnTop: false,
-  setIsCursorOnTop: (currentState: boolean) => {
-    console.log("set", currentState);
-    return set({ isCursorOnTop: currentState });
-  },
-}));
-
 interface TaskItemsState {
   items: TaskItems[];
   drag: {

@@ -9,6 +9,6 @@ export const formatDate = (date: Date): string => {
 
 export const removeElements = (selector: string) => {
   const els = document.querySelectorAll(selector);
-  console.log("els", els);
+
   els.forEach((el) => document.body.removeChild(el));
 };

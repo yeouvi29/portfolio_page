@@ -19,12 +19,11 @@ const SIDE_MENU = [
 ];
 const SideNavigation = () => {
   const path = usePathname();
-  const { handleDrop } = useDropTask();
+
   return (
     <div
       className="hidden md:block w-[250px] py-4"
       onDragOver={(e) => e.preventDefault()}
-      onDrop={handleDrop}
     >
       <nav className="px-4 sticky top-4" onDragOver={(e) => e.preventDefault()}>
         <ul className="list-none">
