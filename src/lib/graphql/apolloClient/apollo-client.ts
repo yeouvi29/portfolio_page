@@ -6,7 +6,7 @@ import {
 } from "@apollo/experimental-nextjs-app-support";
 const URL =
   process.env.NODE_ENV === "production"
-    ? "https://tokozzing.com"
+    ? process.env.NEXT_PUBLIC_URL
     : "http://localhost:3000";
 export const { getClient, query, PreloadQuery } = registerApolloClient(() => {
   return new ApolloClient({
