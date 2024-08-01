@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, Fragment, TouchEvent, useState } from "react";
+import { CSSProperties, Fragment, useState } from "react";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Navigation, Pagination, Keyboard, Mousewheel } from "swiper/modules";
 import clsx from "clsx";
@@ -41,9 +41,10 @@ const AttractionSection = () => {
   const [selectedAttraction, setSelectedAttraction] =
     useState<AttractionDataType | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
+
   return (
     <Fragment>
-      <div>
+      <div className="attractionSection">
         <div className="flex flex-col-reverse items-center xl:grid xl:grid-cols-2 gap-5 xl:items-start">
           <Map selectedAttraction={SF_ATTRACTIONS[activeSlide].title} />
           <div>
@@ -62,7 +63,7 @@ const AttractionSection = () => {
           </div>
         </div>
 
-        <div className="mt-5">
+        <div className="mt-5 overflow-hidden">
           <Swiper
             initialSlide={0}
             modules={[Pagination, Mousewheel, Navigation, Keyboard]}
