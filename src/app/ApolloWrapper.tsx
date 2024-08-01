@@ -7,15 +7,15 @@ import {
   ApolloClient,
   InMemoryCache,
 } from "@apollo/experimental-nextjs-app-support";
-const URL =
-  process.env.NODE_ENV === "production"
-    ? process.env.NEXT_PUBLIC_URL
-    : "http://localhost:3000";
+
 // have a function to create a client for you
 function makeClient() {
   const httpLink = new HttpLink({
     // this needs to be an absolute url, as relative urls cannot be used in SSR
-    uri: `${URL}/api/graphql`,
+    uri:
+      process.env.NODE_ENV === "production"
+        ? "https://portfolio-page-blush-pi.vercel.app/api/graphql"
+        : "http://localhost:3000/api/graphql",
     // you can disable result caching here if you want to
     // (this does not work if you are rendering your page with `export const dynamic = "force-static"`)
     fetchOptions: { cache: "no-store" },
