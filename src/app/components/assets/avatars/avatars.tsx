@@ -1,5 +1,6 @@
 export const avatars = [
   <svg
+    key="1"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -57,6 +58,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="2"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -114,6 +116,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="3"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -166,6 +169,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="4"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -218,6 +222,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="5"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -270,6 +275,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="6"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -327,6 +333,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="7"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -384,6 +391,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="8"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -436,6 +444,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="9"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -488,6 +497,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="10"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -540,6 +550,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="11"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -597,6 +608,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="12"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -649,6 +661,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="13"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -706,6 +719,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="14"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -763,6 +777,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="15"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -815,6 +830,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="16"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -867,6 +883,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="17"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -924,6 +941,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="18"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -976,6 +994,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="19"
     viewBox="0 0 36 36"
     fill="none"
     role="img"
@@ -1028,6 +1047,7 @@ export const avatars = [
     </g>
   </svg>,
   <svg
+    key="20"
     viewBox="0 0 36 36"
     fill="none"
     role="img"

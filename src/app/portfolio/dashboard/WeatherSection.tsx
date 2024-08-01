@@ -15,10 +15,10 @@ const WeatherSection = () => {
   const [max, min] = useMemo(() => {
     if (data && data.weather) {
       const max = Math.max(
-        ...data.weather.map((weather) => Number(weather.temp.max.f))
+        ...data.weather.map((weather: any) => Number(weather.temp.max.f))
       );
       const min = Math.min(
-        ...data.weather.map((weather) => Number(weather.temp.min.f))
+        ...data.weather.map((weather: any) => Number(weather.temp.min.f))
       );
       return [max, min];
     }
@@ -56,7 +56,7 @@ const WeatherSection = () => {
         </div>
         <div className="flex-grow flex flex-col justify-between text-gray-600 gap-2">
           {data
-            ? data?.weather?.map((weather) => (
+            ? data?.weather?.map((weather: any) => (
                 <div className=" flex gap-1 items-center" key={weather.date}>
                   <p className="w-[54px] text-sm text-center my-auto">
                     {formatDate(weather.date, "MMM/dd")}

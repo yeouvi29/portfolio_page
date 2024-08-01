@@ -52,12 +52,12 @@ const AttractionSection = () => {
               San Francisco, renowned for its iconic landmarks and vibrant
               culture, offers a plethora of attractions for visitors. From the
               majestic Golden Gate Bridge to the historic Alcatraz Island, the
-              city boasts a rich tapestry of experiences. Whether you're
-              exploring bustling Fisherman's Wharf, riding the legendary cable
-              cars, or admiring the scenic views from Twin Peaks, San Francisco
-              promises unforgettable adventures at every turn. Discover the top
-              10 must-see attractions that make this city a beloved destination
-              for travelers from around the world.
+              city boasts a rich tapestry of experiences. Whether you&apos;re
+              exploring bustling Fisherman&apos;s Wharf, riding the legendary
+              cable cars, or admiring the scenic views from Twin Peaks, San
+              Francisco promises unforgettable adventures at every turn.
+              Discover the top 10 must-see attractions that make this city a
+              beloved destination for travelers from around the world.
             </p>
           </div>
         </div>
