@@ -1,6 +1,6 @@
-import { Lato, Nunito_Sans } from "next/font/google";
+import { Lato, Montserrat } from "next/font/google";
 
-const nunitoSans = Nunito_Sans({
+const montserrat = Montserrat({
   weight: ["200", "300", "400", "700", "800", "900"],
   subsets: ["latin"],
   display: "swap",
@@ -11,4 +11,4 @@ const lato = Lato({
   display: "swap",
 });
 
-export { lato, nunitoSans };
+export { lato, montserrat };

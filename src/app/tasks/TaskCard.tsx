@@ -5,7 +5,7 @@ import clsx from "clsx";
 
 import { DragEnterItem, DragStartItem, TaskItem } from "@/types";
 
-import { removeElements } from "../../../../utils";
+import { removeElements } from "../../../utils";
 
 const TaskCard = ({
   task,

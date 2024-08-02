@@ -5,17 +5,20 @@ import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import { FaUser, FaMastodon } from "react-icons/fa";
 import { MdSpaceDashboard } from "react-icons/md";
-
-import { useDropTask } from "@/hooks/useDropTask";
-
+import { AiFillHome } from "react-icons/ai";
 const SIDE_MENU = [
+  {
+    name: "Home",
+    icon: <AiFillHome />,
+    path: "/",
+  },
   {
     name: "SF Dashboard",
     icon: <MdSpaceDashboard />,
-    path: "/portfolio/dashboard",
+    path: "/dashboard",
   },
-  { name: "Users", icon: <FaUser />, path: "/portfolio/users" },
-  { name: "Task Management", icon: <FaMastodon />, path: "/portfolio/tasks" },
+  { name: "Users", icon: <FaUser />, path: "/users" },
+  { name: "Task Management", icon: <FaMastodon />, path: "/tasks" },
 ];
 const SideNavigation = () => {
   const path = usePathname();

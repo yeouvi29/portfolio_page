@@ -8,8 +8,8 @@ const config: Config = {
   ],
   theme: {
     fontFamily: {
-      sans: ["'Open Sans'", "sans-serif"],
-      display: ["'Nunito Sans'", "sans-serif"],
+      sans: ["'Lato'", "sans-serif"],
+      display: ["'Montserrat'", "sans-serif"],
     },
     screens: {
       sm: "640px",
