@@ -1,6 +1,7 @@
 "use client";
 
-import { CSSProperties, Fragment, useState } from "react";
+import { CSSProperties, Fragment, useState, MouseEvent } from "react";
+import dynamic from "next/dynamic";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Navigation, Pagination, Keyboard, Mousewheel } from "swiper/modules";
 import clsx from "clsx";
@@ -13,7 +14,53 @@ const Map = dynamic(() => import("./Map"), { ssr: false });
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import dynamic from "next/dynamic";
+
+const Slide = ({
+  attraction,
+  index,
+  onClickSlide,
+}: {
+  attraction: AttractionDataType;
+  index: number;
+  onClickSlide: (attraction: AttractionDataType) => void;
+}) => {
+  const swiper = useSwiper();
+  return (
+    <div
+      className={clsx("bg-gray-300/20 p-2 rounded-md mb-10")}
+      onClick={() => {
+        swiper?.slideTo(index);
+        onClickSlide(attraction);
+      }}
+    >
+      <img
+        className="rounded-md"
+        src={attraction.image}
+        alt={attraction.title}
+      />
+      <div>
+        <h3 className="text-sf-orange">{attraction.title}</h3>
+        <div>
+          <p
+            className="text-gray-500 text-ellipsis overflow-hidden line-clamp-3"
+            style={
+              {
+                display: "-webkit-box",
+                "-webkit-box-orient": "vertical",
+              } as CSSProperties
+            }
+          >
+            {attraction.description}
+          </p>
+        </div>
+        <p className="text-gray-500">Rating: {attraction.rating}</p>
+        <p className="text-gray-500">
+          Est. Duration: {attraction.estimated_visit_duration}
+        </p>
+      </div>
+    </div>
+  );
+};
 
 const SwiperButton = ({ prev = true }: { prev?: boolean }) => {
   const swiper = useSwiper();
@@ -95,40 +142,13 @@ const AttractionSection = () => {
             }}
             pagination={{ clickable: true }}
           >
-            {SF_ATTRACTIONS.map((attraction, index, arr) => (
-              <SwiperSlide
-                key={index}
-                onClick={() => {
-                  setSelectedAttraction(attraction);
-                }}
-              >
-                <div className={clsx("bg-gray-300/20 p-2 rounded-md mb-10")}>
-                  <img
-                    className="rounded-md"
-                    src={attraction.image}
-                    alt={attraction.title}
-                  />
-                  <div>
-                    <h3 className="text-sf-orange">{attraction.title}</h3>
-                    <div>
-                      <p
-                        className="text-gray-500 text-ellipsis overflow-hidden line-clamp-3"
-                        style={
-                          {
-                            display: "-webkit-box",
-                            "-webkit-box-orient": "vertical",
-                          } as CSSProperties
-                        }
-                      >
-                        {attraction.description}
-                      </p>
-                    </div>
-                    <p className="text-gray-500">Rating: {attraction.rating}</p>
-                    <p className="text-gray-500">
-                      Est. Duration: {attraction.estimated_visit_duration}
-                    </p>
-                  </div>
-                </div>
+            {SF_ATTRACTIONS.map((attraction, index) => (
+              <SwiperSlide key={index}>
+                <Slide
+                  attraction={attraction}
+                  index={index}
+                  onClickSlide={setSelectedAttraction}
+                />
               </SwiperSlide>
             ))}
             <SwiperButton prev />
