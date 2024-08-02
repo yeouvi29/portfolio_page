@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import clsx from "clsx";
 
-import { lato } from "@/styles/fonts";
+import { lato, montserrat } from "@/styles/fonts";
 
 import SideNavigation from "./components/sections/SideNavigation/SideNavigation";
 import { ApolloWrapper } from "./ApolloWrapper";
@@ -10,8 +10,8 @@ import "./globals.css";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
-    <html lang="en">
-      <body className={clsx(lato.className, "bg-white")}>
+    <html lang="en" className={clsx(lato.variable, montserrat.variable)}>
+      <body className="bg-white">
         <div className="min-h-screen flex flex-col md:flex-row">
           <SideNavigation />
           <ApolloWrapper>
