@@ -1,3 +1,4 @@
+import { montserrat } from "next/font/google";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -8,8 +9,8 @@ const config: Config = {
   ],
   theme: {
     fontFamily: {
-      sans: ["'Lato'", "sans-serif"],
-      display: ["'Montserrat'", "sans-serif"],
+      sans: ["var(--font-lato)"],
+      display: ["var(--font-montserrat)"],
     },
     screens: {
       sm: "640px",
