@@ -119,6 +119,7 @@ const AddTask = ({
           onClick={handleClick}
           onDragOver={(e) => e.preventDefault()}
           onDragEnter={handleDragEnter}
+          data-draggedover={true}
         >
           + Add a card
         </button>
@@ -136,21 +137,23 @@ const AddTask = ({
               <input
                 ref={inputRef}
                 value={newTask?.text || ""}
+                placeholder="Enter a task for this card..."
                 className="w-full h-full p-2 outline-none"
                 onChange={handleChange}
+                data-testid="add-task-input"
               />
             </form>
           </div>
 
           <div className="w-full mt-2 h-[32px] flex gap-2 items-center">
             <button
-              className="h-full bg-blue-600 px-2 rounded-md text-white"
+              className="h-full bg-blue-500 px-2 rounded-md text-white"
               onClick={handleClickOnAddCard}
             >
               Add card
             </button>
             <button
-              className="hover:bg-gray-400/30 rounded-md h-full aspect-square text-[20px] text-gray-800 flex items-center justify-center"
+              className="hover:bg-gray-400/30 rounded-md h-full aspect-square text-[20px] text-gray-600 flex items-center justify-center"
               onClick={handleClose}
             >
               <IoClose />

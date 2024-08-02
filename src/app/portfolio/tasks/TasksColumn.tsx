@@ -34,7 +34,6 @@ const TasksColumn = ({
 
   const handleDrop = (e: DragEvent) => {
     e.stopPropagation();
-    ("drop, column");
     onDrop(false);
   };
 
@@ -58,6 +57,7 @@ const TasksColumn = ({
         e.preventDefault();
       }}
       onDragEnter={handleDragEnter}
+      data-testid={title}
     >
       <div
         className={clsx(
