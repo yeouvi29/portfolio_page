@@ -10,7 +10,7 @@ test.describe("Add a task", () => {
     page,
   }) => {
     await page.click("text=Task Management");
-    await expect(page).toHaveURL("/portfolio/tasks");
+    await expect(page).toHaveURL("/tasks");
     const column = page.getByTestId("To do");
     const addCardButton = column.getByText("+ Add a card");
 
