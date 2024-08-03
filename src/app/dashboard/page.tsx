@@ -24,7 +24,7 @@ const Page = () => {
         <div className="rounded-2xl overflow-hidden">
           <img
             src="/assets/san_francisco_image.webp"
-            className="h-full object-contain"
+            className="w-full object-contain"
           />
         </div>
         <div className="flex gap-2 flex-col min-[1248px]:flex-row items-center">
