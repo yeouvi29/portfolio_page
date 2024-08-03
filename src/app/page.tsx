@@ -4,6 +4,7 @@ import { montserrat } from "@/styles/fonts";
 import { Container } from "@/components/common/Container/Container";
 
 import styles from "./styles.module.css";
+import Footer from "@/components/section/Footer/Footer";
 
 const Page = () => {
   return (
@@ -36,6 +37,7 @@ const Page = () => {
           ></div>
         </div>
       </div>
+      <Footer />
     </Container>
   );
 };

@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { FaUser, FaMastodon } from "react-icons/fa";
 import { MdSpaceDashboard } from "react-icons/md";
@@ -35,6 +35,7 @@ const SIDE_MENU = [
 ];
 const SideNavigation = () => {
   const path = usePathname();
+  const router = useRouter();
   const [selectedPath, setSelectedPath] = useState("/");
   const [showSideBar, setShowSideBar] = useState(true);
   const closeSideBar = () => {
@@ -44,6 +45,12 @@ const SideNavigation = () => {
     setShowSideBar(false);
     setSelectedPath(path);
   };
+
+  const goToPath = (path: string) => {
+    setShowSideBar(false);
+    router.push(path);
+  };
+
   useEffect(() => {
     if (!path || !SIDE_MENU.some((item) => item.path === path)) {
       setSelectedPath("/");
@@ -101,7 +108,7 @@ const SideNavigation = () => {
       </div>
       <SideNavigationSlide show={showSideBar} onClose={closeSideBar}>
         <Fragment>
-          <div className="p-4">
+          <div className="p-4" onClick={() => goToPath("/")}>
             <Image
               src="/assets/logo_icon.svg"
               width={25}
