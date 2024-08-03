@@ -8,7 +8,7 @@ import clsx from "clsx";
 import { RiArrowLeftWideLine, RiArrowRightWideLine } from "react-icons/ri";
 
 import { AttractionDataType, SF_ATTRACTIONS } from "@/mockData";
-import AttractionDetailModal from "@/app/components/ui/AttractionDetailModal/AttractionDetailModal";
+import AttractionDetailModal from "@/components/ui/AttractionDetailModal/AttractionDetailModal";
 
 const Map = dynamic(() => import("./Map"), { ssr: false });
 import "swiper/css";

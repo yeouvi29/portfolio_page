@@ -2,8 +2,8 @@
 
 import { FormEvent, useState } from "react";
 
-import Select from "@/app/components/common/Select/Select";
-import TextField from "@/app/components/common/TextField/TextField";
+import Select from "@/components/common/Select/Select";
+import TextField from "@/components/common/TextField/TextField";
 
 import { ListControlStateType } from "./page";
 

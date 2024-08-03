@@ -4,7 +4,7 @@ import { CSSProperties, useState } from "react";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import clsx from "clsx";
 
-import PopOver from "../../common/PopOver/PopOver";
+import PopOver from "../PopOver/PopOver";
 import styles from "./styles.module.css";
 
 interface SelectProps {

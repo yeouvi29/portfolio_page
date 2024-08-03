@@ -3,7 +3,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 
-import ClickAwayListener from "@/app/components/common/ClickAwayLIstener/ClickAwayListener";
+import ClickAwayListener from "@/components/common/ClickAwayLIstener/ClickAwayListener";
 
 const Title = () => {
   const titleRef = useRef<HTMLDivElement>(null);

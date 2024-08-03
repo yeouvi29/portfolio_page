@@ -2,12 +2,12 @@
 
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import { Container } from "@/app/components/common/Container/Container";
+import { Container } from "@/components/common/Container/Container";
 
 import BartSection from "./BartSection";
 import WeatherSection from "./WeatherSection";
 import ChartSection from "./ChartSection";
-import Spinner from "@/app/components/common/Spinner/Spinner";
+import Spinner from "@/components/common/Spinner/Spinner";
 const AttractionSection = dynamic(() => import("./AttractionSection"));
 
 const Page = () => {

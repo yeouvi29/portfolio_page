@@ -1,7 +1,7 @@
 "use client";
 
 import UserTable from "./UserTable";
-import Pagination from "@/app/components/common/Pagination/Pagination";
+import Pagination from "@/components/common/Pagination/Pagination";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useGetUsers } from "@/app/api/graphql/hooks";
 import FilterSection from "./FilterSection";

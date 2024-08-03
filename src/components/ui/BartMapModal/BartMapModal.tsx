@@ -8,10 +8,9 @@ import DraggableImage from "../DraggableImage/DraggableImage";
 import ModalButton from "../ModalButton/ModalButton";
 import clsx from "clsx";
 
-const DynamicModal = dynamic(
-  () => import("@/app/components/common/Modal/Modal"),
-  { ssr: false }
-);
+const DynamicModal = dynamic(() => import("@/components/common/Modal/Modal"), {
+  ssr: false,
+});
 
 const BartMapModal = ({ onClose }: { onClose: () => void }) => {
   const [scale, setScale] = useState(10);

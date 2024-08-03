@@ -13,7 +13,7 @@ import { IoClose } from "react-icons/io5";
 
 import { useTaskItems } from "@/store";
 import { TaskItems } from "@/types";
-import ClickAwayListener from "@/app/components/common/ClickAwayLIstener/ClickAwayListener";
+import ClickAwayListener from "@/components/common/ClickAwayLIstener/ClickAwayListener";
 interface NewTask {
   text: string;
 }

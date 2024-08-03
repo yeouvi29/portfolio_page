@@ -5,9 +5,9 @@ import { format, parseISO } from "date-fns";
 import { toZonedTime, format as formatTz } from "date-fns-tz";
 
 import { useGetWeather } from "@/app/api/graphql/hooks";
-import Switch from "@/app/components/common/Swtich/Switch";
-import Range from "@/app/components/common/Range/Range";
-import Skeleton from "@/app/components/common/Skeleton/Skeleton";
+import Switch from "@/components/common/Swtich/Switch";
+import Range from "@/components/common/Range/Range";
+import Skeleton from "@/components/common/Skeleton/Skeleton";
 
 const WeatherSection = () => {
   const { data, loading, error } = useGetWeather();

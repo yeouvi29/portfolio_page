@@ -1,4 +1,4 @@
-import PageLoading from "@/app/components/ui/PageLoading/PageLoading";
+import PageLoading from "@/components/ui/PageLoading/PageLoading";
 
 const Page = () => {
   return <PageLoading />;

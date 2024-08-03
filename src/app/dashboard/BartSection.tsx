@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Fragment, useState } from "react";
 import { LuSearch } from "react-icons/lu";
-import BartMapModal from "@/app/components/ui/BartMapModal/BartMapModal";
+import BartMapModal from "@/components/ui/BartMapModal/BartMapModal";
 
 const BartSection = () => {
   const [showModal, setShowModal] = useState(false);

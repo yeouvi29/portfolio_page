@@ -3,11 +3,11 @@
 import { HiDotsVertical } from "react-icons/hi";
 import { FaArrowDownLong, FaArrowUpLong } from "react-icons/fa6";
 
-import { avatars } from "@/app/components/assets/avatars/avatars";
+import { avatars } from "@/components/assets/avatars/avatars";
 import { UserEntity } from "@/db/types";
 import { ListControlStateType } from "./page";
-import SortPopOver from "@/app/components/ui/SortPopOver/SortPopOver";
-import Skeleton from "@/app/components/common/Skeleton/Skeleton";
+import SortPopOver from "@/components/ui/SortPopOver/SortPopOver";
+import Skeleton from "@/components/common/Skeleton/Skeleton";
 
 const HEADER = [
   { name: "Avatar", key: "avatar", sortable: false, width: "80px" },
