@@ -22,11 +22,11 @@ const Page = () => {
               </span>
             </h2>
           </div>
-          <p className="text-gray-500">
+          <p className="text-gray-600">
             This dynamic interface highlights my skills while offering seamless
             navigation to essential sections.
           </p>
-          <p className="text-gray-500">
+          <p className="text-gray-600">
             Built with Next.js, TailwindCSS, MongoDB, and GraphQL, it highlights
             responsiveness, user experience, and functionality.
           </p>
