@@ -12,7 +12,7 @@ const Page = () => {
     <Container className="relative mx-0 px-0 h-full">
       <div className="w-full max-w-screen-xl mt-5 flex gap-5 justify-between items-end">
         <div className="text-center lg:text-left">
-          <h1 className="mb-7 text-blue-700">Emily's Portfolio</h1>
+          <h1 className="mb-7 text-blue-700">Emily&apos;s Portfolio</h1>
           <div className="max-w-[600px]">
             <h2 className="text-2xl text-blue-500 mb-3">
               Take a look at my latest work <br />
