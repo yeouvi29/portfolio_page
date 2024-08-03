@@ -7,10 +7,9 @@ import Link from "next/link";
 import clsx from "clsx";
 import { usePathname, useRouter } from "next/navigation";
 
-import { FaUser, FaMastodon } from "react-icons/fa";
-import { MdSpaceDashboard } from "react-icons/md";
-import { AiFillHome } from "react-icons/ai";
 import { FiMenu } from "react-icons/fi";
+import { SIDE_MENU } from "@/constants";
+import Logo from "@/components/assets/avatars/Logo";
 
 const SideNavigationSlide = dynamic(
   () => import("./../../common/SideNavigationSlide/SideNavigationSlide"),
@@ -19,25 +18,12 @@ const SideNavigationSlide = dynamic(
   }
 );
 
-const SIDE_MENU = [
-  {
-    name: "Home",
-    icon: <AiFillHome />,
-    path: "/",
-  },
-  {
-    name: "SF Dashboard",
-    icon: <MdSpaceDashboard />,
-    path: "/dashboard",
-  },
-  { name: "Users", icon: <FaUser />, path: "/users" },
-  { name: "Task Management", icon: <FaMastodon />, path: "/tasks" },
-];
 const SideNavigation = () => {
   const path = usePathname();
   const router = useRouter();
   const [selectedPath, setSelectedPath] = useState("/");
-  const [showSideBar, setShowSideBar] = useState(true);
+  const [showSideBar, setShowSideBar] = useState(false);
+
   const closeSideBar = () => {
     setShowSideBar(false);
   };
@@ -108,15 +94,13 @@ const SideNavigation = () => {
       </div>
       <SideNavigationSlide show={showSideBar} onClose={closeSideBar}>
         <Fragment>
-          <div className="p-4" onClick={() => goToPath("/")}>
-            <Image
-              src="/assets/logo_icon.svg"
-              width={25}
-              height={25}
-              alt="Tokozzing Logo"
-            />
+          <div className="p-4">
+            <Link href="/" onClick={closeSideBar}>
+              <span className="sr-only">Emily&apos;s Blog - Portfolio</span>
+              <Logo className="text-[32px] text-gray-600" />
+            </Link>
           </div>
-          <nav className="px-4 top-4" onDragOver={(e) => e.preventDefault()}>
+          <nav className="mt-4 px-4 top-4" onDragOver={(e) => e.preventDefault()}>
             <ul className="list-none">
               {SIDE_MENU.map((item) => (
                 <li

@@ -1,7 +1,15 @@
 import { PiBridgeBold, PiParkFill, PiBowlFoodBold } from "react-icons/pi";
-import { FaLandmark, FaShoppingBag, FaPalette, FaAnchor } from "react-icons/fa";
+import {
+  FaLandmark,
+  FaShoppingBag,
+  FaPalette,
+  FaAnchor,
+  FaMastodon,
+  FaUser,
+} from "react-icons/fa";
 import { FaFish, FaCarSide } from "react-icons/fa6";
-
+import { MdSpaceDashboard } from "react-icons/md";
+import { AiFillHome } from "react-icons/ai";
 //  "sf-red": "#C0362C",
 // "sf-blue": "#1D6D9B",
 // "sf-gray": "#A3A3A3",
@@ -78,5 +86,52 @@ export const ATTRACTIONS_LAT_LNG = [
       "https://sfrecpark.org/destination/telegraph-hill-pioneer-park/coit-tower",
     background: "#FD5A1E",
     icon: <FaLandmark />,
+  },
+];
+
+export const SIDE_MENU = [
+  {
+    name: "Home",
+    icon: <AiFillHome />,
+    path: "/",
+  },
+  {
+    name: "SF Dashboard",
+    icon: <MdSpaceDashboard />,
+    path: "/dashboard",
+  },
+  { name: "Users", icon: <FaUser />, path: "/users" },
+  { name: "Task Management", icon: <FaMastodon />, path: "/tasks" },
+];
+
+export const PAGES = [
+  {
+    title: "SF Dashboard",
+    path: "/dashboard",
+    explanation:
+      "The SF Dashboard offers an interactive BART map modal, a 3-day weather forecast for San Francisco, a graph displaying historical traveler data, and detailed information with locations for the top 10 city attractions.",
+    techStacks: [
+      "GraphQL",
+      "MongoDB",
+      "Chart.js",
+      "Google Maps API",
+      "WeatherAPI",
+      "Lambda",
+      "EventBridge",
+    ],
+  },
+  {
+    title: "Users",
+    path: "/users",
+    explanation:
+      "The Users Page allows admins to view essential user information, sort by various fields, and filter based on specific conditions. This feature is designed to enhance administrative efficiency and ensure easy access to critical user data.",
+    techStacks: ["MongoDB", "GraphQL"],
+  },
+  {
+    title: "Task Management",
+    path: "/tasks",
+    explanation:
+      "The Task Management Page is modeled after Trello, offering a familiar layout and functionality. It supports drag-and-drop task movement between columns, as well as the creation, editing, and deletion of tasks to streamline task management.",
+    note: "For demo purposes, data is handled on the client side, so refreshing the page will reset it to the initial state.",
   },
 ];
