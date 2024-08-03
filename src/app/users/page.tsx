@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useGetUsers } from "@/app/api/graphql/hooks";
 import FilterSection from "./FilterSection";
 import { List } from "postcss/lib/list";
+import { Container } from "@/components/common/Container/Container";
 const LIMIT = 20;
 
 export interface ListControlStateType {
@@ -121,7 +122,7 @@ const Page = () => {
   }, [listControlState]);
 
   return (
-    <div className="flex-grow">
+    <div className="mt-5 text-gray-600">
       <h1>Users</h1>
       <div className="w-fit max-w-[calc(100vw-40px)] md:max-w-[calc(100vw-290px)] mt-5">
         <FilterSection disabled={loading} updateSearchTerms={handleSearch} />

@@ -2,10 +2,9 @@
 
 import { Fragment, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import { usePathname, useRouter } from "next/navigation";
 
 import { FiMenu } from "react-icons/fi";
 import { SIDE_MENU } from "@/constants";
@@ -20,7 +19,6 @@ const SideNavigationSlide = dynamic(
 
 const SideNavigation = () => {
   const path = usePathname();
-  const router = useRouter();
   const [selectedPath, setSelectedPath] = useState("/");
   const [showSideBar, setShowSideBar] = useState(false);
 
@@ -30,11 +28,6 @@ const SideNavigation = () => {
   const handleMenuClickOnMobileView = (path: string) => {
     setShowSideBar(false);
     setSelectedPath(path);
-  };
-
-  const goToPath = (path: string) => {
-    setShowSideBar(false);
-    router.push(path);
   };
 
   useEffect(() => {
@@ -100,7 +93,10 @@ const SideNavigation = () => {
               <Logo className="text-[32px] text-gray-600" />
             </Link>
           </div>
-          <nav className="mt-4 px-4 top-4" onDragOver={(e) => e.preventDefault()}>
+          <nav
+            className="mt-4 px-4 top-4"
+            onDragOver={(e) => e.preventDefault()}
+          >
             <ul className="list-none">
               {SIDE_MENU.map((item) => (
                 <li

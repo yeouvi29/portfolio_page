@@ -60,7 +60,7 @@ const UserTable = ({
   sortingItem: ListControlStateType["sort"];
 }) => {
   return (
-    <div className="overflow-x-auto rounded-lg">
+    <div className="mt-4 overflow-x-scroll rounded-lg">
       <table className="bg-white">
         <thead className="bg-gray-200">
           <tr>

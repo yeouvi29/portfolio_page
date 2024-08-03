@@ -9,7 +9,7 @@ import MenuCard from "./MenuCard";
 
 const Page = () => {
   return (
-    <Container className="relative">
+    <Container className="relative mx-0 px-0 h-full">
       <div className="w-full max-w-screen-xl mt-5 flex gap-5 justify-between items-end">
         <div className="text-center lg:text-left">
           <h1 className="mb-7 text-blue-700">Emily's Portfolio</h1>

@@ -3,7 +3,7 @@ import BoardSection from "./BoardSection";
 
 const Page = () => {
   return (
-    <div className="w-full overflow-x-auto">
+    <div className="mt-5 w-full overflow-x-auto">
       <Title />
       <BoardSection />
     </div>

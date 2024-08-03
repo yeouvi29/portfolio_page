@@ -89,7 +89,9 @@ const Title = () => {
             onClick={() => setIsEditable(true)}
             onDragOver={(e) => e.preventDefault()}
           >
-            <h1 className="text-lg whitespace-pre">{titleInput}</h1>
+            <h1 className="text-lg whitespace-pre text-gray-600">
+              {titleInput}
+            </h1>
           </div>
         </form>
       </ClickAwayListener>
