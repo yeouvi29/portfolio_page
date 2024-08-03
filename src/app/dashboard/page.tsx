@@ -12,7 +12,7 @@ const AttractionSection = dynamic(() => import("./AttractionSection"));
 
 const Page = () => {
   return (
-    <Container className="mx-0 px-0">
+    <Container className="!mx-0 !px-0">
       <div className="mt-5 flex flex-col gap-5 text-gray-500 text-center xl:text-left">
         <h1 className="text-sf-orange">SF Dashboard</h1>
         <p className="text-lg">
