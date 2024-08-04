@@ -119,13 +119,15 @@ export const PAGES = [
       "Lambda",
       "EventBridge",
     ],
+    note: "The BART map modal is a static image, and the weather forecast data is from WeatherAPI and saved to MongoDB using Lambda and EventBridge daily. All images are generated using ChatGPT All images were generated using ChatGPT",
   },
   {
     title: "Users",
     path: "/users",
     explanation:
       "The Users Page allows admins to view essential user information, sort by various fields, and filter based on specific conditions. This feature is designed to enhance administrative efficiency and ensure easy access to critical user data.",
-    techStacks: ["MongoDB", "GraphQL"],
+    techStacks: ["MongoDB", "GraphQL", "Faker.js"],
+    note: "All users data was generated using Faker.js and stored in MongoDB.",
   },
   {
     title: "Task Management",

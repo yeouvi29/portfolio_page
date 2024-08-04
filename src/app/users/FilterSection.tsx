@@ -6,6 +6,7 @@ import Select from "@/components/common/Select/Select";
 import TextField from "@/components/common/TextField/TextField";
 
 import { ListControlStateType } from "./page";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 const SELECT_OPTIONS = {
   search: [
@@ -45,6 +46,7 @@ const FilterSection = ({
     filter: ListControlStateType["filter"];
   }) => void;
 }) => {
+  const { isUpOrEqual } = useBreakpoint();
   const [searchField, setSearchField] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [selectedFilteringItems, setSelectedFilteringItems] = useState<
@@ -70,7 +72,7 @@ const FilterSection = ({
       filter: selectedFilteringItems,
     });
   };
-
+  const isMobile = !isUpOrEqual("md");
   return (
     <form className="py-5" onSubmit={handleSubmit}>
       <h3 className="text-2xl text-gray-500">Search User</h3>
@@ -90,7 +92,9 @@ const FilterSection = ({
           disabled={disabled || !searchField}
           value={searchInput}
           onChange={setSearchInput}
-          placeholder="Search user by name, email, or ID"
+          placeholder={
+            isMobile ? "Search user" : "Search user by name, email, or ID"
+          }
           // label="Search"
           // helperText={<p className="text-red-600 text-xs">error</p>}
         />

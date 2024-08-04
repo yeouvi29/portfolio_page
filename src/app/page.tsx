@@ -27,7 +27,7 @@ const Page = () => {
             navigation to essential sections.
           </p>
           <p className="text-gray-600">
-            Built with Next.js, TailwindCSS, MongoDB, and GraphQL, it highlights
+            Built with Next.js, TypeScript, TailwindCSS, MongoDB, and GraphQL, based on AWS services, it highlights
             responsiveness, user experience, and functionality.
           </p>
         </div>

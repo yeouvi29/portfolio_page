@@ -39,9 +39,13 @@ const TextField = ({
           disabled && "!bg-gray-300 text-gray-400 cursor-not-allowed"
         )}
       >
-        {icon ? icon : <LuSearch className="w-5 min-w-5 text-gray-300" />}
+        {icon ? (
+          icon
+        ) : (
+          <LuSearch className="w-4 min-w-4 h-4 mt-0 md:mt-1 text-gray-400" />
+        )}
         <input
-          className="h-[44px] py-2 pr-2 min-w-full flex-grow outline-none bg-transparent"
+          className="h-[38.5px] md:h-[44px] py-2 pr-2 m-auto min-w-full flex-grow outline-none bg-transparent"
           type="text"
           disabled={disabled}
           placeholder={placeholder}
