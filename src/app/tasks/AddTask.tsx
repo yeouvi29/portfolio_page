@@ -25,12 +25,14 @@ const AddTask = ({
   tasksLength: number;
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [setDragEnterItem] = useTaskItems(({ setDragEnter }) => [setDragEnter]);
   const [newTask, setNewTask] = useState<NewTask | null>(null);
-  const [taskItems, setTaskItems] = useTaskItems(({ items, setTaskItems }) => [
-    items,
-    setTaskItems,
-  ]);
+  const [taskItems, dragStartItem, setTaskItems, setDragEnterItem] =
+    useTaskItems(({ items, drag: { start }, setTaskItems, setDragEnter }) => [
+      items,
+      start,
+      setTaskItems,
+      setDragEnter,
+    ]);
   const newTaskRef = useRef(newTask);
   const handleDragEnter = (e: DragEvent) => {
     e.stopPropagation();
@@ -115,7 +117,10 @@ const AddTask = ({
     <Fragment>
       {!newTask && (
         <button
-          className="w-full mt-2 p-2 rounded-lg text-left hover:bg-gray-400/30"
+          className={clsx(
+            "w-full mt-2 p-2 rounded-lg text-left",
+            !dragStartItem && "hover:bg-gray-400/30"
+          )}
           onClick={handleClick}
           onDragOver={(e) => e.preventDefault()}
           onDragEnter={handleDragEnter}

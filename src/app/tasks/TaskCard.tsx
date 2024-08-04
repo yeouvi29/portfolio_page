@@ -52,8 +52,9 @@ const TaskCard = ({
       "rounded-lg",
       "bg-white",
       "p-2",
-      "border-sky-500",
-      "border-2",
+      "border-gray-400/40",
+      "border-[1px]",
+      "shadow-sm",
       "border-solid"
     );
 
@@ -156,7 +157,10 @@ const TaskCard = ({
     <Fragment>
       <li
         ref={listRef}
-        className={clsx("relative w-[272px] pointer-events-auto", "py-1")}
+        className={clsx(
+          "relative w-[272px] pointer-events-auto cursor-auto ",
+          "py-1"
+        )}
         style={{
           opacity,
           display: opacity === 0 ? "none" : "block",
@@ -178,7 +182,10 @@ const TaskCard = ({
 
         <div
           className={clsx(
-            "w-full rounded-lg p-2 bg-white border-sky-500 border-2 order-solid pointer-events-none"
+            "relative w-full rounded-lg p-2 bg-white border-gray-400/40 border-[1px] shadow-sm order-solid",
+            !dragItem &&
+              !dragEnterItem &&
+              "cursor-pointer hover:after:absolute hover:after:w-full hover:after:h-full hover:after:left-0 hover:after:top-0 hover:after:border-2  hover:after:border-solid hover:after:border-blue-600 hover:after:rounded-lg"
           )}
         >
           {task.text}

@@ -62,7 +62,7 @@ const TasksColumn = ({
       <div
         className={clsx(
           "p-2 flex flex-col h-fit rounded-lg border-solid border-2  bg-gray-200",
-          isDraggedOver ? "border-red-600" : "border-gray-200"
+          isDraggedOver ? "border-blue-600" : "border-gray-200"
         )}
         onDragOver={(e) => {
           e.preventDefault();
