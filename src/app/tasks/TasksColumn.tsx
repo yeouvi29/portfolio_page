@@ -47,6 +47,14 @@ const TasksColumn = ({
     });
   };
 
+  const handleTitleUpdate = (title: string, columnId: string) => {
+    onUpdateTask({
+      title,
+      id: columnId,
+      items: tasks,
+    });
+  };
+
   const handleUpdateTask = (updateTask: TaskItem) => {
     const updatedTasks = tasks.map((task) =>
       task.id === updateTask.id ? updateTask : task
@@ -84,8 +92,9 @@ const TasksColumn = ({
         <TaskTitle
           title={title}
           columnId={columnId}
-          onDragEnter={onDragEnter}
           tasksLength={tasks.length}
+          onDragEnter={onDragEnter}
+          onTitleUpdate={handleTitleUpdate}
         />
         <ol
           className="list-none flex flex-col"

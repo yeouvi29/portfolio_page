@@ -11,6 +11,9 @@
     margin: 0;
     padding: 0;
     font-family: var(--font-lato);
+    &:has([data-fixed="true"]) {
+      overflow: hidden;
+    }
     @media (min-width: 640px) {
       font-size: 16px;
     }
