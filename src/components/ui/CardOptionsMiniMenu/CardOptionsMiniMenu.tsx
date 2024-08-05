@@ -2,7 +2,7 @@
 
 import Backdrop from "@/components/common/Backdrop/Backdrop";
 
-import { FormEvent, Fragment, useEffect, useRef } from "react";
+import { FormEvent, Fragment, useEffect, useRef, useState } from "react";
 interface CardOptionsMiniMenuProps {
   task: string;
   onClose: () => void;
@@ -14,21 +14,26 @@ const CardOptionsMiniMenu = ({
   updateTask,
 }: CardOptionsMiniMenuProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [value, setValue] = useState<string>(task);
 
   const updateValue = () => {
-    const newValue = textareaRef.current?.value;
-    console.log(newValue);
-    if (!newValue) {
+    if (!value.trim()) {
       textareaRef.current?.focus();
       return;
     }
-    updateTask(newValue);
+    updateTask(value);
     onClose();
   };
+
+  const handleChange = () => {
+    setValue(textareaRef.current?.value || "");
+  };
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     updateValue();
   };
+
   useEffect(() => {
     if (textareaRef.current) {
       const textareaEl = textareaRef.current;
@@ -48,10 +53,10 @@ const CardOptionsMiniMenu = ({
           <textarea
             wrap="soft"
             ref={textareaRef}
+            value={value}
+            onChange={handleChange}
             className="w-full bg-white p-2 rounded-lg resize-none outline-none"
-          >
-            {task}
-          </textarea>
+          />
         </form>
         <button
           onClick={handleSubmit}
