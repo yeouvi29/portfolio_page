@@ -7,7 +7,7 @@ import TaskCard from "./TaskCard";
 import TaskTitle from "./TaskTitle";
 import AddTask from "./AddTask";
 
-import { DragEnterItem, DragStartItem, TaskItem } from "@/types";
+import { DragEnterItem, DragStartItem, TaskItem, TaskItems } from "@/types";
 
 const TasksColumn = ({
   title,
@@ -19,6 +19,7 @@ const TasksColumn = ({
   onDragStart,
   onDragEnter,
   onDragLeave,
+  onUpdateTask,
 }: {
   title: string;
   columnId: string;
@@ -29,6 +30,7 @@ const TasksColumn = ({
   onDrop: (isCursorOnTop: boolean) => void;
   onDragEnter: (dragEnterItem: DragEnterItem) => void;
   onDragLeave: () => void;
+  onUpdateTask: (tasks: TaskItems) => void;
 }) => {
   const liRef = useRef<HTMLLIElement>(null);
 
@@ -42,6 +44,17 @@ const TasksColumn = ({
       columnId,
       index: tasks.length ? tasks.length - 1 : 0,
       addToBottom: true,
+    });
+  };
+
+  const handleUpdateTask = (updateTask: TaskItem) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === updateTask.id ? updateTask : task
+    );
+    onUpdateTask({
+      title,
+      id: columnId,
+      items: updatedTasks,
     });
   };
 
@@ -104,6 +117,7 @@ const TasksColumn = ({
               onDrop={onDrop}
               onDragEnter={onDragEnter}
               onDragLeave={onDragLeave}
+              onUpdateTask={handleUpdateTask}
             />
           ))}
         </ol>

@@ -13,7 +13,7 @@ const AttractionDetailModal = ({
   return (
     <Modal
       onClose={onClose}
-      className="!min-w-fit [&>.modalContent]:h-fit [&>.modalContent]:p-4 [&>.modalContent]:bg-[rgba(207,195,184,1)]"
+      className="!min-w-fit [&>.modalContent]:h-fit [&>.modalContent]:p-4 [&>.modalContent]:bg-gray-200"
     >
       <div className="grid grid-cols-1 md:grid-cols-[300px,400px] gap-4">
         <img

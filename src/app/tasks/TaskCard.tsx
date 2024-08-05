@@ -7,6 +7,7 @@ import { TbPencil } from "react-icons/tb";
 import { DragEnterItem, DragStartItem, TaskItem } from "@/types";
 
 import { removeElements } from "../../../utils";
+import CardOptionsMiniMenu from "@/components/ui/CardOptionsMiniMenu/CardOptionsMiniMenu";
 
 const TaskCard = ({
   task,
@@ -19,6 +20,7 @@ const TaskCard = ({
   onDragEnter,
   onDrop,
   onDragLeave,
+  onUpdateTask,
 }: {
   title: string;
   index: number;
@@ -31,11 +33,12 @@ const TaskCard = ({
   onDragEnter: (dragEnterItem: DragEnterItem) => void;
   onDrop: (isCursorOnTop: boolean) => void;
   onDragLeave: () => void;
+  onUpdateTask: (tasks: TaskItem) => void;
 }) => {
   const listRef = useRef<HTMLLIElement>(null);
   const isReEnter = useRef(false);
   const [isCursorOnTop, setIsCursorOnTop] = useState<null | boolean>(null);
-
+  const [showMiniMenu, setShowMiniMenu] = useState(false);
   const handleDragStart = (event: any) => {
     const x = event.clientX;
     const y = event.clientY;
@@ -106,6 +109,9 @@ const TaskCard = ({
       onDragLeave();
       removeElements("#drag-image");
     }
+  };
+  const handleUpdateTask = (newValue: string) => {
+    onUpdateTask({ ...task, text: newValue });
   };
 
   const opacity =
@@ -212,9 +218,17 @@ const TaskCard = ({
             "hidden absolute w-8 h-8 top-2 right-1 py-1.5 px-2 text-s rounded-full ",
             !dragItem && "group-hover:block hover:bg-gray-300"
           )}
+          onClick={() => setShowMiniMenu(true)}
         >
           <TbPencil />
         </button>
+        {showMiniMenu && (
+          <CardOptionsMiniMenu
+            task={task.text}
+            onClose={() => setShowMiniMenu(false)}
+            updateTask={handleUpdateTask}
+          />
+        )}
       </li>
       {isCursorOnTop == false &&
         dragEnterItem &&
