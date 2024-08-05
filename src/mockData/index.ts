@@ -108,27 +108,27 @@ export const DEFAULT_TASKS = [
     items: [
       {
         id: uuidv4(),
-        text: "aasdfoiejw.afjd.lfa as.dlifjdsfldsjfldsfj dss ",
+        text: "Write project proposal",
       },
-      { id: uuidv4(), text: "b" },
-      { id: uuidv4(), text: "c" },
+      { id: uuidv4(), text: "Create wireframes" },
+      { id: uuidv4(), text: "Do research" },
     ],
   },
   {
     title: "In Progress",
     id: uuidv4(),
     items: [
-      { id: uuidv4(), text: "aa" },
-      { id: uuidv4(), text: "bb" },
-      { id: uuidv4(), text: "cc" },
+      { id: uuidv4(), text: "Develop login functionality" },
+      { id: uuidv4(), text: "Design user profile page" },
+      { id: uuidv4(), text: "Set up database schema" },
     ],
   },
   {
     title: "Done",
     id: uuidv4(),
     items: [
-      { id: uuidv4(), text: "aaa" },
-      { id: uuidv4(), text: "bbb" },
+      { id: uuidv4(), text: "Initial project setup" },
+      { id: uuidv4(), text: "Design landing page" },
     ],
   },
 ];
