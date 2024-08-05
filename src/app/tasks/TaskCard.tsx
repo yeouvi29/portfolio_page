@@ -2,6 +2,7 @@
 
 import { DragEvent, Fragment, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
+import { TbPencil } from "react-icons/tb";
 
 import { DragEnterItem, DragStartItem, TaskItem } from "@/types";
 
@@ -34,6 +35,7 @@ const TaskCard = ({
   const listRef = useRef<HTMLLIElement>(null);
   const isReEnter = useRef(false);
   const [isCursorOnTop, setIsCursorOnTop] = useState<null | boolean>(null);
+
   const handleDragStart = (event: any) => {
     const x = event.clientX;
     const y = event.clientY;
@@ -52,6 +54,7 @@ const TaskCard = ({
       "rounded-lg",
       "bg-white",
       "p-2",
+      "pr-8",
       "border-gray-400/40",
       "border-[1px]",
       "shadow-sm",
@@ -158,8 +161,10 @@ const TaskCard = ({
       <li
         ref={listRef}
         className={clsx(
-          "relative w-[272px] pointer-events-auto cursor-auto ",
-          "py-1"
+          "relative w-[272px] pointer-events-auto cursor-auto group",
+          "py-1",
+          !dragItem &&
+            "after:hidden hover:after:block after:absolute after:w-full after:h-[calc(100%-8px)] after:left-0 after:top-1 after:border-2  after:border-solid after:border-blue-600 after:rounded-lg after:pointer-events-none"
         )}
         style={{
           opacity,
@@ -175,17 +180,18 @@ const TaskCard = ({
         {isDraggedOver && isCursorOnTop === true && (
           <div
             className="w-full h-10 bg-gray-300 rounded-lg mb-2 pointer-events-none"
-            style={{ height: dragItem?.item.height ?? 40 }}
+            style={{
+              height: dragItem?.item.height
+                ? `calc(${dragItem?.item.height}px - 2px)`
+                : 40,
+            }}
             data-draggedover={true}
           ></div>
         )}
 
         <div
           className={clsx(
-            "relative w-full rounded-lg p-2 bg-white border-gray-400/40 border-[1px] shadow-sm order-solid",
-            !dragItem &&
-              !dragEnterItem &&
-              "cursor-pointer hover:after:absolute hover:after:w-full hover:after:h-full hover:after:left-0 hover:after:top-0 hover:after:border-2  hover:after:border-solid hover:after:border-blue-600 hover:after:rounded-lg"
+            "taskCard relative w-full rounded-lg p-2 bg-white border-gray-400/40 border-[1px] shadow-sm order-solid pr-8 cursor-pointer"
           )}
         >
           {task.text}
@@ -193,10 +199,22 @@ const TaskCard = ({
         {isDraggedOver && !isCursorOnTop && (
           <div
             className="w-full h-10 bg-gray-300 rounded-lg mt-2 pointer-events-none"
-            style={{ height: dragItem?.item.height ?? 40 }}
+            style={{
+              height: dragItem?.item.height
+                ? `calc(${dragItem?.item.height}px - 2px)`
+                : 40,
+            }}
             data-draggedover={true}
           ></div>
         )}
+        <button
+          className={clsx(
+            "hidden absolute w-8 h-8 top-2 right-1 py-1.5 px-2 text-s rounded-full ",
+            !dragItem && "group-hover:block hover:bg-gray-300"
+          )}
+        >
+          <TbPencil />
+        </button>
       </li>
       {isCursorOnTop == false &&
         dragEnterItem &&
@@ -209,7 +227,11 @@ const TaskCard = ({
             className={clsx(
               "w-[272px] bg-gray-300 rounded-lg pointer-events-none my-1"
             )}
-            style={{ height: dragItem.item.height ?? 40 }}
+            style={{
+              height: dragItem?.item.height
+                ? `calc(${dragItem?.item.height}px - 2px)`
+                : 40,
+            }}
             data-draggedover={true}
           ></div>
         )}

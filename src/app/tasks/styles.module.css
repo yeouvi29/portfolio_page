@@ -1,0 +1,7 @@
+button[class^="peer"]:hover ~ .taskCard {
+  &::after {
+    content: "" !important;
+    display: block;
+    border-color: rgb(37 99 235);
+  }
+}
