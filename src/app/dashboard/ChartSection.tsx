@@ -7,7 +7,7 @@ const PieChart = dynamic(() => import("./PieChart"), {
 
 const ChartSection = () => {
   return (
-    <div>
+    <div className="mt-5">
       <h2 className="text-3xl text-sf-blue">Tourism Data</h2>
       <div className="xl:grid xl:grid-cols-[60%_40%]">
         <div className="w-full flex items-center justify-center">

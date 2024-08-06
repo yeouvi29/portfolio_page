@@ -27,7 +27,7 @@ const Slide = ({
   const swiper = useSwiper();
   return (
     <div
-      className={clsx("bg-gray-300/20 p-2 rounded-md mb-10")}
+      className={clsx("bg-gray-300/20 p-2 rounded-md mb-10 mt-5")}
       onClick={() => {
         swiper?.slideTo(index);
         onClickSlide(attraction);
@@ -38,7 +38,7 @@ const Slide = ({
         src={attraction.image}
         alt={attraction.title}
       />
-      <div>
+      <div className="mt-4">
         <h3 className="text-sf-orange">{attraction.title}</h3>
         <div>
           <p

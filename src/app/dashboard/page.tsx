@@ -13,7 +13,7 @@ const AttractionSection = dynamic(() => import("./AttractionSection"));
 
 const Page = () => {
   return (
-    <Container className="!mx-0 !px-0">
+    <Container className="!mx-0 !px-0 mb-20">
       <div className="mt-5 flex flex-col gap-5 text-gray-500 text-center xl:text-left">
         <h1 className="text-sf-orange">SF Dashboard</h1>
         <p className="text-lg">
@@ -24,12 +24,13 @@ const Page = () => {
 
         <div className="rounded-2xl overflow-hidden">
           <img
-            src="/assets/san_francisco_image.webp"
+            src="/assets/san_francisco.webp"
             className="w-full object-contain"
           />
         </div>
-        <div className="flex gap-2 flex-col min-[1248px]:flex-row items-center">
+        <div className="flex flex-col gap-4 items-center mt-5 min-[1248px]:flex-row">
           <BartSection />
+          <div className="hidden min-[1248px]:block h-[276px] w-0.5 bg-gray-200" />
           <div className="sm:min-w-[420px]">
             <WeatherSection />
           </div>
