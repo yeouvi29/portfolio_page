@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Metadata } from "next";
 import { ReactNode } from "react";
 import clsx from "clsx";
@@ -53,6 +54,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
         <div id="side-root" />
         <div id="modal-root" />
       </body>
+      <GoogleAnalytics gaId="G-XRQ4VMFYZG" />
     </html>
   );
 };
