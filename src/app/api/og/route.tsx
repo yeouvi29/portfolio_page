@@ -23,9 +23,9 @@ export async function GET() {
           alt="TokozZing Logo"
         />
         <div style={{ fontSize: 60, fontWeight: 800, marginTop: 20 }}>
-          TokozZing
+          Emily Kang
         </div>
-        <div style={{ fontSize: 40, color: "#3F4450" }}>Emily&apos;s Blog</div>
+        <div style={{ fontSize: 40, color: "#3F4450" }}>Front-End Developer</div>
       </div>
     ),
     {

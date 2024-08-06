@@ -89,7 +89,7 @@ const SideNavigation = () => {
         <Fragment>
           <div className="p-4">
             <Link href="/" onClick={closeSideBar}>
-              <span className="sr-only">Emily&apos;s Blog - Portfolio</span>
+              <span className="sr-only">Front-End Developer Emily Kang - Portfolio</span>
               <Logo className="text-[32px] text-gray-600" />
             </Link>
           </div>
