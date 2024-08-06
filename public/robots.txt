@@ -1,0 +1,6 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+Allow: /api/og/*
+
+Sitemap: https://portfolio.tokozzing.com/sitemap.xml

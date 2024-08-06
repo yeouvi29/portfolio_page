@@ -1,12 +1,13 @@
 "use client";
 
-import UserTable from "./UserTable";
-import Pagination from "@/components/common/Pagination/Pagination";
 import { useEffect, useMemo, useRef, useState } from "react";
+
+import Pagination from "@/components/common/Pagination/Pagination";
 import { useGetUsers } from "@/app/api/graphql/hooks";
+
+import UserTable from "./UserTable";
 import FilterSection from "./FilterSection";
-import { List } from "postcss/lib/list";
-import { Container } from "@/components/common/Container/Container";
+
 const LIMIT = 20;
 
 export interface ListControlStateType {
