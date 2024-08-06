@@ -96,7 +96,7 @@ const TaskTitle = ({
         <h2
           ref={headingRef}
           className={clsx(
-            "w-full font-bold font-sans text-base border-2 border-solid text-gray-800 px-1 py-1 whitespace-normal break-words"
+            "w-full font-bold font-sans text-base border-2 border-solid text-gray-800 px-1 py-1 whitespace-normal break-words cursor-pointer"
           )}
           style={{ overflowWrap: "anywhere" }}
           onClick={() => setIsEditable(true)}
