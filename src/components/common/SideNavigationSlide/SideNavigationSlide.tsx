@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 
 import ClickAwayListener from "../ClickAwayLIstener/ClickAwayListener";
 import Backdrop from "../Backdrop/Backdrop";
-import { on } from "events";
 
 const SideNavigationSlide = ({
   show,
@@ -35,15 +34,13 @@ const SideNavigationSlide = ({
         {show && (
           <ClickAwayListener onClickAway={onClose}>
             <motion.div
-              className="fixed top-0 left-0 w-[250px] h-screen py-4 bg-white shadow-md"
+              data-fixed="true"
+              className="fixed top-0 left-0 w-[250px] h-screen py-4 bg-white shadow-md z-20"
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{
-                type: "spring",
                 duration: 0.25,
-                stiffness: 250,
-                damping: 30,
               }}
             >
               {children}

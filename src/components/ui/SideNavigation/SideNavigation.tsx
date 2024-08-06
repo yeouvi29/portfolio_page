@@ -75,7 +75,7 @@ const SideNavigation = () => {
           </ul>
         </nav>
       </div>
-      <div className="w-screen p-2 md:hidden">
+      <div className="fixed top-0 left-0 w-screen p-2 pl-4 z-10 bg-white/30 md:hidden">
         <button
           className="bg-white/60 w-9 h-9 p-2 md:hidden text-xl cursor-pointer text-gray-600 rounded-full hover:bg-gray-200"
           onClick={() => {
@@ -89,7 +89,9 @@ const SideNavigation = () => {
         <Fragment>
           <div className="p-4">
             <Link href="/" onClick={closeSideBar}>
-              <span className="sr-only">Front-End Developer Emily Kang - Portfolio</span>
+              <span className="sr-only">
+                Front-End Developer Emily Kang - Portfolio
+              </span>
               <Logo className="text-[32px] text-gray-600" />
             </Link>
           </div>

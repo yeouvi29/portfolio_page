@@ -1,5 +1,8 @@
 @media (hover: hover) {
-  div[class^="group"]:hover .blogLink {
+  .blogLinkWrapper:hover {
+    background: rgb(156 163 175/0.8);
+  }
+  .blogLinkWrapper:hover .blogLink {
     color: gray;
     text-decoration: none;
     transition: color 0.3s ease;
@@ -15,9 +18,6 @@
     background-size: 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-  }
-
-  .blogLink:hover {
     animation: gradient 3s ease infinite;
   }
 

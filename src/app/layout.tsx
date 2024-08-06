@@ -41,10 +41,12 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="en" className={clsx(lato.variable, montserrat.variable)}>
       <body className="bg-white">
-        <div className="min-h-screen flex flex-col md:flex-row">
+        <div className="flex flex-col md:flex-row md:min-h-screen ">
           <SideNavigation />
           <ApolloWrapper>
-            <div className="w-full md:w-[calc(100%-250px)] p-5">{children}</div>
+            <div className="mt-[45.5px] w-full p-5 md:w-[calc(100%-250px)] md:mt-0">
+              {children}
+            </div>
           </ApolloWrapper>
         </div>
         <div id="backdrop-root" />

@@ -51,7 +51,7 @@ const PopOver = ({
             <ClickAwayListener
               className={clsx(
                 "clickAwayListener",
-                "absolute -bottom-1 right-0 z-10 translate-y-full border-solid border-gray-300 border bg-white p-2 rounded-md"
+                "absolute w-full -bottom-1 right-0 z-10 translate-y-full border-solid border-gray-300 border bg-white p-2 rounded-md"
               )}
               onClickAway={() => handlePopOverVisibility(false)}
             >

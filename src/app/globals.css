@@ -3,20 +3,39 @@
 @tailwind utilities;
 
 @layer base {
-  html {
+  html,
+  body {
     background: white;
     font-size: 14px;
-    color: #090a0b;
+    color: rgb(75 85 99);
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: var(--font-lato);
-    &:has([data-fixed="true"]) {
-      overflow: hidden;
-    }
+
     @media (min-width: 640px) {
       font-size: 16px;
     }
+  }
+
+  body {
+    &:has(div[class*="attractionSection"]) {
+      overscroll-behavior-x: none;
+    }
+    &:has([data-fixed="true"]) {
+      overflow: hidden;
+    }
+    &:has([data-font-fixed="true"]) {
+      font-size: 16px;
+    }
+    &:has(.modal) {
+      overflow: clip;
+    }
+  }
+
+  #app-root,
+  #modal-root {
+    isolation: isolate;
   }
 
   h1 {
@@ -40,19 +59,6 @@
   p {
     @apply text-[16px] leading-7;
   }
-}
-
-#app-root,
-#modal-root {
-  isolation: isolate;
-}
-
-body:has(div[class*="attractionSection"]) {
-  overscroll-behavior-x: none;
-}
-
-body:has(.modal) {
-  overflow: clip;
 }
 
 @layer utilities {

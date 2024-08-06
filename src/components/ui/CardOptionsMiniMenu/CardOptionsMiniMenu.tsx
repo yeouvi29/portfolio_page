@@ -1,6 +1,8 @@
 "use client";
 
 import Backdrop from "@/components/common/Backdrop/Backdrop";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
+import clsx from "clsx";
 
 import {
   FormEvent,
@@ -22,7 +24,8 @@ const CardOptionsMiniMenu = ({
 }: CardOptionsMiniMenuProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [value, setValue] = useState<string>(task);
-
+  const { isDown } = useBreakpoint();
+  const isMobileView = isDown("md");
   const handleChange = () => {
     setValue(textareaRef.current?.value || "");
   };
@@ -38,7 +41,7 @@ const CardOptionsMiniMenu = ({
 
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault(); 
+      event.preventDefault();
       handleSubmit();
     }
   };
@@ -59,7 +62,12 @@ const CardOptionsMiniMenu = ({
   }, []);
   return (
     <Fragment>
-      <div className="absolute top-0 left-0 w-full min-h-full z-10">
+      <div
+        className={clsx(
+          "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[272px] md:absolute md:top-0 md:left-0 md:w-full md:min-h-full z-10",
+          isMobileView && "screen-freeze"
+        )}
+      >
         <form
           className="w-[272px]"
           onSubmit={(e) => {

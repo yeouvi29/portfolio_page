@@ -1,6 +1,14 @@
 "use client";
 
-import { DragEvent, Fragment, useEffect, useRef, useState } from "react";
+import {
+  DragEvent,
+  TouchEvent,
+  Fragment,
+  useEffect,
+  useRef,
+  useState,
+  use,
+} from "react";
 import clsx from "clsx";
 import { TbPencil } from "react-icons/tb";
 
@@ -8,7 +16,8 @@ import { DragEnterItem, DragStartItem, TaskItem } from "@/types";
 
 import { removeElements } from "../../../utils";
 import CardOptionsMiniMenu from "@/components/ui/CardOptionsMiniMenu/CardOptionsMiniMenu";
-
+import styles from "./styles.module.css";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 const TaskCard = ({
   task,
   index,
@@ -39,6 +48,8 @@ const TaskCard = ({
   const isReEnter = useRef(false);
   const [isCursorOnTop, setIsCursorOnTop] = useState<null | boolean>(null);
   const [showMiniMenu, setShowMiniMenu] = useState(false);
+  const { isUpOrEqual } = useBreakpoint();
+  const isWebView = isUpOrEqual("md");
   const handleDragStart = (event: any) => {
     const x = event.clientX;
     const y = event.clientY;
@@ -110,6 +121,25 @@ const TaskCard = ({
       removeElements("#drag-image");
     }
   };
+
+  const handleTouchEnd = (e: TouchEvent) => {
+    console.log("end", e.target);
+  };
+
+  const handleTouchMove = (event: TouchEvent) => {
+    const touch = event.touches[0];
+    // dragImage.style.left = `${touch.pageX - 25}px`;
+    // dragImage.style.top = `${touch.pageY - 25}px`;
+
+    const elementBelow = document.elementFromPoint(
+      touch.clientX,
+      touch.clientY
+    );
+    console.log("Element below touch point:", elementBelow);
+  };
+  const handleTouchStart = (e: TouchEvent) => {
+    console.log("start", e.target);
+  };
   const handleUpdateTask = (newValue: string) => {
     onUpdateTask({ ...task, text: newValue });
   };
@@ -170,11 +200,18 @@ const TaskCard = ({
           "relative w-[272px] pointer-events-auto cursor-auto group",
           "py-1",
           !dragItem &&
-            "after:hidden hover:after:block after:absolute after:w-full after:h-[calc(100%-8px)] after:left-0 after:top-1 after:border-2  after:border-solid after:border-blue-600 after:rounded-lg after:pointer-events-none"
+            "after:hidden after:absolute after:w-full after:h-[calc(100%-8px)] after:left-0 after:top-1 after:border-2  after:border-solid after:border-blue-600 after:rounded-lg after:pointer-events-none",
+          styles.taskCard
         )}
         style={{
           opacity,
           display: opacity === 0 ? "none" : "block",
+        }}
+        onClick={() => {
+          if (isWebView) {
+            return;
+          }
+          // setShowMiniMenu(true);
         }}
         draggable
         onDragEnter={handleDragEnter}
@@ -182,6 +219,9 @@ const TaskCard = ({
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
         onDrop={handleDrop}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       >
         {isDraggedOver && isCursorOnTop === true && (
           <div
@@ -215,7 +255,7 @@ const TaskCard = ({
         )}
         <button
           className={clsx(
-            "hidden absolute w-8 h-8 top-2 right-1 py-1.5 px-2 text-s rounded-full ",
+            "hidden absolute w-8 h-8 mt-0.5 top-2 right-1 py-1.5 px-2 text-s rounded-full md:mt-0",
             !dragItem && "group-hover:block hover:bg-gray-300"
           )}
           onClick={() => setShowMiniMenu(true)}
