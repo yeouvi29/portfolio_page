@@ -72,7 +72,7 @@ const TasksColumn = ({
   return (
     <li
       ref={liRef}
-      className={clsx("min-h-screen px-2")}
+      className={clsx("min-h-[calc(100vh-180px)] px-2")}
       onDrop={handleDrop}
       onDragOver={(e) => {
         e.preventDefault();
