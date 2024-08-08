@@ -63,7 +63,10 @@ const Title = () => {
   }, [titleInput]);
 
   return (
-    <div className="w-full pl-2 flex" onDragOver={(e) => e.preventDefault()}>
+    <div
+      className="w-full px-4 py-4 flex md:bg-gray-200/30"
+      onDragOver={(e) => e.preventDefault()}
+    >
       <ClickAwayListener onClickAway={() => handleClickAway()}>
         <form onSubmit={handleSubmit}>
           <input
@@ -74,7 +77,7 @@ const Title = () => {
               setTitleInput(e.target.value);
             }}
             className={clsx(
-              "text-lg font-bold bg-transparent font-display p-1 rounded-lg",
+              "text-lg font-bold font-display p-1 rounded-lg bg-white",
               !isEditable && "hidden"
             )}
             style={{ width: titleWidth }}

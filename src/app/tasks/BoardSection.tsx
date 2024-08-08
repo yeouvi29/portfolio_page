@@ -46,7 +46,9 @@ const BoardSection = () => {
   };
   return (
     <ol
-      className={clsx("flex mt-4 list-none")}
+      className={clsx(
+        "w-screen md:w-[calc(100vw-250px)] flex mt-4 list-none overflow-auto px-2"
+      )}
       onDragOver={(e) => e.preventDefault()}
     >
       {taskItems.map((item) => (

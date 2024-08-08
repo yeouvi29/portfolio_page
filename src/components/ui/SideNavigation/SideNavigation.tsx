@@ -41,7 +41,7 @@ const SideNavigation = () => {
   return (
     <Fragment>
       <div
-        className="hidden relative md:block min-w-[250px] py-4 bg-white/30 z-20"
+        className="hidden relative md:block min-w-[250px] py-4 bg-white/50 z-20"
         onDragOver={(e) => e.preventDefault()}
       >
         <nav
@@ -75,7 +75,7 @@ const SideNavigation = () => {
           </ul>
         </nav>
       </div>
-      <div className="fixed top-0 left-0 w-screen p-2 pl-4 z-10 bg-white/30 md:hidden">
+      <div className="fixed top-0 left-0 w-screen p-2 pl-4 z-10 md:hidden">
         <button
           className="bg-white/60 w-9 h-9 p-2 md:hidden text-xl cursor-pointer text-gray-600 rounded-full hover:bg-gray-200"
           onClick={() => {

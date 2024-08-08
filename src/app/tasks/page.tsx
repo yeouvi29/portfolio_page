@@ -6,15 +6,15 @@ const Page = () => {
     <div
       data-font-fixed="true"
       data-no-x-scroll="true"
-      className="absolute pl-[250px] w-screen min-h-screen overflow-auto bg-orange-400/80"
+      className="absolute pt-14 w-screen max-w-screen min-h-screen overflow-hidden bg-orange-400/80 md:pl-[250px] md:pt-0 md:mt-0"
     >
-      <div className="mt-5">
+      <div>
         <Title />
         <BoardSection />
-        <p className="text-left md:text-right">This page is in progress.</p>
-        <p className="text-left md:text-right">
-          More functionalities will be added soon.
-        </p>
+        <div className="p-4 text-left md:text-right">
+          <p>This page is in progress.</p>
+          <p>More functionalities will be added soon.</p>
+        </div>
       </div>
     </div>
   );

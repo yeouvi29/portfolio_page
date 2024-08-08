@@ -2,6 +2,7 @@
 
 import { DragEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
+import { BiDotsHorizontalRounded } from "react-icons/bi";
 
 import { DragEnterItem } from "@/types";
 import ClickAwayListener from "@/components/common/ClickAwayLIstener/ClickAwayListener";
@@ -77,8 +78,11 @@ const TaskTitle = ({
     }
   }, []);
   return (
-    <div ref={divRef} className="w-[272px] p-1 relative">
-      <ClickAwayListener onClickAway={() => handleClickAway()}>
+    <div ref={divRef} className="w-[272px] p-1 relative flex gap-1">
+      <ClickAwayListener
+        onClickAway={() => handleClickAway()}
+        className="flex-grow"
+      >
         <textarea
           wrap="hard"
           ref={textareaRef}
@@ -87,7 +91,7 @@ const TaskTitle = ({
           style={{ height }}
           onKeyDown={handleKeyDown}
           className={clsx(
-            "hidden w-full h-fit absolute top-1 left-0 border-2 border-solid border-blue-500 py-1 px-2 rounded-lg font-bold text-gray-800 resize-none outline-none break-words",
+            "hidden w-[calc(100%-36px)] h-fit absolute top-1 left-0 border-2 border-solid border-blue-500 py-1 px-2 rounded-lg font-bold text-gray-800 resize-none outline-none break-words",
             isEditable && "!block"
           )}
         />
@@ -95,7 +99,7 @@ const TaskTitle = ({
         <h2
           ref={headingRef}
           className={clsx(
-            "w-full font-bold font-sans text-base border-2 border-solid text-gray-800 px-1 py-1 whitespace-normal break-words cursor-pointer"
+            "w-full font-bold font-sans text-base border-2 border-solid text-gray-800 p-1 whitespace-normal break-words cursor-pointer"
           )}
           style={{ overflowWrap: "anywhere" }}
           onClick={() => setIsEditable(true)}
@@ -105,6 +109,9 @@ const TaskTitle = ({
           {value}
         </h2>
       </ClickAwayListener>
+      <button className="min-w-8 h-8 mt-0.5 flex justify-center items-center rounded-lg hover:bg-gray-400/30 hover:cursor-pointer">
+        <BiDotsHorizontalRounded />
+      </button>
     </div>
   );
 };

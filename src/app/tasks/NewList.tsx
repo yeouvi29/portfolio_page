@@ -86,8 +86,7 @@ const NewList = ({ addNewList }: { addNewList: (title: string) => void }) => {
             <h2
               ref={headingRef}
               className={clsx(
-                "w-full font-normal font-sans text-base border-solid text-gray-600",
-                "px-1.5 py-2.5"
+                "w-full font-normal font-sans text-base border-solid text-gray-600 px-1 py-1.5"
               )}
               onClick={() => setIsEditable(true)}
               style={{ overflowWrap: "anywhere" }}
