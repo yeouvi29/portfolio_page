@@ -19,10 +19,10 @@
   }
 
   body {
-    &:has(div[class*="attractionSection"]) {
+    &:has([data-no-x-scroll="true"]) {
       overscroll-behavior-x: none;
     }
-    &:has([data-fixed="true"]) {
+    &:has([data-hide-overflow="true"]) {
       overflow: hidden;
     }
     &:has([data-font-fixed="true"]) {

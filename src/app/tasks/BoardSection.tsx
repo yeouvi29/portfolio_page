@@ -1,12 +1,14 @@
 "use client";
 
 import clsx from "clsx";
+import { v4 as uuidv4 } from "uuid";
 
 import { useDropTask } from "@/hooks/useDropTask";
 import { useTaskItems } from "@/store";
+import { TaskItems } from "@/types";
 
 import TasksColumn from "./TasksColumn";
-import { TaskItems } from "@/types";
+import NewList from "./NewList";
 
 const BoardSection = () => {
   const [
@@ -30,6 +32,9 @@ const BoardSection = () => {
   );
 
   const { handleDrop } = useDropTask();
+  const addNewList = (title: string) => {
+    setTaskItems([...taskItems, { title, id: uuidv4(), items: [] }]);
+  };
   const updateTaskItems = (newTaskItem: TaskItems) => {
     const updatedTaskItems = taskItems.map((taskItem) => {
       if (taskItem.id === newTaskItem.id) {
@@ -59,6 +64,7 @@ const BoardSection = () => {
           onUpdateTask={updateTaskItems}
         />
       ))}
+      <NewList addNewList={addNewList} />
     </ol>
   );
 };

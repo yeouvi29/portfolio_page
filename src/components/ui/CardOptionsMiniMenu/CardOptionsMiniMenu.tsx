@@ -64,7 +64,7 @@ const CardOptionsMiniMenu = ({
     <Fragment>
       <div
         className={clsx(
-          "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[272px] z-10 md:absolute md:top-0 md:left-0 md:w-full md:min-h-full md:translate-x-0 md:translate-y-0",
+          "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[272px] z-20 md:absolute md:top-0 md:left-0 md:w-full md:min-h-full md:translate-x-0 md:translate-y-0",
           isMobileView && "screen-freeze"
         )}
       >

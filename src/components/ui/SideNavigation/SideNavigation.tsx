@@ -41,7 +41,7 @@ const SideNavigation = () => {
   return (
     <Fragment>
       <div
-        className="hidden md:block w-[250px] py-4"
+        className="hidden relative md:block min-w-[250px] py-4 bg-white/30 z-20"
         onDragOver={(e) => e.preventDefault()}
       >
         <nav

@@ -63,7 +63,7 @@ const Title = () => {
   }, [titleInput]);
 
   return (
-    <div className="w-full flex" onDragOver={(e) => e.preventDefault()}>
+    <div className="w-full pl-2 flex" onDragOver={(e) => e.preventDefault()}>
       <ClickAwayListener onClickAway={() => handleClickAway()}>
         <form onSubmit={handleSubmit}>
           <input

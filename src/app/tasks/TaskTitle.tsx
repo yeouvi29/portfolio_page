@@ -1,11 +1,10 @@
 "use client";
 
 import { DragEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
+import clsx from "clsx";
 
 import { DragEnterItem } from "@/types";
-import clsx from "clsx";
 import ClickAwayListener from "@/components/common/ClickAwayLIstener/ClickAwayListener";
-import { text } from "stream/consumers";
 
 const TaskTitle = ({
   title,

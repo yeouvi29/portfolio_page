@@ -44,11 +44,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
       <body className="bg-white">
         <div className="flex flex-col md:flex-row md:min-h-screen ">
           <SideNavigation />
-          <ApolloWrapper>
-            <div className="mt-[45.5px] w-full p-5 md:w-[calc(100%-250px)] md:mt-0">
-              {children}
-            </div>
-          </ApolloWrapper>
+          <ApolloWrapper>{children}</ApolloWrapper>
         </div>
         <div id="backdrop-root" />
         <div id="side-root" />

@@ -123,6 +123,7 @@ const Page = () => {
   }, [listControlState]);
 
   return (
+    <div className="mt-[45.5px] w-full p-5 md:min-w-[calc(100%-250px)] md:mt-0">
     <div className="mt-5 text-gray-600">
       <h1>Users</h1>
       <div className="w-fit max-w-[calc(100vw-40px)] md:max-w-[calc(100vw-290px)] mt-5">
@@ -148,6 +149,7 @@ const Page = () => {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 };
