@@ -230,7 +230,7 @@ const TaskCard = ({
       >
         {isDraggedOver && isCursorOnTop === true && (
           <div
-            className="w-full h-10 bg-gray-300 rounded-lg mb-2 pointer-events-none"
+            className="w-full h-10 bg-gray-300 rounded-lg mb-2 pointer-events-none hover:bg-gray-400"
             style={{
               height: dragItem?.item.height
                 ? `calc(${dragItem?.item.height}px - 2px)`
@@ -268,9 +268,14 @@ const TaskCard = ({
           <TbPencil />
         </button>
         {showMiniMenu && (
-          <FixedPopOver position={position.current}>
+          <FixedPopOver
+            position={position.current}
+            onClose={() => setShowMiniMenu(false)}
+          >
             <CardOptionsMiniMenu
               task={task.text}
+              columnId={columnId}
+              index={index}
               onClose={() => setShowMiniMenu(false)}
               updateTask={handleUpdateTask}
             />
