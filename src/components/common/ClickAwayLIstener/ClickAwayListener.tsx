@@ -16,17 +16,18 @@ const ClickAwayListener = ({
   const ref = useRef<HTMLDivElement>(null);
   const handleClick = useCallback(
     (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        onClickAway();
+      if (!ref.current || ref.current.contains(e.target as Node)) {
+        return;
       }
+      onClickAway();
     },
     [onClickAway]
   );
 
   useEffect(() => {
-    document.addEventListener("click", handleClick);
+    document.addEventListener("click", handleClick, true);
     return () => {
-      document.removeEventListener("click", handleClick);
+      document.removeEventListener("click", handleClick, true);
     };
   }, []);
 
