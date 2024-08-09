@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 interface PopOverProps {
   className?: string;
+  childClassName?: string;
   disabled?: boolean;
   parent: ReactNode;
   children: ReactNode;
@@ -16,6 +17,7 @@ interface PopOverProps {
 
 const PopOver = ({
   className,
+  childClassName,
   parent,
   disabled,
   children,
@@ -51,9 +53,12 @@ const PopOver = ({
             <ClickAwayListener
               className={clsx(
                 "clickAwayListener",
-                "absolute -bottom-1 right-0 z-10 translate-y-full border-solid border-gray-300 border bg-white p-2 rounded-md"
+                "absolute -bottom-1 right-0 z-10 translate-y-full border-solid border-gray-300 border bg-white p-2 rounded-md",
+                childClassName
               )}
-              onClickAway={() => handlePopOverVisibility(false)}
+              onClickAway={() => {
+                handlePopOverVisibility(false);
+              }}
             >
               {children}
             </ClickAwayListener>

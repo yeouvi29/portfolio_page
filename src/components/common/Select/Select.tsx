@@ -9,12 +9,13 @@ import styles from "./styles.module.css";
 
 interface SelectProps {
   className?: string;
+  optionClassName?: string;
   label?: string;
   items: string[];
   disabled?: boolean;
   selectedItem?: string | null;
   defaultValue?: string;
-  onSelect: (item: string) => void;
+  onSelect: (item: string, i: number) => void;
 }
 const SelectTitle = ({
   label,
@@ -59,6 +60,7 @@ const SelectTitle = ({
 
 const Select = ({
   className,
+  optionClassName,
   label,
   items,
   disabled,
@@ -71,6 +73,7 @@ const Select = ({
   return (
     <PopOver
       className={className}
+      childClassName={optionClassName}
       disabled={disabled}
       parent={
         <SelectTitle
@@ -82,10 +85,12 @@ const Select = ({
         />
       }
       isPopOverShow={isOptionShow}
-      handlePopOverVisibility={(show) => setIsOptionShow(show)}
+      handlePopOverVisibility={(show) => {
+        setIsOptionShow(show);
+      }}
     >
       <div className="w-full flex flex-col gap-y-0.5">
-        {(defaultValue ? items : ["---", ...items]).map((item) => (
+        {(defaultValue ? items : ["---", ...items]).map((item, i) => (
           <div
             key={item}
             className={clsx(
@@ -94,7 +99,7 @@ const Select = ({
                 "bg-blue-100 text-blue-600 hover:!bg-blue-100"
             )}
             onClick={() => {
-              onSelect(item === "---" ? "" : item);
+              onSelect(item === "---" ? "" : item, defaultValue ? i : i - 1);
               setIsOptionShow(false);
             }}
           >

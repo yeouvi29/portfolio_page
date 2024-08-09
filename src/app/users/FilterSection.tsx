@@ -1,15 +1,13 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import clsx from "clsx";
 
 import Select from "@/components/common/Select/Select";
 import TextField from "@/components/common/TextField/TextField";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 import { ListControlStateType } from "./page";
-import { useBreakpoint } from "@/hooks/useBreakpoint";
-import clsx from "clsx";
-
-import styles from "./styles.module.css";
 
 const SELECT_OPTIONS = {
   search: [
@@ -83,12 +81,13 @@ const FilterSection = ({
         <Select
           disabled={disabled}
           label="Category"
-          className={clsx(styles.filter, "w-[150px] lg:w-[200px]")}
+          className="w-[150px] lg:w-[200px]"
           items={Object.values(SELECT_OPTIONS.search).map(
             (item) => item.displayName
           )}
           selectedItem={searchField}
           onSelect={setSearchField}
+          optionClassName="w-full"
         />
         <TextField
           className="flex-grow"
@@ -113,13 +112,14 @@ const FilterSection = ({
                   label={item.displayName}
                   disabled={disabled}
                   defaultValue="All"
-                  className={clsx(styles.filter, "w-full lg:w-[200px]")}
+                  className="w-full lg:w-[200px]"
                   items={item.options}
                   selectedItem={
                     selectedFilteringItems[
                       item.apiField as keyof typeof selectedFilteringItems
                     ]
                   }
+                  optionClassName="w-full"
                   onSelect={(selectedValue) =>
                     setSelectedFilteringItems((prev) => ({
                       ...prev,
