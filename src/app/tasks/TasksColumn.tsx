@@ -119,7 +119,6 @@ const TasksColumn = ({
               columnId={columnId}
               key={task.id + i}
               index={i}
-              isLast={i === tasks.length - 1}
               task={task}
               title={title}
               onDragStart={onDragStart}

@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  DragEvent,
-  TouchEvent,
-  Fragment,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { DragEvent, Fragment, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { TbPencil } from "react-icons/tb";
 
@@ -17,10 +10,11 @@ import { removeElements } from "../../../utils";
 import CardOptionsMiniMenu from "@/components/ui/CardOptionsMiniMenu/CardOptionsMiniMenu";
 import styles from "./styles.module.css";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
+import FixedPopOver from "@/components/common/FixedPopOver/FIxedPopUp";
+
 const TaskCard = ({
   task,
   index,
-  isLast,
   columnId,
   dragItem,
   dragEnterItem,
@@ -33,7 +27,6 @@ const TaskCard = ({
   title: string;
   index: number;
   columnId: string;
-  isLast?: boolean;
   task: TaskItem;
   dragItem: DragStartItem | null;
   dragEnterItem: DragEnterItem | null;
@@ -49,6 +42,8 @@ const TaskCard = ({
   const [showMiniMenu, setShowMiniMenu] = useState(false);
   const { isUpOrEqual } = useBreakpoint();
   const isWebView = isUpOrEqual("md");
+  const position = useRef<{ [key: string]: number }>({});
+
   const handleDragStart = (event: any) => {
     const x = event.clientX;
     const y = event.clientY;
@@ -121,26 +116,40 @@ const TaskCard = ({
     }
   };
 
-  const handleTouchEnd = (e: TouchEvent) => {
-    console.log("end", e.target);
-  };
-
-  const handleTouchMove = (event: TouchEvent) => {
-    const touch = event.touches[0];
-    // dragImage.style.left = `${touch.pageX - 25}px`;
-    // dragImage.style.top = `${touch.pageY - 25}px`;
-
-    const elementBelow = document.elementFromPoint(
-      touch.clientX,
-      touch.clientY
-    );
-    console.log("Element below touch point:", elementBelow);
-  };
-  const handleTouchStart = (e: TouchEvent) => {
-    console.log("start", e.target);
-  };
   const handleUpdateTask = (newValue: string) => {
     onUpdateTask({ ...task, text: newValue });
+  };
+
+  const handleShowMenuButtonClick = () => {
+    const listEl = listRef.current as HTMLLIElement;
+    const { top, left, right, width } = listEl.getBoundingClientRect();
+    const mViewport = 768;
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+    const sidebarWidth = 250;
+    const threshold = 16;
+    if (windowWidth < mViewport) {
+      position.current = {
+        top: windowHeight / 4,
+        left: windowWidth / 2 - width / 2,
+      };
+    } else {
+      const center = windowWidth / 2;
+      if (left <= center) {
+        position.current = {
+          top,
+          left:
+            left < sidebarWidth + threshold ? sidebarWidth + threshold : left,
+        };
+      } else {
+        position.current = {
+          top,
+          right:
+            windowWidth - right < threshold ? threshold : windowWidth - right,
+        };
+      }
+    }
+    setShowMiniMenu(true);
   };
 
   const opacity =
@@ -218,9 +227,6 @@ const TaskCard = ({
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
         onDrop={handleDrop}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
       >
         {isDraggedOver && isCursorOnTop === true && (
           <div
@@ -257,16 +263,18 @@ const TaskCard = ({
             "hidden absolute w-8 h-8 mt-0.5 top-2 right-1 py-1.5 px-2 text-s rounded-full md:mt-0",
             !dragItem && "group-hover:block hover:bg-gray-300"
           )}
-          onClick={() => setShowMiniMenu(true)}
+          onClick={handleShowMenuButtonClick}
         >
           <TbPencil />
         </button>
         {showMiniMenu && (
-          <CardOptionsMiniMenu
-            task={task.text}
-            onClose={() => setShowMiniMenu(false)}
-            updateTask={handleUpdateTask}
-          />
+          <FixedPopOver position={position.current}>
+            <CardOptionsMiniMenu
+              task={task.text}
+              onClose={() => setShowMiniMenu(false)}
+              updateTask={handleUpdateTask}
+            />
+          </FixedPopOver>
         )}
       </li>
       {isCursorOnTop == false &&

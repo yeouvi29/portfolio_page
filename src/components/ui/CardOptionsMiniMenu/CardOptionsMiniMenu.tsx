@@ -1,17 +1,12 @@
 "use client";
 
+import { Fragment, KeyboardEvent, useEffect, useRef, useState } from "react";
+
 import Backdrop from "@/components/common/Backdrop/Backdrop";
+import FixedPopOver from "@/components/common/FixedPopOver/FIxedPopUp";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import clsx from "clsx";
 
-import {
-  FormEvent,
-  Fragment,
-  KeyboardEvent,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
 interface CardOptionsMiniMenuProps {
   task: string;
   onClose: () => void;
@@ -64,7 +59,7 @@ const CardOptionsMiniMenu = ({
     <Fragment>
       <div
         className={clsx(
-          "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[272px] z-20 md:absolute md:top-0 md:left-0 md:w-full md:min-h-full md:translate-x-0 md:translate-y-0",
+          "w-[272px] md:w-full md:min-h-full",
           isMobileView && "screen-freeze"
         )}
       >
@@ -92,7 +87,6 @@ const CardOptionsMiniMenu = ({
           Save
         </button>
       </div>
-      <Backdrop show onClick={onClose} />
     </Fragment>
   );
 };
