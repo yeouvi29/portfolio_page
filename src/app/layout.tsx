@@ -49,6 +49,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
         <div id="backdrop-root" />
         <div id="side-root" />
         <div id="modal-root" />
+        <div id="popup-root" />
       </body>
       <GoogleAnalytics gaId="G-XRQ4VMFYZG" />
     </html>

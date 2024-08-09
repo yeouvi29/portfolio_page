@@ -12,7 +12,6 @@
     margin: 0;
     padding: 0;
     font-family: var(--font-lato);
-
     @media (min-width: 640px) {
       font-size: 16px;
     }
@@ -32,9 +31,10 @@
       overflow: clip;
     }
   }
-
+  #backdrop-root,
   #app-root,
-  #modal-root {
+  #modal-root,
+  #popup-root {
     isolation: isolate;
   }
 
