@@ -36,14 +36,11 @@ const MoveOptions = ({ columnId, taskIndex }: MoveOptionsProps) => {
         const toMoveTask = newItems[selectedListIndex].items[taskIndex];
         const newList = newItems[selectedListIndex].items.reduce(
           (acc, item, i) => {
-            console.log(item.id, toMoveTask.id, i, selectedTaskIndex);
             if (item.id === toMoveTask.id) {
               return acc;
             } else if (i === selectedTaskIndex) {
-              console.log("same");
               acc.push(toMoveTask);
               acc.push(item);
-              console.log(acc);
               return acc;
             } else {
               acc.push(item);
