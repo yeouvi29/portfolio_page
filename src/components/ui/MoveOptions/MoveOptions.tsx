@@ -3,19 +3,21 @@
 import { Fragment, useEffect, useState } from "react";
 
 import Select from "@/components/common/Select/Select";
-import { useTaskItems } from "@/store";
 import { TaskItem, TaskItems } from "@/types";
 
 interface MoveOptionsProps {
   columnId: string;
   taskIndex: number;
+  taskItems: TaskItems[];
+  updateTaskItems: (items: TaskItems[]) => void;
 }
 
-const MoveOptions = ({ columnId, taskIndex }: MoveOptionsProps) => {
-  const [taskItems, setTaskItems] = useTaskItems(({ items, setTaskItems }) => [
-    items,
-    setTaskItems,
-  ]);
+const MoveOptions = ({
+  columnId,
+  taskIndex,
+  taskItems,
+  updateTaskItems,
+}: MoveOptionsProps) => {
   const [selectedListIndex, setSelectedListIndex] = useState<number>(
     taskItems.findIndex((item) => item.id === columnId)
   );
@@ -56,7 +58,7 @@ const MoveOptions = ({ columnId, taskIndex }: MoveOptionsProps) => {
       const task = newItems[columnIndex].items.splice(taskIndex, 1);
       newItems[selectedListIndex].items.splice(selectedTaskIndex, 0, task[0]);
     }
-    setTaskItems(newItems);
+    updateTaskItems(newItems);
   };
 
   useEffect(() => {
