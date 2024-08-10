@@ -1,11 +1,12 @@
 "use client";
 
-import { Fragment, KeyboardEvent, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
+import { Fragment, KeyboardEvent, useEffect, useRef, useState } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { useBreakpoint } from "@/hooks/useBreakpoint";
+
 import MoveOptions from "../MoveOptions/MoveOptions";
 
 interface CardOptionsMiniMenuProps {

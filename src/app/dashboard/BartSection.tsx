@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { LuSearch } from "react-icons/lu";
+
 import BartMapModal from "@/components/ui/BartMapModal/BartMapModal";
 
 const BartSection = () => {

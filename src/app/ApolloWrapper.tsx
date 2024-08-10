@@ -1,6 +1,7 @@
 "use client";
 // ^ this file needs the "use client" pragma
 
+import { PropsWithChildren } from "react";
 import { HttpLink } from "@apollo/client";
 import {
   ApolloNextAppProvider,
@@ -34,7 +35,7 @@ function makeClient() {
 }
 
 // you need to create a component to wrap your app in
-export function ApolloWrapper({ children }: React.PropsWithChildren) {
+export function ApolloWrapper({ children }: PropsWithChildren) {
   return (
     <ApolloNextAppProvider makeClient={makeClient}>
       {children}

@@ -3,11 +3,11 @@
 import { useRef, DragEvent } from "react";
 import clsx from "clsx";
 
+import { DragEnterItem, DragStartItem, TaskItem, TaskItems } from "@/types";
+
 import TaskCard from "./TaskCard";
 import TaskTitle from "./TaskTitle";
 import AddTask from "./AddTask";
-
-import { DragEnterItem, DragStartItem, TaskItem, TaskItems } from "@/types";
 
 const TasksColumn = ({
   title,

@@ -1,10 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { ReactNode, useCallback, useEffect, useRef } from "react";
 
 interface ClickAwayListenerProps {
   className?: string;
-  children: React.ReactNode;
+  children: ReactNode;
   onClickAway: () => void;
 }
 

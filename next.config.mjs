@@ -3,6 +3,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  eslint: {
+    dirs: ["src"],
+  },
 };
 
 export default nextConfig;

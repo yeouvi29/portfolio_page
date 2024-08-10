@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { format, parseISO } from "date-fns";
+import { parseISO } from "date-fns";
 import { toZonedTime, format as formatTz } from "date-fns-tz";
 
 import { useGetWeather } from "@/app/api/graphql/hooks";

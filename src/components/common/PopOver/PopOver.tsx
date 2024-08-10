@@ -1,9 +1,10 @@
 "use client";
 
-import { ReactNode } from "react";
-import ClickAwayListener from "../ClickAwayLIstener/ClickAwayListener";
 import clsx from "clsx";
+import { ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+
+import ClickAwayListener from "../ClickAwayLIstener/ClickAwayListener";
 
 interface PopOverProps {
   className?: string;

@@ -1,8 +1,8 @@
+import clsx from "clsx";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 import styles from "./styles.module.css";
-import clsx from "clsx";
 interface RangeProps {
   animate?: boolean;
   value: { min: number; max: number };

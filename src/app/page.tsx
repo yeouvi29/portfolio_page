@@ -1,11 +1,11 @@
 import clsx from "clsx";
 
-import { Container } from "@/components/common/Container/Container";
-
-import styles from "./styles.module.css";
 import Footer from "@/components/section/Footer/Footer";
+import { Container } from "@/components/common/Container/Container";
 import { PAGES, SIDE_MENU } from "@/constants";
+
 import MenuCard from "./MenuCard";
+import styles from "./styles.module.css";
 
 const Page = () => {
   return (
@@ -27,8 +27,9 @@ const Page = () => {
             navigation to essential sections.
           </p>
           <p className="text-gray-600">
-            Built with Next.js, TypeScript, TailwindCSS, MongoDB, and GraphQL, based on AWS services, it highlights
-            responsiveness, user experience, and functionality.
+            Built with Next.js, TypeScript, TailwindCSS, MongoDB, and GraphQL,
+            based on AWS services, it highlights responsiveness, user
+            experience, and functionality.
           </p>
         </div>
         <div className="hidden lg:block">

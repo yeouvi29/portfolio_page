@@ -1,12 +1,12 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import clsx from "clsx";
-
+import { Fragment, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { FiMenu } from "react-icons/fi";
+
 import { SIDE_MENU } from "@/constants";
 import Logo from "@/components/assets/avatars/Logo";
 

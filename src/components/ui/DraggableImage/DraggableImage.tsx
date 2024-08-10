@@ -2,7 +2,9 @@
 
 import { useRef, Fragment, CSSProperties } from "react";
 import { motion } from "framer-motion";
+
 import styles from "./styles.module.css";
+
 const DraggableImage = ({
   src,
   scale = 1,

@@ -1,8 +1,8 @@
 import { ApolloError, useLazyQuery, useQuery } from "@apollo/client";
 
-import { usersQuery, weatherQuery } from "@/lib/graphql/apolloClient/queries";
-import { UserEntity } from "@/db/types";
 import { formatDate } from "@/../utils";
+import { UserEntity } from "@/db/types";
+import { usersQuery, weatherQuery } from "@/lib/graphql/apolloClient/queries";
 
 export const useGetUsers = ({
   pagination,

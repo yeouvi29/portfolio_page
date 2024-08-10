@@ -1,4 +1,5 @@
 import { SF_ATTRACTIONS } from "@/mockData";
+
 import Modal from "../../common/Modal/Modal";
 
 interface AttractionDetailModalProps {

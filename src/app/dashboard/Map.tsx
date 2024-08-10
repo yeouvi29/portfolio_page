@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Fragment, ReactNode, useEffect, useState } from "react";
 import {
   APIProvider,
@@ -11,9 +12,7 @@ import {
 
 const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
-import "./mapStyles.css";
 import { ATTRACTIONS_LAT_LNG } from "@/constants";
-import Link from "next/link";
 import MapPin from "@/components/ui/MapPin/MapPin";
 
 const SF_POSITION = { lat: 37.7749, lng: -122.4194 };

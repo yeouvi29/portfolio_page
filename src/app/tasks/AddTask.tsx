@@ -1,6 +1,8 @@
 "use client";
 import {
+  ChangeEvent,
   DragEvent,
+  FormEvent,
   Fragment,
   useCallback,
   useEffect,
@@ -89,11 +91,11 @@ const AddTask = ({
     setNewTask(null);
   }, [updateTask]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewTask({ text: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!newTask || newTask.text.trim() === "") {

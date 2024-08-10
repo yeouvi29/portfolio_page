@@ -1,10 +1,10 @@
 "use client";
 
-import { CSSProperties, Fragment, useState, MouseEvent } from "react";
 import dynamic from "next/dynamic";
+import clsx from "clsx";
+import { CSSProperties, Fragment, useState } from "react";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Navigation, Pagination, Keyboard, Mousewheel } from "swiper/modules";
-import clsx from "clsx";
 import { RiArrowLeftWideLine, RiArrowRightWideLine } from "react-icons/ri";
 
 import { AttractionDataType, SF_ATTRACTIONS } from "@/mockData";

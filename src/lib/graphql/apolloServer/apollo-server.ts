@@ -1,10 +1,11 @@
+import fs from "fs";
+import path from "path";
+
+import gql from "graphql-tag";
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { ApolloServer } from "@apollo/server";
 import { mergeTypeDefs } from "@graphql-tools/merge";
 import { NextRequest } from "next/server";
-import fs from "fs";
-import path from "path";
-import gql from "graphql-tag";
 
 import { resolvers } from "./resolvers";
 

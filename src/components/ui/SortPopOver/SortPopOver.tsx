@@ -1,7 +1,8 @@
 "use client";
 import { ReactNode, useState } from "react";
-import PopOver from "../../common/PopOver/PopOver";
 import { IoIosArrowRoundUp, IoIosArrowRoundDown } from "react-icons/io";
+
+import PopOver from "../../common/PopOver/PopOver";
 
 interface SortPopOverProps {
   title: string;

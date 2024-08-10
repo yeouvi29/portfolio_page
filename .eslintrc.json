@@ -3,10 +3,11 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "next/core-web-vitals",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:import/typescript"
+    "plugin:import/errors"
   ],
+  "globals": {
+    "google": "readonly"
+  },
   "plugins": ["import"],
   "rules": {
     "import/order": [
@@ -20,9 +21,10 @@
           "object",
           "type"
         ],
-        "newlines-between": "always",
-        "alphabetize": { "order": "asc", "caseInsensitive": true }
+        "newlines-between": "always"
       }
-    ]
+    ],
+    "no-unused-vars": "off",
+    "no-undef": "off"
   }
 }

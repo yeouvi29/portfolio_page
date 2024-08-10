@@ -1,12 +1,13 @@
 "use client";
 
+import clsx from "clsx";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { FiMaximize, FiMinimize } from "react-icons/fi";
 import { PiPlusCircleBold, PiMinusCircleBold } from "react-icons/pi";
+
 import DraggableImage from "../DraggableImage/DraggableImage";
 import ModalButton from "../ModalButton/ModalButton";
-import clsx from "clsx";
 
 const DynamicModal = dynamic(() => import("@/components/common/Modal/Modal"), {
   ssr: false,

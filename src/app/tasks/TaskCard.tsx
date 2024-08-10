@@ -5,12 +5,12 @@ import clsx from "clsx";
 import { TbPencil } from "react-icons/tb";
 
 import { DragEnterItem, DragStartItem, TaskItem } from "@/types";
-
-import { removeElements } from "../../../utils";
 import CardOptionsMiniMenu from "@/components/ui/CardOptionsMiniMenu/CardOptionsMiniMenu";
-import styles from "./styles.module.css";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import FixedPopOver from "@/components/common/FixedPopOver/FIxedPopUp";
+
+import { removeElements } from "../../../utils";
+import styles from "./styles.module.css";
 
 const TaskCard = ({
   task,

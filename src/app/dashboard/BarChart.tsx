@@ -1,6 +1,5 @@
 "use client";
 
-import { SF_VISITOR_VOLUME } from "@/mockData";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import {
   CategoryScale,
@@ -12,6 +11,8 @@ import {
   Title,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+
+import { SF_VISITOR_VOLUME } from "@/mockData";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 const data = {

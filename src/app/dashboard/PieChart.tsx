@@ -1,6 +1,7 @@
+import ChartDataLabels from "chartjs-plugin-datalabels";
 import { ArcElement, Tooltip, Legend, Chart, Title } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import ChartDataLabels from "chartjs-plugin-datalabels";
+
 import { SF_VISITOR_STAY_PERCENTAGE } from "@/mockData";
 
 Chart.register(ArcElement, Tooltip, Title, Legend, ChartDataLabels);
