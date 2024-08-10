@@ -42,7 +42,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="en" className={clsx(lato.variable, montserrat.variable)}>
       <body className="bg-white">
-        <div className="flex flex-col md:flex-row md:min-h-screen ">
+        <div className="isolate flex flex-col md:flex-row md:min-h-screen ">
           <SideNavigation />
           <ApolloWrapper>{children}</ApolloWrapper>
         </div>
