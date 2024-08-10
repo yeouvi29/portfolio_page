@@ -9,7 +9,7 @@ import styles from "./styles.module.css";
 
 const Page = () => {
   return (
-    <Container className="relative !mx-0 !px-0 h-full">
+    <Container className="mt-14 pt-5 relative h-full md:pt-0">
       <div className="w-full max-w-screen-xl mt-5 flex gap-5 justify-between items-end">
         <div className="text-center lg:text-left">
           <h1 className="mb-7 text-blue-700">Emily&apos;s Portfolio</h1>
