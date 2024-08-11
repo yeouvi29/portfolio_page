@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, DragEvent } from "react";
+import { useRef, DragEvent, useState } from "react";
 import clsx from "clsx";
 
 import { DragEnterItem, DragStartItem, TaskItem, TaskItems } from "@/types";

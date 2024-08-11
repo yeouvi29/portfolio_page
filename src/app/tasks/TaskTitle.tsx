@@ -6,6 +6,8 @@ import { BiDotsHorizontalRounded } from "react-icons/bi";
 
 import { DragEnterItem } from "@/types";
 import ClickAwayListener from "@/components/common/ClickAwayLIstener/ClickAwayListener";
+import FixedPopOver from "@/components/common/FixedPopOver/FIxedPopUp";
+import ListOptionMenu from "@/components/ui/ListOptionMenu/ListOptionsMenu";
 
 const TaskTitle = ({
   title,
@@ -26,7 +28,9 @@ const TaskTitle = ({
   const [isEditable, setIsEditable] = useState(false);
   const [value, setValue] = useState(title);
   const [height, setHeight] = useState(0);
+  const [showOptionMenu, setShowOptionMenu] = useState(false);
   const lastSavedTitle = useRef(value);
+  const position = useRef<{ [key: string]: number }>({});
   const handleClickAway = () => {
     setIsEditable(false);
   };
@@ -76,7 +80,39 @@ const TaskTitle = ({
     if (headingRef.current) {
       setHeight(headingRef.current.offsetHeight);
     }
+    if (divRef.current) {
+      const wrapperEl = divRef.current;
+      const { top, left, right, width, height } =
+        wrapperEl.getBoundingClientRect();
+      const mViewport = 768;
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      const sidebarWidth = 250;
+      const threshold = 16;
+      if (windowWidth < mViewport) {
+        position.current = {
+          top: windowHeight / 4,
+          left: windowWidth / 2 - width / 2,
+        };
+      } else {
+        const center = windowWidth / 2;
+        if (left <= center) {
+          position.current = {
+            top: top + height,
+            left:
+              left < sidebarWidth + threshold ? sidebarWidth + threshold : left,
+          };
+        } else {
+          position.current = {
+            top: top + height,
+            right:
+              windowWidth - right < threshold ? threshold : windowWidth - right,
+          };
+        }
+      }
+    }
   }, []);
+
   return (
     <div ref={divRef} className="w-[272px] p-1 relative flex gap-1">
       <ClickAwayListener
@@ -109,9 +145,23 @@ const TaskTitle = ({
           {value}
         </h2>
       </ClickAwayListener>
-      <button className="min-w-8 h-8 mt-0.5 flex justify-center items-center rounded-lg hover:bg-gray-400/30 hover:cursor-pointer">
+      <button
+        className="min-w-8 h-8 mt-0.5 flex justify-center items-center rounded-lg hover:bg-gray-400/30 hover:cursor-pointer"
+        onClick={() => setShowOptionMenu((prev) => !prev)}
+      >
         <BiDotsHorizontalRounded />
       </button>
+      {showOptionMenu && (
+        <FixedPopOver
+          position={position.current}
+          onClose={() => setShowOptionMenu(false)}
+        >
+          <ListOptionMenu
+            columnId={columnId}
+            onClose={() => setShowOptionMenu(false)}
+          />
+        </FixedPopOver>
+      )}
     </div>
   );
 };
