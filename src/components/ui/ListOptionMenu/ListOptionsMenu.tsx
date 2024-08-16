@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { Fragment, KeyboardEvent, useEffect, useRef, useState } from "react";
+import { Fragment, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { MdOutlineDelete } from "react-icons/md";

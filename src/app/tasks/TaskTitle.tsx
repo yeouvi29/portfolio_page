@@ -8,7 +8,6 @@ import { DragEnterItem, DragStartItem } from "@/types";
 import ClickAwayListener from "@/components/common/ClickAwayLIstener/ClickAwayListener";
 import FixedPopOver from "@/components/common/FixedPopOver/FIxedPopUp";
 import ListOptionMenu from "@/components/ui/ListOptionMenu/ListOptionsMenu";
-import { useDropTask } from "@/hooks/useDropTask";
 
 const TaskTitle = ({
   title,
