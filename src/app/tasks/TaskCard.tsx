@@ -19,6 +19,7 @@ const TaskCard = ({
   isCursorOnLeft,
   dragItem,
   dragEnterItem,
+  showConfetti,
   onDragStart,
   onDragEnter,
   onDrop,
@@ -32,6 +33,7 @@ const TaskCard = ({
   task: TaskItem;
   dragItem: DragStartItem | null;
   dragEnterItem: DragEnterItem | null;
+  showConfetti: () => void;
   onDragStart: (item: DragStartItem) => void;
   onDragEnter: (dragEnterItem: DragEnterItem) => void;
   onDrop: (shouldAddBefore: boolean) => void;
@@ -124,6 +126,7 @@ const TaskCard = ({
 
     if (dragItem?.item) {
       onDrop(!!isCursorOnTop);
+      showConfetti();
     } else {
       onDrop(isCursorOnLeft);
     }

@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, DragEvent, useState, Fragment, useEffect } from "react";
 import clsx from "clsx";
+import confetti from "canvas-confetti";
+import { useRef, DragEvent, useState, Fragment, useEffect, use } from "react";
 
 import { DragEnterItem, DragStartItem, TaskItem, TaskItems } from "@/types";
 
@@ -39,7 +40,7 @@ const TasksColumn = ({
   const isReEnter = useRef(false);
   const [isCursorOnLeft, setIsCursorOnLeft] = useState<null | boolean>(null);
   const [isLeave, setIsLeave] = useState(false);
-
+  const [shouldShowConfetti, setShouldShowConfetti] = useState(false);
   const handleDragStart = (event: DragEvent) => {
     const x = event.clientX;
     const y = event.clientY;
@@ -58,11 +59,19 @@ const TasksColumn = ({
   const handleDragLeave = () => {
     setIsLeave(true);
   };
+
+  const handleShowConfetti = () => {
+    if (dragItem?.columnId !== columnId && title.includes("🎉")) {
+      setShouldShowConfetti(true);
+    }
+  };
+
   const handleDrop = (e: DragEvent) => {
     e.stopPropagation();
     // If the dragged item is a task item, call the onDrop with the bottom position
     if (dragItem?.item) {
       onDrop(false);
+      handleShowConfetti();
     } else {
       // If the dragged item is a list item, call the onDrop with the left position
       onDrop(!!isCursorOnLeft);
@@ -143,6 +152,33 @@ const TasksColumn = ({
   };
 
   useEffect(() => {
+    if (!shouldShowConfetti) {
+      return;
+    }
+
+    const liEl = liRef.current as HTMLLIElement;
+    const { top, left } = liEl.getBoundingClientRect();
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const positionX = left / width;
+    const positionY = top / height;
+
+    confetti({
+      particleCount: 50,
+      startVelocity: 30,
+      spread: 70,
+      origin: { x: positionX, y: positionY },
+    });
+
+    const timeout = setTimeout(() => {
+      confetti.reset();
+      setShouldShowConfetti(false);
+    }, 3000);
+
+    return () => clearTimeout(timeout);
+  }, [shouldShowConfetti]);
+
+  useEffect(() => {
     if (dragEnterItem && dragEnterItem.columnId === columnId) {
       if (dragEnterItem.position === "right") {
         setIsCursorOnLeft(false);
@@ -211,7 +247,7 @@ const TasksColumn = ({
       )}
       <li
         ref={liRef}
-        className={clsx("min-h-[calc(100vh-180px)] px-2")}
+        className={clsx("min-h-[calc(100vh-180px)] px-2 relative")}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
@@ -271,6 +307,7 @@ const TasksColumn = ({
                 title={title}
                 isCursorOnLeft={!!isCursorOnLeft}
                 onDragStart={onDragStart}
+                showConfetti={handleShowConfetti}
                 onDrop={onDrop}
                 onDragEnter={onDragEnter}
                 onDragLeave={onDragLeave}
