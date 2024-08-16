@@ -4,22 +4,31 @@ import { DragEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 
-import { DragEnterItem } from "@/types";
+import { DragEnterItem, DragStartItem } from "@/types";
 import ClickAwayListener from "@/components/common/ClickAwayLIstener/ClickAwayListener";
 import FixedPopOver from "@/components/common/FixedPopOver/FIxedPopUp";
 import ListOptionMenu from "@/components/ui/ListOptionMenu/ListOptionsMenu";
+import { useDropTask } from "@/hooks/useDropTask";
 
 const TaskTitle = ({
   title,
   columnId,
+  dragItem,
+  isCursorOnLeft,
   tasksLength,
+  onDragStart,
   onDragEnter,
+  onDrop,
   onTitleUpdate,
 }: {
   title: string;
   columnId: string;
+  dragItem: DragStartItem | null;
+  isCursorOnLeft: boolean;
   tasksLength: number;
+  onDragStart: (e: DragEvent) => void;
   onDragEnter: (dragEnterItem: DragEnterItem) => void;
+  onDrop: (e: DragEvent) => void;
   onTitleUpdate: (title: string, columnId: string) => void;
 }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -31,16 +40,25 @@ const TaskTitle = ({
   const [showOptionMenu, setShowOptionMenu] = useState(false);
   const lastSavedTitle = useRef(value);
   const position = useRef<{ [key: string]: number }>({});
+
   const handleClickAway = () => {
     setIsEditable(false);
   };
+
   const handleDragEnter = (e: DragEvent) => {
     e.stopPropagation();
-    onDragEnter({
-      columnId,
-      index: tasksLength ? tasksLength - 1 : 0,
-      addToBottom: true,
-    });
+    if (dragItem?.item) {
+      onDragEnter({
+        columnId,
+        index: tasksLength ? tasksLength - 1 : 0,
+        position: "bottom",
+      });
+    } else {
+      onDragEnter({
+        columnId,
+        position: isCursorOnLeft ? "left" : "right",
+      });
+    }
   };
 
   const handleSubmit = () => {
@@ -114,7 +132,13 @@ const TaskTitle = ({
   }, []);
 
   return (
-    <div ref={divRef} className="w-[272px] p-1 relative flex gap-1">
+    <div
+      ref={divRef}
+      className="w-[272px] p-1 relative flex gap-1"
+      draggable
+      onDragStart={onDragStart}
+      onDrop={onDrop}
+    >
       <ClickAwayListener
         onClickAway={() => handleClickAway()}
         className="flex-grow"

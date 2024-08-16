@@ -21,9 +21,13 @@ interface NewTask {
 }
 const AddTask = ({
   columnId,
+  isListDragged,
+  isCursorOnLeft,
   tasksLength,
 }: {
   columnId: string;
+  isListDragged: boolean;
+  isCursorOnLeft: boolean;
   tasksLength: number;
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -38,12 +42,18 @@ const AddTask = ({
   const newTaskRef = useRef(newTask);
   const handleDragEnter = (e: DragEvent) => {
     e.stopPropagation();
-
-    setDragEnterItem({
-      columnId,
-      index: tasksLength ? tasksLength - 1 : 0,
-      addToBottom: true,
-    });
+    if (isListDragged) {
+      setDragEnterItem({
+        columnId,
+        position: isCursorOnLeft ? "left" : "right",
+      });
+    } else {
+      setDragEnterItem({
+        columnId,
+        index: tasksLength ? tasksLength - 1 : 0,
+        position: "bottom",
+      });
+    }
   };
 
   const handleClick = () => {

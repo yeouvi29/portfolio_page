@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, DragEvent, useState } from "react";
+import { useRef, DragEvent, useState, Fragment, useEffect } from "react";
 import clsx from "clsx";
 
 import { DragEnterItem, DragStartItem, TaskItem, TaskItems } from "@/types";
@@ -27,26 +27,82 @@ const TasksColumn = ({
   dragItem: DragStartItem | null;
   dragEnterItem: DragEnterItem | null;
   onDragStart: (item: any) => void;
-  onDrop: (isCursorOnTop: boolean) => void;
+  onDrop: (shouldAddBefore: boolean) => void;
   onDragEnter: (dragEnterItem: DragEnterItem) => void;
   onDragLeave: () => void;
   onUpdateTask: (tasks: TaskItems) => void;
 }) => {
   const liRef = useRef<HTMLLIElement>(null);
+  const divRef = useRef<HTMLDivElement>(null);
+  const isReEnter = useRef(false);
+  const [isCursorOnLeft, setIsCursorOnLeft] = useState<null | boolean>(null);
 
+  const handleDragStart = (event: DragEvent) => {
+    const x = event.clientX;
+    const y = event.clientY;
+    const rect = (divRef.current as HTMLDivElement).getBoundingClientRect();
+    const x2 = rect.left;
+    const y2 = rect.top;
+    const xPosition = x - x2;
+    const yPosition = y - y2;
+    const divEl = divRef.current as HTMLDivElement;
+
+    event.dataTransfer.setDragImage(divEl, xPosition, yPosition);
+    onDragStart({ columnId, height: rect.height });
+  };
   const handleDrop = (e: DragEvent) => {
     e.stopPropagation();
-    onDrop(false);
+    // If the dragged item is a task item, call the onDrop with the bottom position
+    if (dragItem?.item) {
+      onDrop(false);
+    } else {
+      // If the dragged item is a list item, call the onDrop with the left position
+      onDrop(!!isCursorOnLeft);
+      setIsCursorOnLeft(null);
+      isReEnter.current = false;
+    }
   };
 
-  const handleDragEnter = () => {
-    onDragEnter({
-      columnId,
-      index: tasks.length ? tasks.length - 1 : 0,
-      addToBottom: true,
-    });
+  const handleDragEnter = (event: DragEvent) => {
+    event.preventDefault();
+    if (!dragItem) {
+      return;
+    }
+    if (dragItem.item) {
+      onDragEnter({
+        columnId,
+        index: tasks.length ? tasks.length - 1 : 0,
+        position: "bottom",
+      });
+    } else {
+      const listEl = liRef.current as HTMLLIElement;
+      const clientX = event.clientX;
+      const left = listEl.getBoundingClientRect().left;
+      const right = listEl.getBoundingClientRect().right;
+      const isCurrentCursorOnLeft = clientX < left + (right - left) / 2;
+      onDragEnter({
+        columnId,
+        position: isCurrentCursorOnLeft ? "left" : "right",
+      });
+    }
   };
 
+  const handleDragOver = (event: DragEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (dragItem?.item) {
+      return;
+    }
+    const listEl = liRef.current as HTMLLIElement;
+    const clientX = event.clientX;
+    const left = listEl.getBoundingClientRect().left;
+    const right = listEl.getBoundingClientRect().right;
+    const isCurrentCursorOnLeft = clientX < left + (right - left) / 2;
+    if (isCurrentCursorOnLeft === isCursorOnLeft) {
+      return;
+    }
+    setIsCursorOnLeft(isCurrentCursorOnLeft);
+  };
   const handleTitleUpdate = (title: string, columnId: string) => {
     onUpdateTask({
       title,
@@ -54,7 +110,7 @@ const TasksColumn = ({
       items: tasks,
     });
   };
-
+  
   const handleUpdateTask = (updateTask: TaskItem) => {
     const updatedTasks = tasks.map((task) =>
       task.id === updateTask.id ? updateTask : task
@@ -66,72 +122,162 @@ const TasksColumn = ({
     });
   };
 
-  const isDraggedOver =
-    dragItem && dragEnterItem && dragEnterItem.columnId === columnId;
+  const handleDragEnd = (e: DragEvent) => {
+    isReEnter.current = false;
+    if (dragItem) {
+      e.stopPropagation();
+      onDragLeave();
+    }
+  };
+
+  const opacity =
+    !dragItem ||
+    (dragItem && dragItem.columnId !== columnId) ||
+    (dragItem && dragItem.item)
+      ? 1
+      : !dragEnterItem ||
+        (dragEnterItem &&
+          dragEnterItem.columnId === columnId &&
+          dragItem.columnId === columnId &&
+          isReEnter.current === false)
+      ? 0.3
+      : 0;
+
+  useEffect(() => {
+    if (
+      !dragItem ||
+      dragItem.columnId !== columnId ||
+      dragItem.item ||
+      !dragEnterItem ||
+      dragEnterItem.index === undefined
+    ) {
+      return;
+    }
+
+    isReEnter.current = true;
+  }, [dragItem, dragEnterItem]);
+
+  const isListDraggedOver =
+    dragItem &&
+    dragEnterItem &&
+    dragEnterItem.columnId === columnId &&
+    dragItem.item === undefined &&
+    opacity === 1;
+
+  const isItemDraggedOver =
+    dragItem &&
+    dragEnterItem &&
+    dragEnterItem.columnId === columnId &&
+    dragItem.item;
 
   return (
-    <li
-      ref={liRef}
-      className={clsx("min-h-[calc(100vh-180px)] px-2")}
-      onDrop={handleDrop}
-      onDragOver={(e) => {
-        e.preventDefault();
-      }}
-      onDragEnter={handleDragEnter}
-      data-testid={title}
-    >
-      <div
-        className={clsx(
-          "p-2 flex flex-col h-fit rounded-lg border-solid border-2  bg-gray-200",
-          isDraggedOver ? "border-blue-600" : "border-gray-200"
-        )}
+    <Fragment>
+      {isListDraggedOver && isCursorOnLeft === true && (
+        <div
+          className={clsx("min-h-[calc(100vh-180px)] px-2")}
+          data-draggedover={true}
+          onDrop={handleDrop}
+        >
+          <div
+            className="min-w-[292px] bg-black/20 rounded-lg pointer-events-none"
+            style={{
+              height: dragItem?.height ? dragItem.height : 40,
+            }}
+          ></div>
+        </div>
+      )}
+      <li
+        ref={liRef}
+        className={clsx("min-h-[calc(100vh-180px)] px-2")}
+        onDrop={handleDrop}
         onDragOver={(e) => {
           e.preventDefault();
         }}
+        onDragEnd={handleDragEnd}
+        onDragEnter={handleDragEnter}
+        data-testid={title}
+        draggable
+        style={{
+          opacity,
+          display: opacity === 0 ? "none" : "block",
+        }}
       >
-        <TaskTitle
-          title={title}
-          columnId={columnId}
-          tasksLength={tasks.length}
-          onDragEnter={onDragEnter}
-          onTitleUpdate={handleTitleUpdate}
-        />
-        <ol
-          className="list-none flex flex-col"
-          onDragEnter={(e) => {
-            e.stopPropagation();
-          }}
+        <div
+          ref={divRef}
+          className={clsx(
+            "p-2 flex flex-col h-fit rounded-lg border-solid border-2  bg-gray-200",
+            isItemDraggedOver ? "border-blue-600" : "border-gray-200"
+          )}
+          onDragOver={handleDragOver}
         >
-          {dragItem &&
-            dragEnterItem &&
-            dragEnterItem.columnId === columnId &&
-            !tasks.length && (
-              <div
-                className="w-[272px] bg-gray-300 rounded-lg mb-2 pointer-events-none"
-                style={{ height: dragItem.item.height ?? 40 }}
-                data-draggedover={true}
-              ></div>
-            )}
-          {tasks.map((task: any, i: number) => (
-            <TaskCard
-              dragItem={dragItem}
-              dragEnterItem={dragEnterItem}
-              columnId={columnId}
-              key={task.id + i}
-              index={i}
-              task={task}
-              title={title}
-              onDragStart={onDragStart}
-              onDrop={onDrop}
-              onDragEnter={onDragEnter}
-              onDragLeave={onDragLeave}
-              onUpdateTask={handleUpdateTask}
-            />
-          ))}
-        </ol>
-        <AddTask columnId={columnId} tasksLength={tasks.length} />
-      </div>
-    </li>
+          <TaskTitle
+            title={title}
+            dragItem={dragItem}
+            columnId={columnId}
+            isCursorOnLeft={!!isCursorOnLeft}
+            tasksLength={tasks.length}
+            onDragStart={handleDragStart}
+            onDragEnter={onDragEnter}
+            onDrop={handleDrop}
+            onTitleUpdate={handleTitleUpdate}
+          />
+          <ol
+            className="list-none flex flex-col"
+            onDragEnter={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            {dragItem &&
+              dragEnterItem &&
+              dragEnterItem.columnId === columnId &&
+              !tasks.length && (
+                <div
+                  className="w-[272px] bg-gray-300 rounded-lg mb-2"
+                  style={{ height: dragItem.height ?? 40 }}
+                  data-draggedover={true}
+                ></div>
+              )}
+            {tasks.map((task: any, i: number) => (
+              <TaskCard
+                dragItem={dragItem}
+                dragEnterItem={dragEnterItem}
+                columnId={columnId}
+                key={task.id + i}
+                index={i}
+                task={task}
+                title={title}
+                isCursorOnLeft={!!isCursorOnLeft}
+                onDragStart={onDragStart}
+                onDrop={onDrop}
+                onDragEnter={onDragEnter}
+                onDragLeave={onDragLeave}
+                onUpdateTask={handleUpdateTask}
+              />
+            ))}
+          </ol>
+          <AddTask
+            isListDragged={!dragItem?.item}
+            isCursorOnLeft={!!isCursorOnLeft}
+            columnId={columnId}
+            tasksLength={tasks.length}
+          />
+        </div>
+      </li>
+      {isListDraggedOver && isCursorOnLeft === false && (
+        <div
+          className={clsx("min-h-[calc(100vh-180px)] px-2")}
+          data-draggedover={true}
+          onDrop={handleDrop}
+        >
+          <div
+            className="min-w-[292px] bg-black/20 rounded-lg pointer-events-none"
+            style={{
+              height: dragItem?.height ? dragItem?.height : 40,
+            }}
+          ></div>
+        </div>
+      )}
+    </Fragment>
   );
 };
 

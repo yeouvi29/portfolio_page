@@ -16,6 +16,7 @@ const TaskCard = ({
   task,
   index,
   columnId,
+  isCursorOnLeft,
   dragItem,
   dragEnterItem,
   onDragStart,
@@ -27,12 +28,13 @@ const TaskCard = ({
   title: string;
   index: number;
   columnId: string;
+  isCursorOnLeft: boolean;
   task: TaskItem;
   dragItem: DragStartItem | null;
   dragEnterItem: DragEnterItem | null;
   onDragStart: (item: DragStartItem) => void;
   onDragEnter: (dragEnterItem: DragEnterItem) => void;
-  onDrop: (isCursorOnTop: boolean) => void;
+  onDrop: (shouldAddBefore: boolean) => void;
   onDragLeave: () => void;
   onUpdateTask: (tasks: TaskItem) => void;
 }) => {
@@ -74,36 +76,57 @@ const TaskCard = ({
 
     onDragStart({
       columnId,
-      item: { task, height: dragImage.clientHeight + 4 },
+      item: task,
+      height: dragImage.clientHeight + 4,
     });
 
     event.dataTransfer.setDragImage(dragImage, xPosition, yPosition);
   };
 
-  const handleDragOver = (e: DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const checkIfCursorIsOnTop = (e: DragEvent) => {
     const listEl = listRef.current as HTMLLIElement;
     const clientY = e.clientY;
     const top = listEl.getBoundingClientRect().top;
     const bottom = listEl.getBoundingClientRect().bottom;
     const isCurrentCursorOnTop = clientY < top + (bottom - top) / 2;
-    if (isCurrentCursorOnTop === isCursorOnTop) {
+    return isCurrentCursorOnTop;
+  };
+
+  const handleDragOver = (e: DragEvent) => {
+    e.preventDefault();
+    // if dragging a column, bubble up the event to the parent
+
+    if (!dragItem || (dragItem && !dragItem.item)) {
       return;
     }
+    e.stopPropagation();
+    const isCurrentCursorOnTop = checkIfCursorIsOnTop(e);
     setIsCursorOnTop(isCurrentCursorOnTop);
   };
 
   const handleDragEnter = (e: DragEvent) => {
     e.stopPropagation();
 
-    onDragEnter({ columnId, index });
+    if (dragItem?.item) {
+      const isCurrentCursorOnTop = checkIfCursorIsOnTop(e);
+      onDragEnter({
+        columnId,
+        index,
+        position: isCurrentCursorOnTop ? "top" : "bottom",
+      });
+    } else {
+      onDragEnter({ columnId, position: isCursorOnLeft ? "left" : "right" });
+    }
   };
 
   const handleDrop = (e: DragEvent) => {
     e.stopPropagation();
-    // console.log("drop, card", isCursorOnTop);
-    onDrop(!!isCursorOnTop);
+
+    if (dragItem?.item) {
+      onDrop(!!isCursorOnTop);
+    } else {
+      onDrop(isCursorOnLeft);
+    }
     isReEnter.current = false;
   };
 
@@ -153,7 +176,7 @@ const TaskCard = ({
   };
 
   const opacity =
-    !dragItem || (dragItem && dragItem.item.task.id !== task.id)
+    !dragItem || (dragItem && dragItem.item?.id !== task.id)
       ? 1
       : !dragEnterItem ||
         (dragEnterItem &&
@@ -166,7 +189,7 @@ const TaskCard = ({
   useEffect(() => {
     if (
       !dragItem ||
-      dragItem.item.task.id !== task.id ||
+      dragItem.item?.id !== task.id ||
       !dragEnterItem ||
       (dragEnterItem.columnId === columnId &&
         dragEnterItem.index === index &&
@@ -183,7 +206,7 @@ const TaskCard = ({
       dragEnterItem &&
       dragEnterItem.columnId === columnId &&
       dragEnterItem.index === index &&
-      dragEnterItem.addToBottom === true
+      dragEnterItem.position === "bottom"
     ) {
       setIsCursorOnTop(false);
     }
@@ -192,11 +215,12 @@ const TaskCard = ({
   const isDraggedOver =
     dragItem &&
     dragEnterItem &&
+    dragItem.item &&
     (dragEnterItem.columnId !== columnId ||
       dragItem.columnId !== columnId ||
       dragEnterItem.index !== index ||
-      dragItem.item.task.id !== task.id) &&
-    dragEnterItem?.columnId === columnId &&
+      dragItem.item.id !== task.id) &&
+    dragEnterItem.columnId === columnId &&
     opacity === 1 &&
     dragEnterItem?.index === index;
 
@@ -232,8 +256,8 @@ const TaskCard = ({
           <div
             className="w-full h-10 bg-gray-300 rounded-lg mb-2 pointer-events-none hover:bg-gray-400"
             style={{
-              height: dragItem?.item.height
-                ? `calc(${dragItem?.item.height}px - 2px)`
+              height: dragItem?.height
+                ? `calc(${dragItem?.height}px - 2px)`
                 : 40,
             }}
             data-draggedover={true}
@@ -251,8 +275,8 @@ const TaskCard = ({
           <div
             className="w-full h-10 bg-gray-300 rounded-lg mt-2 pointer-events-none"
             style={{
-              height: dragItem?.item.height
-                ? `calc(${dragItem?.item.height}px - 2px)`
+              height: dragItem?.height
+                ? `calc(${dragItem?.height}px - 2px)`
                 : 40,
             }}
             data-draggedover={true}
@@ -287,15 +311,15 @@ const TaskCard = ({
         dragEnterItem.columnId === columnId &&
         dragEnterItem.index === index &&
         dragItem &&
-        dragItem.item.task.id === task.id &&
+        dragItem.item?.id === task.id &&
         opacity === 0 && (
           <div
             className={clsx(
               "w-[272px] bg-gray-300 rounded-lg pointer-events-none my-1"
             )}
             style={{
-              height: dragItem?.item.height
-                ? `calc(${dragItem?.item.height}px - 2px)`
+              height: dragItem?.height
+                ? `calc(${dragItem?.height}px - 2px)`
                 : 40,
             }}
             data-draggedover={true}
