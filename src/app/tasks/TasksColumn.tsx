@@ -179,7 +179,7 @@ const TasksColumn = ({
           onDrop={handleDrop}
         >
           <div
-            className="min-w-[292px] bg-black/20 rounded-lg pointer-events-none"
+            className="min-w-[272px] bg-black/20 rounded-lg pointer-events-none"
             style={{
               height: dragItem?.height ? dragItem.height : 40,
             }}
@@ -205,7 +205,7 @@ const TasksColumn = ({
         <div
           ref={divRef}
           className={clsx(
-            "p-2 flex flex-col h-fit rounded-lg border-solid border-2  bg-gray-200",
+            "py-2 flex flex-col h-fit border-solid border-2 rounded-lg bg-gray-200",
             isItemDraggedOver ? "border-blue-600" : "border-gray-200"
           )}
           onDragOver={handleDragOver}
@@ -222,7 +222,7 @@ const TasksColumn = ({
             onTitleUpdate={handleTitleUpdate}
           />
           <ol
-            className="list-none flex flex-col"
+            className="list-none flex flex-col px-2"
             onDragEnter={(e) => {
               e.stopPropagation();
             }}
@@ -232,7 +232,7 @@ const TasksColumn = ({
               dragEnterItem.columnId === columnId &&
               !tasks.length && (
                 <div
-                  className="w-[272px] bg-gray-300 rounded-lg mb-2"
+                  className="w-[252px] bg-gray-300 rounded-lg mb-2"
                   style={{ height: dragItem.height ?? 40 }}
                   data-draggedover={true}
                 ></div>
@@ -270,7 +270,7 @@ const TasksColumn = ({
           onDrop={handleDrop}
         >
           <div
-            className="min-w-[292px] bg-black/20 rounded-lg pointer-events-none"
+            className="min-w-[272px] bg-black/20 rounded-lg pointer-events-none"
             style={{
               height: dragItem?.height ? dragItem?.height : 40,
             }}

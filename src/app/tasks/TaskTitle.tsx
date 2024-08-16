@@ -133,7 +133,7 @@ const TaskTitle = ({
   return (
     <div
       ref={divRef}
-      className="w-[272px] p-1 relative flex gap-1"
+      className="w-full p-1 relative flex gap-1"
       draggable
       onDragStart={onDragStart}
       onDrop={onDrop}

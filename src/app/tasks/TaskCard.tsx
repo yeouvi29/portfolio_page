@@ -58,7 +58,7 @@ const TaskCard = ({
     dragImage.setAttribute("id", "drag-image");
     dragImage.classList.add(
       "absolute",
-      "w-[272px]",
+      "w-[252px]",
       "top-[-9999px]",
       "x-[-9999px]",
       "rounded-lg",
@@ -229,7 +229,7 @@ const TaskCard = ({
       <li
         ref={listRef}
         className={clsx(
-          "relative w-[272px] pointer-events-auto cursor-auto group",
+          "relative w-[252px] pointer-events-auto cursor-auto group",
           "py-1",
           !dragItem &&
             "after:hidden after:absolute after:w-full after:h-[calc(100%-8px)] after:left-0 after:top-1 after:border-2  after:border-solid after:border-blue-600 after:rounded-lg after:pointer-events-none",
@@ -315,7 +315,7 @@ const TaskCard = ({
         opacity === 0 && (
           <div
             className={clsx(
-              "w-[272px] bg-gray-300 rounded-lg pointer-events-none my-1"
+              "w-[252px] bg-gray-300 rounded-lg pointer-events-none my-1"
             )}
             style={{
               height: dragItem?.height

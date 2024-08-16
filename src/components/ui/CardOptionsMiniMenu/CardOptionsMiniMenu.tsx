@@ -92,12 +92,12 @@ const CardOptionsMiniMenu = ({
     <Fragment>
       <div
         className={clsx(
-          "w-[272px] md:w-full md:min-h-full",
+          "w-[252px] md:w-full md:min-h-full",
           isMobileView && "screen-freeze"
         )}
       >
         <form
-          className="w-[272px]"
+          className="w-[252px]"
           onSubmit={(e) => {
             e.preventDefault();
             handleSubmit();
@@ -134,7 +134,7 @@ const CardOptionsMiniMenu = ({
               <AnimatePresence>
                 {showMoveOptions && (
                   <motion.div
-                    className="absolute -bottom-2 right-0 translate-y-full w-[272px] bg-gray-200 p-2 rounded-md flex flex-col gap-y-2"
+                    className="absolute -bottom-2 right-0 translate-y-full w-[252px] bg-gray-200 p-2 rounded-md flex flex-col gap-y-2"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}

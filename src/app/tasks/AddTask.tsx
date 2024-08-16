@@ -130,7 +130,7 @@ const AddTask = ({
       {!newTask && (
         <button
           className={clsx(
-            "w-full mt-2 p-2 rounded-lg text-left",
+            "w-[252px] mt-2 mx-2 p-2 rounded-lg text-left",
             !dragStartItem && "hover:bg-gray-400/30"
           )}
           onClick={handleClick}
@@ -142,10 +142,10 @@ const AddTask = ({
         </button>
       )}
       {newTask && (
-        <ClickAwayListener onClickAway={handleClickAway}>
+        <ClickAwayListener onClickAway={handleClickAway} className="px-2">
           <div
             className={clsx(
-              "w-[272px] bg-white rounded-lg  my-1 overflow-hidden"
+              "w-[252px] bg-white rounded-lg  my-1 overflow-hidden"
             )}
             style={{ minHeight: 40 }}
             data-draggedover={true}

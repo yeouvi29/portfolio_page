@@ -68,7 +68,7 @@ const NewList = ({ addNewList }: { addNewList: (title: string) => void }) => {
             : "bg-gray-200/30 hover:bg-gray-600/30 hover:cursor-pointer"
         )}
       >
-        <div className="w-[272px] p-1 relative">
+        <div className="w-[252px] p-1 relative">
           <ClickAwayListener onClickAway={() => handleClickAway()}>
             <textarea
               wrap="hard"

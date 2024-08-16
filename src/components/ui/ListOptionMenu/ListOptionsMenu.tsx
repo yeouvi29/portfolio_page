@@ -41,15 +41,15 @@ const ListOptionMenu = ({ columnId, onClose }: ListOptionMenu) => {
     <Fragment>
       <div
         className={clsx(
-          "w-[272px] md:w-full md:min-h-full",
+          "w-[252px] md:w-full md:min-h-full",
           isMobileView && "screen-freeze"
         )}
       >
-        <div className="flex w-[272px] mt-0.5 justify-end items-start">
+        <div className="flex w-[252px] mt-0.5 justify-end items-start">
           <div>
             <div className="relative">
               <button
-                className="min-w-full flex gap-2 items-center bg-gray-300 rounded-md py-1 px-3 hover:bg-gray-400"
+                className="min-w-[252px] flex gap-2 items-center bg-gray-300 rounded-md py-1 px-3 hover:bg-gray-400"
                 onClick={() => setShowMoveOptions((prev) => !prev)}
               >
                 <span className="inline">
@@ -60,7 +60,7 @@ const ListOptionMenu = ({ columnId, onClose }: ListOptionMenu) => {
               <AnimatePresence>
                 {showMoveOptions && (
                   <motion.div
-                    className="absolute -bottom-2 right-0 translate-y-full w-[272px] bg-gray-200 p-2 rounded-md flex flex-col gap-y-2"
+                    className="absolute -bottom-2 right-0 translate-y-full w-[252px] bg-gray-200 p-2 rounded-md flex flex-col gap-y-2"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -76,7 +76,7 @@ const ListOptionMenu = ({ columnId, onClose }: ListOptionMenu) => {
               </AnimatePresence>
             </div>
             <button
-              className="min-w-full mt-2 flex gap-2 items-center bg-gray-300 rounded-md py-1 px-3 hover:bg-gray-400 text-red-500"
+              className="min-w-[252px] mt-2 flex gap-2 items-center bg-gray-300 rounded-md py-1 px-3 hover:bg-gray-400 text-red-500"
               onClick={() => setShowDeleteModal((prev) => !prev)}
             >
               <span className="inline">
