@@ -1,7 +1,7 @@
 import { useTaskItems } from "@/store";
+import { TaskItems } from "@/types";
 
 import { removeElements } from "../../utils";
-import { TaskItems } from "@/types";
 
 export const useDropTask = () => {
   const [taskItems, dragItem, dragEnterItem, setAll] = useTaskItems(

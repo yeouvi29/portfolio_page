@@ -12,12 +12,12 @@ import { useTaskItems } from "@/store";
 
 import ListMoveOptions from "../ListMoveOptions/ListMoveOptions";
 
-interface ListOptionMenu {
+interface ListOptionMenuType {
   columnId: string;
   onClose: () => void;
 }
 
-const ListOptionMenu = ({ columnId, onClose }: ListOptionMenu) => {
+const ListOptionMenu = ({ columnId, onClose }: ListOptionMenuType) => {
   const [showMoveOptions, setShowMoveOptions] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [taskItems, setTaskItems] = useTaskItems(({ items, setTaskItems }) => [
