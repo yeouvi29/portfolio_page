@@ -38,6 +38,7 @@ const TasksColumn = ({
   const divRef = useRef<HTMLDivElement>(null);
   const isReEnter = useRef(false);
   const [isCursorOnLeft, setIsCursorOnLeft] = useState<null | boolean>(null);
+  const [isLeave, setIsLeave] = useState(false);
 
   const handleDragStart = (event: DragEvent) => {
     const x = event.clientX;
@@ -51,6 +52,10 @@ const TasksColumn = ({
 
     event.dataTransfer.setDragImage(divEl, xPosition, yPosition);
     onDragStart({ columnId, height: rect.height });
+  };
+
+  const handleDragLeave = () => {
+    setIsLeave(true);
   };
   const handleDrop = (e: DragEvent) => {
     e.stopPropagation();
@@ -70,6 +75,7 @@ const TasksColumn = ({
     if (!dragItem) {
       return;
     }
+    setIsLeave(false);
     if (dragItem.item) {
       onDragEnter({
         columnId,
@@ -86,12 +92,14 @@ const TasksColumn = ({
         columnId,
         position: isCurrentCursorOnLeft ? "left" : "right",
       });
+      setIsCursorOnLeft(isCurrentCursorOnLeft);
     }
   };
 
   const handleDragOver = (event: DragEvent) => {
     event.preventDefault();
     event.stopPropagation();
+
     if (dragItem?.item) {
       return;
     }
@@ -105,6 +113,7 @@ const TasksColumn = ({
     }
     setIsCursorOnLeft(isCurrentCursorOnLeft);
   };
+
   const handleTitleUpdate = (title: string, columnId: string) => {
     onUpdateTask({
       title,
@@ -112,7 +121,7 @@ const TasksColumn = ({
       items: tasks,
     });
   };
-  
+
   const handleUpdateTask = (updateTask: TaskItem) => {
     const updatedTasks = tasks.map((task) =>
       task.id === updateTask.id ? updateTask : task
@@ -132,6 +141,30 @@ const TasksColumn = ({
     }
   };
 
+  useEffect(() => {
+    if (dragEnterItem && dragEnterItem.columnId === columnId) {
+      if (dragEnterItem.position === "right") {
+        setIsCursorOnLeft(false);
+      } else if (dragEnterItem.position === "left") {
+        setIsCursorOnLeft(true);
+      }
+    }
+  }, [dragEnterItem]);
+
+  useEffect(() => {
+    if (
+      !dragItem ||
+      dragItem.columnId !== columnId ||
+      dragItem.item ||
+      !dragEnterItem ||
+      !isLeave
+    ) {
+      return;
+    }
+
+    isReEnter.current = true;
+  }, [dragItem, dragEnterItem, isLeave]);
+
   const opacity =
     !dragItem ||
     (dragItem && dragItem.columnId !== columnId) ||
@@ -145,25 +178,11 @@ const TasksColumn = ({
       ? 0.3
       : 0;
 
-  useEffect(() => {
-    if (
-      !dragItem ||
-      dragItem.columnId !== columnId ||
-      dragItem.item ||
-      !dragEnterItem ||
-      dragEnterItem.index === undefined
-    ) {
-      return;
-    }
-
-    isReEnter.current = true;
-  }, [dragItem, dragEnterItem]);
-
   const isListDraggedOver =
     dragItem &&
+    dragItem.item === undefined &&
     dragEnterItem &&
     dragEnterItem.columnId === columnId &&
-    dragItem.item === undefined &&
     opacity === 1;
 
   const isItemDraggedOver =
@@ -179,6 +198,7 @@ const TasksColumn = ({
           className={clsx("min-h-[calc(100vh-180px)] px-2")}
           data-draggedover={true}
           onDrop={handleDrop}
+          onDragLeave={handleDragLeave}
         >
           <div
             className="min-w-[272px] bg-black/20 rounded-lg pointer-events-none"
@@ -192,13 +212,10 @@ const TasksColumn = ({
         ref={liRef}
         className={clsx("min-h-[calc(100vh-180px)] px-2")}
         onDrop={handleDrop}
-        onDragOver={(e) => {
-          e.preventDefault();
-        }}
+        onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
         onDragEnter={handleDragEnter}
         data-testid={title}
-        draggable
         style={{
           opacity,
           display: opacity === 0 ? "none" : "block",
@@ -273,6 +290,7 @@ const TasksColumn = ({
           className={clsx("min-h-[calc(100vh-180px)] px-2")}
           data-draggedover={true}
           onDrop={handleDrop}
+          onDragLeave={handleDragLeave}
         >
           <div
             className="min-w-[272px] bg-black/20 rounded-lg pointer-events-none"

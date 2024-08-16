@@ -17,6 +17,10 @@ export const useDropTask = () => {
       (column) => column.id === dragEnterItem?.columnId
     );
 
+    if (indexOfDroppedColumn === indexOfColumn) {
+      return;
+    }
+
     const newTaskItems = taskItems.reduce((newTaskItems, column, i) => {
       if (column.id === dragItem.columnId) {
         return newTaskItems;

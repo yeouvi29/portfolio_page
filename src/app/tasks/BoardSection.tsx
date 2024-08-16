@@ -51,9 +51,10 @@ const BoardSection = () => {
       )}
       onDragOver={(e) => e.preventDefault()}
     >
-      {taskItems.map((item) => (
+      {taskItems.map((item, i) => (
         <TasksColumn
           key={item.id}
+          columnOrder={i}
           columnId={item.id}
           title={item.title}
           tasks={item.items}
