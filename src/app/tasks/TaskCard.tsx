@@ -79,7 +79,7 @@ const TaskCard = ({
       item: task,
       height: dragImage.clientHeight + 4,
     });
-
+    event.dataTransfer.effectAllowed = "move";
     event.dataTransfer.setDragImage(dragImage, xPosition, yPosition);
   };
 
@@ -94,8 +94,8 @@ const TaskCard = ({
 
   const handleDragOver = (e: DragEvent) => {
     e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
     // if dragging a column, bubble up the event to the parent
-
     if (!dragItem || (dragItem && !dragItem.item)) {
       return;
     }

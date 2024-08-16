@@ -51,6 +51,7 @@ const TasksColumn = ({
     const divEl = divRef.current as HTMLDivElement;
 
     event.dataTransfer.setDragImage(divEl, xPosition, yPosition);
+    event.dataTransfer.effectAllowed = "move";
     onDragStart({ columnId, height: rect.height });
   };
 
@@ -99,7 +100,7 @@ const TasksColumn = ({
   const handleDragOver = (event: DragEvent) => {
     event.preventDefault();
     event.stopPropagation();
-
+    event.dataTransfer.dropEffect = "move";
     if (dragItem?.item) {
       return;
     }
