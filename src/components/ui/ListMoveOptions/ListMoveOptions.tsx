@@ -48,9 +48,9 @@ const ListMoveOptions = ({
     <Fragment>
       <Select
         label="List"
-        defaultValue={selectedListIndex.toString()}
+        defaultValue={(selectedListIndex + 1).toString()}
         optionClassName="w-full"
-        items={new Array(taskItems.length + 1)
+        items={new Array(taskItems.length)
           .fill("")
           .map((_, i) => (i + 1).toString())}
         onSelect={(value, i) => {
