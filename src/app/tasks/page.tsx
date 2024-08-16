@@ -11,9 +11,15 @@ const Page = () => {
       <div>
         <Title />
         <BoardSection />
-        <div className="p-4 text-left md:text-right">
-          <p>This page is in progress.</p>
-          <p>More functionalities will be added soon.</p>
+        <div className="p-4 text-center md:text-right">
+          <p>
+            😎 This page was created with reference to Trello's drag & drop
+            functionality.{" "}
+          </p>
+          <p>
+            You can move, edit, add, and delete tasks and lists through
+            drag-and-drop actions or via popup windows.
+          </p>
         </div>
       </div>
     </div>
