@@ -124,7 +124,7 @@ export const DEFAULT_TASKS = [
     ],
   },
   {
-    title: "Done",
+    title: "Done 🎉",
     id: uuidv4(),
     items: [
       { id: uuidv4(), text: "Initial project setup" },

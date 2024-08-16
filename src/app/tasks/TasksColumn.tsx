@@ -171,9 +171,8 @@ const TasksColumn = ({
     });
 
     const timeout = setTimeout(() => {
-      confetti.reset();
       setShouldShowConfetti(false);
-    }, 3000);
+    }, 100);
 
     return () => clearTimeout(timeout);
   }, [shouldShowConfetti]);
