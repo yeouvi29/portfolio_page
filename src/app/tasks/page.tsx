@@ -13,8 +13,8 @@ const Page = () => {
         <BoardSection />
         <div className="p-4 text-center md:text-right">
           <p>
-            😎 This page was created with reference to Trello's drag & drop
-            functionality.{" "}
+            😎 This page was created with reference to Trello&apos;s drag & drop
+            functionality.
           </p>
           <p>
             You can move, edit, add, and delete tasks and lists through
