@@ -97,37 +97,47 @@ const TaskTitle = ({
     if (headingRef.current) {
       setHeight(headingRef.current.offsetHeight);
     }
-    if (divRef.current) {
-      const wrapperEl = divRef.current;
-      const { top, left, right, width, height } =
-        wrapperEl.getBoundingClientRect();
-      const mViewport = 768;
-      const windowWidth = window.innerWidth;
-      const windowHeight = window.innerHeight;
-      const sidebarWidth = 250;
-      const threshold = 16;
-      if (windowWidth < mViewport) {
-        position.current = {
-          top: windowHeight / 4,
-          left: windowWidth / 2 - width / 2,
-        };
-      } else {
-        const center = windowWidth / 2;
-        if (left <= center) {
+    const handleResize = () => {
+      if (divRef.current) {
+        const wrapperEl = divRef.current;
+        const { top, left, right, width, height } =
+          wrapperEl.getBoundingClientRect();
+        const mViewport = 768;
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        const sidebarWidth = 250;
+        const threshold = 16;
+        if (windowWidth < mViewport) {
           position.current = {
-            top: top + height,
-            left:
-              left < sidebarWidth + threshold ? sidebarWidth + threshold : left,
+            top: windowHeight / 4,
+            left: windowWidth / 2 - width / 2,
           };
         } else {
-          position.current = {
-            top: top + height,
-            right:
-              windowWidth - right < threshold ? threshold : windowWidth - right,
-          };
+          const center = windowWidth / 2;
+          if (left <= center) {
+            position.current = {
+              top: top + height,
+              left:
+                left < sidebarWidth + threshold
+                  ? sidebarWidth + threshold
+                  : left + 8,
+            };
+          } else {
+            position.current = {
+              top: top + height,
+              right:
+                windowWidth - right < threshold
+                  ? threshold
+                  : windowWidth - right + 8,
+            };
+          }
         }
       }
-    }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (

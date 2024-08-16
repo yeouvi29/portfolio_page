@@ -13,6 +13,7 @@ const TasksColumn = ({
   title,
   tasks,
   columnId,
+  columnOrder,
   onDrop,
   dragItem,
   dragEnterItem,
@@ -23,6 +24,7 @@ const TasksColumn = ({
 }: {
   title: string;
   columnId: string;
+  columnOrder: number;
   tasks: TaskItem[];
   dragItem: DragStartItem | null;
   dragEnterItem: DragEnterItem | null;
@@ -210,17 +212,20 @@ const TasksColumn = ({
           )}
           onDragOver={handleDragOver}
         >
-          <TaskTitle
-            title={title}
-            dragItem={dragItem}
-            columnId={columnId}
-            isCursorOnLeft={!!isCursorOnLeft}
-            tasksLength={tasks.length}
-            onDragStart={handleDragStart}
-            onDragEnter={onDragEnter}
-            onDrop={handleDrop}
-            onTitleUpdate={handleTitleUpdate}
-          />
+          <div>
+            <TaskTitle
+              key={columnOrder}
+              title={title}
+              dragItem={dragItem}
+              columnId={columnId}
+              isCursorOnLeft={!!isCursorOnLeft}
+              tasksLength={tasks.length}
+              onDragStart={handleDragStart}
+              onDragEnter={onDragEnter}
+              onDrop={handleDrop}
+              onTitleUpdate={handleTitleUpdate}
+            />
+          </div>
           <ol
             className="list-none flex flex-col px-2"
             onDragEnter={(e) => {
