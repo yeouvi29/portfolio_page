@@ -100,7 +100,7 @@ const NewList = ({ addNewList }: { addNewList: (title: string) => void }) => {
                   className="h-full bg-blue-500 px-2 rounded-md text-white"
                   onClick={handleSubmit}
                 >
-                  Add card
+                  Add list
                 </button>
                 <button
                   className="hover:bg-gray-400/30 rounded-md h-full aspect-square text-[20px] text-gray-600 flex items-center justify-center"
