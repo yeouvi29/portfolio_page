@@ -1,4 +1,4 @@
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { Metadata } from "next";
 import { ReactNode } from "react";
 import clsx from "clsx";
@@ -41,6 +41,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="en" className={clsx(lato.variable, montserrat.variable)}>
+      <GoogleTagManager gtmId="GTM-MPF6LRV2" />
       <body className="bg-white">
         <div className="isolate flex flex-col md:flex-row md:min-h-screen ">
           <SideNavigation />
@@ -51,7 +52,6 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
         <div id="modal-root" />
         <div id="popup-root" />
       </body>
-      <GoogleAnalytics gaId="G-XRQ4VMFYZG" />
     </html>
   );
 };
