@@ -50,13 +50,13 @@ const PopOver = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.1 }}
+            className={clsx(
+              "absolute -bottom-1 right-0 z-50 translate-y-full border-solid border-gray-300 border bg-white p-2 rounded-md",
+              childClassName
+            )}
           >
             <ClickAwayListener
-              className={clsx(
-                "clickAwayListener",
-                "absolute -bottom-1 right-0 z-10 translate-y-full border-solid border-gray-300 border bg-white p-2 rounded-md",
-                childClassName
-              )}
+              className="clickAwayListener"
               onClickAway={() => {
                 handlePopOverVisibility(false);
               }}

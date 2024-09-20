@@ -124,32 +124,36 @@ const Page = () => {
 
   return (
     <div className="mt-[45.5px] w-full p-5 md:min-w-[calc(100%-250px)] md:mt-0">
-    <div className="mt-5 text-gray-600">
-      <h1>Users</h1>
-      <div className="w-fit max-w-[calc(100vw-40px)] md:max-w-[calc(100vw-290px)] mt-5">
-        <FilterSection disabled={loading} updateSearchTerms={handleSearch} />
-        <UserTable
-          loading={loading}
-          data={data.users}
-          updateSort={handleSort}
-          sortingItem={listControlState.sort}
-        />
-        <div className="pt-4">
-          {totalPages !== 0 && (
-            <Pagination
-              totalPages={totalPages}
-              currentPage={listControlState.currentPage}
-              onClickPage={(updatedPage) =>
-                setListControlState((prev) => ({
-                  ...prev,
-                  currentPage: updatedPage,
-                }))
-              }
-            />
-          )}
+      <div className="mt-5 text-gray-600">
+        <h1>Users</h1>
+        <p className="mt-5">
+          *Please note that this data is for demonstration purposes. It is not the
+          actual data.
+        </p>
+        <div className="w-fit max-w-[calc(100vw-40px)] md:max-w-[calc(100vw-290px)]">
+          <FilterSection disabled={loading} updateSearchTerms={handleSearch} />
+          <UserTable
+            loading={loading}
+            data={data.users}
+            updateSort={handleSort}
+            sortingItem={listControlState.sort}
+          />
+          <div className="pt-4">
+            {totalPages !== 0 && (
+              <Pagination
+                totalPages={totalPages}
+                currentPage={listControlState.currentPage}
+                onClickPage={(updatedPage) =>
+                  setListControlState((prev) => ({
+                    ...prev,
+                    currentPage: updatedPage,
+                  }))
+                }
+              />
+            )}
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };
