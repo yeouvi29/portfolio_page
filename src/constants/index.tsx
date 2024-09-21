@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { PiBridgeBold, PiParkFill, PiBowlFoodBold } from "react-icons/pi";
 import {
   FaLandmark,
@@ -12,7 +13,6 @@ import { FaFish, FaCarSide } from "react-icons/fa6";
 import { MdSpaceDashboard } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
 import { Fragment } from "react";
-import Link from "next/link";
 //  "sf-red": "#C0362C",
 // "sf-blue": "#1D6D9B",
 // "sf-gray": "#A3A3A3",
