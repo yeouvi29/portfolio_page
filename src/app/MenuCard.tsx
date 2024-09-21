@@ -12,7 +12,7 @@ const MenuCard = ({
   icon: ReactNode;
   path: string;
   title: string;
-  detail: string;
+  detail: ReactNode;
   techStacks?: string[];
   note?: string;
 }) => {

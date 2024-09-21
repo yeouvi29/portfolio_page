@@ -7,9 +7,12 @@ import {
   FaMastodon,
   FaUser,
 } from "react-icons/fa";
+import { PiSoccerBallFill } from "react-icons/pi";
 import { FaFish, FaCarSide } from "react-icons/fa6";
 import { MdSpaceDashboard } from "react-icons/md";
 import { AiFillHome } from "react-icons/ai";
+import { Fragment } from "react";
+import Link from "next/link";
 //  "sf-red": "#C0362C",
 // "sf-blue": "#1D6D9B",
 // "sf-gray": "#A3A3A3",
@@ -102,6 +105,7 @@ export const SIDE_MENU = [
   },
   { name: "Users", icon: <FaUser />, path: "/users" },
   { name: "Task Management", icon: <FaMastodon />, path: "/tasks" },
+  { name: "Class Lookup", icon: <PiSoccerBallFill />, path: "/class-lookup" },
 ];
 
 export const PAGES = [
@@ -135,5 +139,41 @@ export const PAGES = [
     explanation:
       "The Task Management Page is modeled after Trello, offering a familiar layout and functionality. It supports drag-and-drop task movement between columns, as well as the creation, editing, and deletion of tasks to streamline task management.",
     note: "For demo purposes, data is handled on the client side, so refreshing the page will reset it to the initial state.",
+  },
+  {
+    title: "Class Lookup Enhancement",
+    path: "/class-lookup",
+    explanation: (
+      <Fragment>
+        This project improves the class lookup experience for COPA STC&apos;s
+        membership scheduling page, with a focus on enhancing the mobile user
+        experience.{" "}
+        <Link
+          href="https://copastc.com/membership-scheduling/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="COPA STC Membership Scheduling"
+          className="text-blue-500"
+          style={{ textDecoration: "underline" }}
+        >
+          The original site
+        </Link>{" "}
+        worked well but had room for mobile optimization. I redesigned the
+        interface to provide a more intuitive and user-friendly mobile
+        experience. You can view the enhanced version at{" "}
+        <Link
+          href="https://copa-schedule.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="COPA STC schedule lookup"
+          className="text-blue-500"
+          style={{ textDecoration: "underline" }}
+        >
+          https://copa-schedule.vercel.app/
+        </Link>
+        .
+      </Fragment>
+    ),
+    note: "The site is live and actively used by real users. Improvements focus on mobile usability and search efficiency.",
   },
 ];
